@@ -2,8 +2,7 @@ name: Import currently published Athlys downloads
 
 on:
   push:
-    paths:
-      - ".github/workflows/import-published-downloads.yml"
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -13,7 +12,7 @@ jobs:
   import:
     runs-on: ubuntu-latest
     steps:
-      - name: Download the exact assets currently linked by the vitrine
+      - name: Download and verify the exact assets currently linked by the vitrine
         shell: bash
         run: |
           set -euo pipefail
