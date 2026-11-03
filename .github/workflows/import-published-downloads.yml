@@ -1,0 +1,80 @@
+name: Import currently published Athlys downloads
+
+on:
+  push:
+    paths:
+      - ".github/workflows/import-published-downloads.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download the exact assets currently linked by the vitrine
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release/{windows,macos,android,ios}
+          curl -fL --retry 3 "https://github.com/lilianadc936/Athlys-downloads/releases/download/athlys-windows-latest/Athlys-1.0.0-x64.exe" -o release/windows/Athlys-1.0.0-x64.exe
+          curl -fL --retry 3 "https://github.com/lilianadc936/Athlys-downloads/releases/download/athlys-windows-latest/Athlys-Portable-1.0.0-x64.exe" -o release/windows/Athlys-Portable-1.0.0-x64.exe
+          curl -fL --retry 3 "https://github.com/lilianadc936/Athlys-downloads/releases/download/athlys-macos-latest/Athlys-1.0.0-arm64.dmg" -o release/macos/Athlys-1.0.0-arm64.dmg
+          curl -fL --retry 3 "https://github.com/lilianadc936/Athlys-downloads/releases/download/athlys-macos-latest/Athlys-1.0.0-x64.dmg" -o release/macos/Athlys-1.0.0-x64.dmg
+          curl -fL --retry 3 "https://github.com/lilianadc936/Athlys-downloads/releases/download/athlys-android-latest/Athlys-Android.apk" -o release/android/Athlys-Android.apk
+          curl -fL --retry 3 "https://github.com/lilianadc936/Athlys-downloads/releases/download/athlys-ios-simulator-latest/athlys-ios-development.zip" -o release/ios/athlys-ios-development.zip
+          echo "81a40347f67e28287c616b3f628758f4d3ecbc1dc7895ea5d9ccbd5a81460769  release/windows/Athlys-1.0.0-x64.exe" | sha256sum -c -
+          echo "2c4c5bb38daab8954d0977a91b5f6a91213119d0bb8083b77528be6224e931a7  release/windows/Athlys-Portable-1.0.0-x64.exe" | sha256sum -c -
+          echo "53fd634e28188f7c8fb7516115aa95a328f93993b4f3fdf3b0b290865548019a  release/macos/Athlys-1.0.0-arm64.dmg" | sha256sum -c -
+          echo "8f1192ed40cab703103a5333e8b668510d9bb27a04ba9dface3594a39648ee15  release/macos/Athlys-1.0.0-x64.dmg" | sha256sum -c -
+          echo "cd448e27e82962bffbd05925af2f814af5400135e05fc2c37e1e79dc607a9a2e  release/android/Athlys-Android.apk" | sha256sum -c -
+          echo "b2ac9a26bb56f00617c4f7c0e4f3b950284170f45c7d3e95721fbb06c187f724  release/ios/athlys-ios-development.zip" | sha256sum -c -
+
+      - name: Publish Windows channel
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: athlys-windows-latest
+          name: Athlys Windows — dernière version
+          body: "Windows x64. Installateur et version portable. Build non signée : SmartScreen peut afficher un avertissement."
+          prerelease: false
+          make_latest: false
+          overwrite_files: true
+          files: |
+            release/windows/Athlys-1.0.0-x64.exe
+            release/windows/Athlys-Portable-1.0.0-x64.exe
+
+      - name: Publish macOS channel
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: athlys-macos-latest
+          name: Athlys macOS — dernière version
+          body: "DMG Apple Silicon et Intel. Builds non signées et non notariées."
+          prerelease: false
+          make_latest: false
+          overwrite_files: true
+          files: |
+            release/macos/Athlys-1.0.0-arm64.dmg
+            release/macos/Athlys-1.0.0-x64.dmg
+
+      - name: Publish Android channel
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: athlys-android-latest
+          name: Athlys Android — dernière version de test
+          body: "APK debug de test, non publiée sur Google Play et non signée avec une clé de production."
+          prerelease: false
+          make_latest: false
+          overwrite_files: true
+          files: release/android/Athlys-Android.apk
+
+      - name: Publish iOS development channel
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: athlys-ios-simulator-latest
+          name: Athlys iOS — archives de développement
+          body: "Archives Xcode et simulateur uniquement. Pas une IPA installable sur iPhone."
+          prerelease: true
+          make_latest: false
+          overwrite_files: true
+          files: release/ios/athlys-ios-development.zip
