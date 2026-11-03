@@ -1,8 +1,6 @@
-name: Import currently published Athlys downloads
+name: One-time import of published Athlys downloads
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -12,7 +10,7 @@ jobs:
   import:
     runs-on: ubuntu-latest
     steps:
-      - name: Download and verify the exact assets currently linked by the vitrine
+      - name: Download and verify the exact assets linked by the vitrine on 2026-11-03
         shell: bash
         run: |
           set -euo pipefail
