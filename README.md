@@ -8,7 +8,7 @@ Athlys Mobile (Android) est l’application de suivi individuel et d’usage ter
 
 - **Android** — [APK Athlys](https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-android-latest/Athlys-Android.apk) — build debug de test, non signée avec une clé de production.
 - **Windows x64** — [Installateur](https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-windows-latest/Athlys-1.1.0-x64.exe) · [Version portable](https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-windows-latest/Athlys-Portable-1.1.0-x64.exe).
-- **macOS** — [Apple Silicon](https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-macos-latest/Athlys-1.1.0-arm64.dmg) · [Intel](https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-macos-latest/Athlys-1.1.0-x64.dmg). Builds non signées et non notariées.
+- **macOS** — [Apple Silicon](https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-macos-latest/Athlys-1.0.0-arm64.dmg) · [Intel](https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-macos-latest/Athlys-1.0.0-x64.dmg). Builds non signées et non notariées.
 - **iOS** — [Archive de développement](https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-ios-simulator-latest/athlys-ios-development.zip). Archive Xcode/simulateur, pas une IPA installable.
 
 ## Migration
