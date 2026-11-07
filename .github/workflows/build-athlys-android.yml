@@ -5,6 +5,10 @@ concurrency:
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-athlys-android.yml'
 permissions:
   contents: write
 jobs:
