@@ -1,0 +1,39 @@
+name: Build and publish Athlys Android from private source
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    uses: Lijw936/Athlys2/.github/workflows/android-mobile.yml@main
+    secrets:
+      ATHLYS_SOURCE_READ_TOKEN: ${{ secrets.ATHLYS_SOURCE_READ_TOKEN }}
+
+  publish:
+    name: Publish verified APK
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download APK built by the reusable private workflow
+        uses: actions/download-artifact@v4
+        with:
+          name: athlys2-debug-apk
+          path: dist
+
+      - name: Verify APK artifact
+        run: |
+          test -s dist/app-debug.apk
+          file dist/app-debug.apk
+          sha256sum dist/app-debug.apk
+          cp dist/app-debug.apk dist/Athlys-Android.apk
+
+      - name: Replace the Android download in the existing release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view athlys-android-latest --repo Lijw936/Athlys-downloads
+          gh release upload athlys-android-latest dist/Athlys-Android.apk --clobber --repo Lijw936/Athlys-downloads
