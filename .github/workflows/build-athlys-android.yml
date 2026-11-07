@@ -188,12 +188,12 @@ jobs:
           import re
           path = Path("android/app/build.gradle")
           source = path.read_text()
-          source, code_count = re.subn(r"(?m)^(\s*versionCode\s+)\d+\b", r"\g<1>7", source, count=1)
-          source, name_count = re.subn(r"""(?m)^(\s*versionName\s+)['"][^'"]+['"]""", r'\g<1>"1.3.3"', source, count=1)
+          source, code_count = re.subn(r"(?m)^(\s*versionCode\s+)\d+\b", r"\g<1>8", source, count=1)
+          source, name_count = re.subn(r"""(?m)^(\s*versionName\s+)['"][^'"]+['"]""", r'\g<1>"1.3.4"', source, count=1)
           if code_count != 1 or name_count != 1:
-              raise SystemExit("Could not set Android versionCode=7 and versionName=1.3.3")
+              raise SystemExit("Could not set Android versionCode=8 and versionName=1.3.4")
           path.write_text(source)
-          print("Athlys Mobile Android version 1.3.3 (versionCode 7).")
+          print("Athlys Mobile Android version 1.3.4 (versionCode 8).")
           PY
       - name: Generate Athlys launcher icons
         run: |
@@ -364,5 +364,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release edit athlys-android-latest --repo Lijw936/Athlys-downloads \
-            --title "Athlys Android 1.3.3 — dernière version de test" \
-            --notes "Athlys Mobile Android 1.3.3 (versionCode 7). Aperçu Coach Match avec huit profils fictifs et demandes simulées ; le marketplace réel reste désactivé. Synchronisation Health Connect périodique via WorkManager (intervalle minimum 1 h, exécution différée possible par Android). APK debug de test, non publiée sur Google Play et non signée avec une clé de production."
+            --title "Athlys Android 1.3.4 — dernière version de test" \
+            --notes "Athlys Mobile Android 1.3.4 (versionCode 8). Aperçu Coach Match avec huit profils fictifs et demandes simulées ; le marketplace réel reste désactivé. Synchronisation Health Connect périodique via WorkManager (intervalle minimum 1 h, exécution différée possible par Android). APK debug de test, non publiée sur Google Play et non signée avec une clé de production."
