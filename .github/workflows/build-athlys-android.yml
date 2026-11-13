@@ -1,4 +1,4 @@
-name: Build and publish Athlys Android (private source, public runner)
+name: Build and publish Athlys Android (public build source, free public runner)
 concurrency:
   group: athlys-android-${{ github.ref }}
   cancel-in-progress: true
