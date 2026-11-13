@@ -1,0 +1,165 @@
+/* ATHLYS — design system v1.0
+   Source of truth for web, PWA, public showcase and role-based workspaces.
+   Official logo assets remain untouched. */
+:root{
+  color-scheme:dark;
+  --athlys-navy:#13213c;
+  --athlys-navy-deep:#0d192f;
+  --athlys-blue:#24D3EE;
+  --athlys-green:#B5F348;
+  --athlys-orange:#FA923B;
+  --athlys-white:#F3F0EC;
+  --athlys-text:#F3F0EC;
+  --athlys-text-soft:#C5CED8;
+  --athlys-muted:#AEBBD0;
+  --athlys-soft:#8297AD;
+  --athlys-bg:#13213c;
+  --athlys-surface:#192B49;
+  --athlys-surface-raised:#203654;
+  --athlys-surface-soft:#162740;
+  --athlys-line:rgba(190,205,222,.16);
+  --athlys-line-strong:rgba(36,211,238,.38);
+  --athlys-radius:18px;
+  --athlys-radius-sm:12px;
+  --athlys-content:1200px;
+  --athlys-shadow:0 18px 48px rgba(0,0,0,.22);
+  --athlys-shadow-hover:0 22px 56px rgba(0,0,0,.30);
+  --athlys-gradient:linear-gradient(90deg,#FA923B 0%,#24D3EE 52%,#B5F348 100%);
+  /* Compatibility aliases for the existing application and showcase CSS. */
+  --bg:var(--athlys-bg);
+  --surface:var(--athlys-surface);
+  --surface2:var(--athlys-surface-raised);
+  --line:var(--athlys-line);
+  --text:var(--athlys-text);
+  --muted:var(--athlys-muted);
+  --soft:var(--athlys-soft);
+  --cyan:var(--athlys-blue);
+  --orange:var(--athlys-orange);
+  --green:var(--athlys-green);
+  --navy:var(--athlys-navy);
+  --navy2:var(--athlys-navy-deep);
+  --ink:var(--athlys-text);
+  --paper:var(--athlys-bg);
+  --white:var(--athlys-white);
+  --radius:var(--athlys-radius);
+  --shadow:var(--athlys-shadow);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --athlys-bg:#E8E4DC;
+  --athlys-surface:#F0ECE4;
+  --athlys-surface-raised:#E5DED3;
+  --athlys-surface-soft:#F5F1E9;
+  --athlys-text:#172A43;
+  --athlys-text-soft:#34465B;
+  --athlys-muted:#566579;
+  --athlys-soft:#718196;
+  --athlys-line:rgba(19,33,60,.14);
+  --athlys-line-strong:rgba(20,126,153,.35);
+  --athlys-blue:#147E99;
+  --athlys-green:#547C23;
+  --athlys-orange:#C66B29;
+  --athlys-shadow:0 14px 38px rgba(19,33,60,.10);
+  --athlys-shadow-hover:0 18px 44px rgba(19,33,60,.16);
+}
+*{box-sizing:border-box}
+html{background:var(--athlys-bg);scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--athlys-bg)!important;
+  color:var(--athlys-text)!important;
+  font-family:"DM Sans","Manrope",Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:rgba(36,211,238,.28);color:var(--athlys-text)}
+a{color:inherit}
+a:hover{color:var(--athlys-green)}
+button,input,select,textarea{font:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--athlys-blue)!important;outline-offset:3px!important;
+}
+.site-header,.topbar{
+  background:rgba(19,33,60,.94)!important;
+  color:var(--athlys-text)!important;
+  border-color:var(--athlys-line)!important;
+  box-shadow:0 8px 28px rgba(0,0,0,.12);
+}
+.site-header .brand,.topbar .brand,.site-header nav a,.topbar a{color:var(--athlys-text)}
+.menu-button,.icon-btn,.drawer-close{
+  background:var(--athlys-surface)!important;
+  color:var(--athlys-text)!important;
+  border-color:var(--athlys-line)!important;
+}
+.menu-button span{background:var(--athlys-text)!important}
+.drawer,.sidebar{
+  background:linear-gradient(180deg,#172945 0%,#13213c 58%,#101d34 100%)!important;
+  color:var(--athlys-text)!important;
+  border-color:var(--athlys-line)!important;
+}
+.drawer nav a,.sidebar a,.sidebar button{color:var(--athlys-text-soft)}
+.drawer nav a:hover,.sidebar a:hover,.sidebar button:hover{color:var(--athlys-green)}
+.hero,.page-hero{
+  background:
+    radial-gradient(ellipse at 12% 8%,rgba(36,211,238,.13),transparent 38%),
+    radial-gradient(ellipse at 88% 88%,rgba(250,146,59,.11),transparent 34%),
+    linear-gradient(135deg,#13213c 0%,#172945 58%,#1b2b47 100%)!important;
+  color:var(--athlys-text)!important;
+}
+.hero h1,.hero h2,.page-hero h1,.page-hero h2{color:var(--athlys-text)!important}
+.hero p,.page-hero p,.hero-copy{color:var(--athlys-text-soft)!important}
+.eyebrow,.kicker{color:var(--athlys-blue)!important}
+.eyebrow:before{background:var(--athlys-green)!important}
+.section,.page-section{background:transparent!important;color:var(--athlys-text)!important}
+.card,.feature-card,.pricing-card,.price-card,.download-card,.contact-card,.faq-item,
+.step-card,.mock-panel,.metric,.panel,.modal,.assistant-panel,.health-provider,
+.athlys-template,.device,.surface-card{
+  background:linear-gradient(145deg,rgba(32,54,84,.97),rgba(22,39,64,.98))!important;
+  color:var(--athlys-text)!important;
+  border:1px solid var(--athlys-line)!important;
+  border-radius:var(--athlys-radius)!important;
+  box-shadow:var(--athlys-shadow)!important;
+}
+.card h1,.card h2,.card h3,.feature-card h2,.pricing-card h2,.device h3{color:var(--athlys-text)!important}
+.card p,.feature-card p,.pricing-card p,.download-card p,.contact-card p{color:var(--athlys-text-soft)!important}
+.device{border-color:rgba(190,205,222,.22)!important}
+.device-top{border-color:var(--athlys-line)!important;color:var(--athlys-muted)!important}
+.device-top strong,.mock-value{color:var(--athlys-text)!important}
+.mock-panel{background:rgba(19,33,60,.72)!important}
+.mock-label,.device small{color:var(--athlys-muted)!important}
+.btn-primary,.btn.primary,.primary-action{
+  background:var(--athlys-green)!important;
+  color:#13213c!important;
+  border-color:var(--athlys-green)!important;
+  font-weight:800;
+  box-shadow:0 8px 24px rgba(181,243,72,.14);
+}
+.btn-primary:hover,.btn.primary:hover,.primary-action:hover{filter:brightness(1.04);transform:translateY(-1px)}
+.btn-secondary,.btn-outline,.btn-light,.btn.secondary{
+  background:rgba(25,43,73,.55)!important;
+  color:var(--athlys-text)!important;
+  border-color:var(--athlys-line-strong)!important;
+}
+.text-action,.btn-link{color:var(--athlys-blue)!important}
+input,select,textarea{
+  background:var(--athlys-surface-soft)!important;
+  color:var(--athlys-text)!important;
+  border-color:var(--athlys-line)!important;
+}
+input::placeholder,textarea::placeholder{color:var(--athlys-soft)!important}
+table{color:var(--athlys-text)}
+th{color:var(--athlys-muted)}
+td,th{border-color:var(--athlys-line)}
+footer,.site-footer{
+  background:#0d192f!important;
+  color:var(--athlys-text-soft)!important;
+  border-color:var(--athlys-line)!important;
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
+
+/* Shared chat surface tokens for desktop, mobile and Android WebView. */
+#athlys .chat-shell{color:var(--athlys-text)}
+#athlys .chat-contact.active{box-shadow:inset 3px 0 var(--athlys-blue)}
+#athlys .chat-composer .btn{background:var(--athlys-green)!important;color:#13213c!important;border-color:var(--athlys-green)!important}

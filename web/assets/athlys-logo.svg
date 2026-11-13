@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Athlys</title>
+  <desc id="desc">Symbole Athlys blanc entouré de quatre arcs vert, cyan, orange et blanc sur fond bleu nuit.</desc>
+  <rect width="512" height="512" rx="82" fill="#0B1F3A"/>
+  <g fill="none" stroke-width="32" stroke-linecap="round">
+    <path d="M62 256 A194 194 0 0 1 204 62" stroke="#FFFFFF"/>
+    <path d="M256 62 A194 194 0 0 1 450 204" stroke="#B5F348"/>
+    <path d="M450 256 A194 194 0 0 1 310 450" stroke="#24D3EE"/>
+    <path d="M256 450 A194 194 0 0 1 62 310" stroke="#FA923B"/>
+  </g>
+  <path d="M196 310 L256 190 L316 310" fill="none" stroke="#FFFFFF" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
