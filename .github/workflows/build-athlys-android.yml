@@ -15,7 +15,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout sanitized public Athlys source
+        uses: actions/checkout@v4
         with:
           repository: Lijw936/Athlys-downloads
           ref: build/athlys-public-source
