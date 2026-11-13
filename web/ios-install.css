@@ -1,0 +1,10 @@
+.athlys-install-banner{position:fixed;z-index:70;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:12px;padding:12px 13px;border:1px solid #34445f;border-radius:15px;background:#101e35;color:#f4f7fc;box-shadow:0 12px 36px #0007;font:inherit}
+.athlys-install-banner>span{display:flex;flex:1;min-width:0;flex-direction:column;gap:3px}.athlys-install-banner strong{font-size:12px}.athlys-install-banner small{font-size:10px;color:#aebbd0}
+.athlys-install-banner button{min-height:38px;padding:8px 13px;border:0;border-radius:10px;background:#ff8a45;color:#111827;font-weight:750;font-size:12px}
+.athlys-install-banner .athlys-install-dismiss{padding:4px 8px;background:transparent;color:#aebbd0;font-size:22px}
+.athlys-install-overlay{position:fixed;z-index:100;inset:0;display:grid;place-items:center;padding:20px;background:#020817c9;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.athlys-install-card{position:relative;width:min(100%,410px);padding:26px 22px 20px;border:1px solid #34445f;border-radius:22px;background:#101e35;color:#f4f7fc;box-shadow:0 24px 70px #0008}
+.athlys-install-card>img{display:block;width:56px;height:56px;object-fit:contain;margin:0 auto 12px}.athlys-install-eyebrow{text-align:center;color:#ff9a5b;font-size:10px;font-weight:800;letter-spacing:.16em}
+.athlys-install-card h2{margin:8px 0 18px;text-align:center;font-size:22px;line-height:1.2}.athlys-install-card ol{padding-left:22px;margin:0;display:grid;gap:13px;color:#c7d2e2;font-size:13px;line-height:1.5}.athlys-install-card li::marker{color:#ff9a5b;font-weight:800}.athlys-install-card strong{color:#fff}
+.athlys-install-close{position:absolute;right:12px;top:10px;border:0;background:transparent;color:#aebbd0;font-size:26px}.athlys-install-done{width:100%;min-height:46px;margin-top:22px;border:0;border-radius:12px;background:#ff8a45;color:#111827;font-weight:800;font-size:14px}
+@media(min-width:701px){.athlys-install-banner{left:auto;right:22px;bottom:22px;width:350px}}

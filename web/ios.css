@@ -1,0 +1,66 @@
+/* iPhone / iPad presentation layer. Keeps the existing Athlys product and data flows. */
+:root{--athlys-safe-top:env(safe-area-inset-top,0px);--athlys-safe-bottom:env(safe-area-inset-bottom,0px)}
+html{min-height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior-y:none}
+body{min-height:100dvh;min-height:100svh;-webkit-tap-highlight-color:transparent}
+button,a,[role=button]{touch-action:manipulation}
+@media(max-width:700px){
+ html,body{width:100%;min-width:320px;overflow-x:hidden}
+ body{padding-bottom:var(--athlys-safe-bottom)}
+ #athlys{min-height:100dvh;min-height:100svh}
+ .topbar{height:calc(62px + var(--athlys-safe-top));padding:var(--athlys-safe-top) 13px 0;position:sticky;top:0;z-index:30}
+ .brand{gap:9px}.brand img{width:36px;height:36px}.brand b{font-size:14px}.brand small{font-size:9px}
+ .head-actions{gap:7px}.role-tag{padding:6px 8px;font-size:9px}.profile-btn{gap:5px}.profile-btn>span:last-child{display:none}
+ .icon-btn{width:42px;height:42px;flex:none}
+ .layout{display:block;min-height:calc(100dvh - 62px - var(--athlys-safe-top))}
+ .sidebar{display:none!important}
+ .main{width:100%;max-width:none;margin:0;padding:19px 13px calc(104px + var(--athlys-safe-bottom));}
+ .heading{display:block;margin:0 0 17px}
+ .heading h1{font-size:27px;line-height:1.12;margin:7px 0 6px}
+ .heading p{font-size:11px;line-height:1.5}
+ .heading .actions{justify-content:flex-start;margin-top:12px}
+ .btn{min-height:44px;padding:11px 13px}
+ .metrics,.metrics.compact{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .metric{padding:12px}.metric b{font-size:22px;margin:7px 0 3px}
+ .columns,.team-layout{grid-template-columns:minmax(0,1fr);gap:10px}
+ .hero{grid-template-columns:1fr;gap:9px}
+ .card{padding:14px;margin-bottom:11px;border-radius:13px}
+ .card-head{align-items:flex-start}
+ .tool-grid,.exercise-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .form-grid{grid-template-columns:minmax(0,1fr)}
+ .filter{gap:7px;flex-wrap:wrap}.filter>*{min-width:0}
+ input,select,textarea{min-height:44px;font-size:16px;padding:11px 12px}
+ textarea{min-height:90px}
+ .mobile-nav{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex!important;justify-content:space-around;align-items:stretch;gap:2px;min-height:62px;padding:6px 5px calc(6px + var(--athlys-safe-bottom));border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+ .mobile-nav button{flex:1;min-width:0;min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:4px 2px;border:0;border-radius:10px;background:transparent;color:var(--muted);touch-action:manipulation}
+ .mobile-nav button span{font-size:17px;line-height:1.1}.mobile-nav button small{font-size:9px;line-height:1.1;white-space:nowrap}
+ .mobile-nav button.active{background:var(--surface2);color:var(--orange)}
+ .assistant{right:12px;bottom:calc(76px + var(--athlys-safe-bottom));z-index:48}
+ .assistant-launch{min-height:46px;padding:8px 12px}
+ .assistant-panel{right:0;bottom:56px;width:min(390px,calc(100vw - 24px));height:min(590px,68dvh);max-height:calc(100dvh - 150px)}
+ .modal-backdrop{align-items:end;padding:0;background:#030a17bb}
+ .modal{width:100%;max-height:calc(94dvh - var(--athlys-safe-top));border-radius:20px 20px 0 0;padding-bottom:var(--athlys-safe-bottom)}
+ .modal header{padding:15px 16px}
+ .modal-body{padding:14px 15px}
+ .modal footer{padding:10px 15px calc(10px + var(--athlys-safe-bottom))}
+ .thread{max-height:45dvh}
+ .auth-layout{min-height:100dvh;grid-template-columns:minmax(0,1fr);gap:14px;padding:calc(24px + var(--athlys-safe-top)) 16px calc(24px + var(--athlys-safe-bottom))}
+ .auth-brand{max-width:520px;margin:0 auto;text-align:center}
+ .auth-brand img{width:58px;height:58px;margin:0 auto 12px}
+ .auth-brand h1{font-size:34px;margin:8px 0}
+ .auth-brand p{font-size:11px;margin:0 auto;max-width:340px}
+ .auth-card{max-width:480px;padding:20px;width:100%;border-radius:17px}
+ .auth-card h2{font-size:21px;margin:12px 0 6px}
+ .full{min-height:46px}
+ .team-summary{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .team-profile-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .toast{top:8px}
+}
+@media(max-width:380px){
+ .main{padding-left:10px;padding-right:10px}
+ .mobile-nav button small{font-size:8px}
+ .heading h1{font-size:24px}
+ .team-summary>div{padding:8px}
+ .team-summary b{font-size:17px}
+}
+@media(display-mode:standalone){body{min-height:100dvh} .topbar{top:0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
