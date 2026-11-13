@@ -1,6 +1,6 @@
 # Athlys — fichiers de distribution
 
-Ce dépôt public héberge les fichiers binaires de distribution actuellement proposés par la vitrine Athlys. Le code source de l'application reste dans le dépôt privé `Athlys2`.
+Ce dépôt public héberge les fichiers binaires de distribution d’Athlys et une branche technique `build/athlys-public-source` contenant uniquement les fichiers clients nécessaires aux compilations Android et Windows/macOS. Le dépôt de développement principal `heat936/Athlys2` reste privé. La branche publique exclut les migrations et schémas Supabase, les services serveur/IA, les données d’entraînement et les secrets. Elle contient la configuration cliente et sa clé Supabase publishable, destinée à être exposée côté application et protégée par les politiques RLS.
 
 ## Canaux stables
 
