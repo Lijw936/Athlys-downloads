@@ -1,4 +1,4 @@
-const CACHE_NAME = "athlys-shell-v47-local-ai-ui-validation";
+const CACHE_NAME = "athlys-shell-v48-mobile-chat-fullscreen";
 const SUPABASE_CDN = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js";
 const SHELL = [
   "/",
