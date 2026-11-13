@@ -1,0 +1,35 @@
+name: Athlys local AI and UI quality
+
+on:
+  push:
+    branches: [build/athlys-public-source]
+    paths:
+      - "web/**"
+      - "tests/athlys-neural-intent.test.cjs"
+      - "tests/athlys-interface-integration.test.cjs"
+      - "package.json"
+      - ".github/workflows/local-ai-ui-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  local-ai-ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build/athlys-public-source
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check local inference and UI scripts
+        run: |
+          node --check web/athlys-neural-intent-model.js
+          node --check web/athlys-local-intelligence.js
+          node --check web/app.js
+          node --check web/sw.js
+      - name: Run local AI and interface integration tests
+        run: npm run test:local-ai-ui
