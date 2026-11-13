@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 160" role="img" aria-labelledby="title">
+<title id="title">Athlys</title>
+<g transform="translate(4 4)">
+<rect width="152" height="152" rx="26" fill="#0B1F3A"/>
+<g fill="none" stroke-width="9.5" stroke-linecap="round">
+<path d="M18 76 A58 58 0 0 1 61 18" stroke="#FFFFFF"/>
+<path d="M76 18 A58 58 0 0 1 134 61" stroke="#B5F348"/>
+<path d="M134 76 A58 58 0 0 1 91 134" stroke="#24D3EE"/>
+<path d="M76 134 A58 58 0 0 1 18 91" stroke="#FA923B"/>
+</g>
+<path d="M58 92 L76 55 L94 92" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<text x="184" y="111" fill="#F3F0EC" font-family="Arial, Helvetica, sans-serif" font-size="91" font-weight="700" letter-spacing="18">ATHLYS</text>
+</svg>
