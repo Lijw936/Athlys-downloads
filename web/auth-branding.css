@@ -1,0 +1,46 @@
+/* Athlys official authentication experience — shared by web, PWA and native WebViews */
+#athlys .auth-layout{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(350px,.78fr);align-items:center;gap:clamp(38px,7vw,108px);min-height:100vh;min-height:100svh;padding:clamp(34px,6vw,88px) clamp(24px,7vw,104px);overflow:hidden;background-color:#13213c!important;background-image:radial-gradient(ellipse at 14% 10%,rgba(36,211,238,.13),transparent 38%),radial-gradient(ellipse at 86% 88%,rgba(250,146,59,.11),transparent 34%),linear-gradient(135deg,#13213c 0%,#17233d 55%,#1d243d 100%)!important}
+#athlys .auth-layout::before{content:"";position:absolute;z-index:-1;right:-11%;top:-30%;width:min(62vw,780px);aspect-ratio:1;border:1px solid rgba(255,255,255,.075);border-radius:50%;box-shadow:0 0 0 42px rgba(255,255,255,.018),0 0 0 94px rgba(255,255,255,.014),inset 0 0 80px rgba(36,211,238,.035);pointer-events:none}
+#athlys .auth-layout::after{content:"";position:absolute;z-index:-1;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#FA923B 0%,#24D3EE 52%,#B5F348 100%);opacity:.9}
+#athlys .auth-brand{position:relative;z-index:1;width:min(100%,660px);margin:0;color:#F3F0EC}
+#athlys .auth-brand__lockup{display:block;width:clamp(190px,25vw,300px);height:auto;max-width:100%;object-fit:contain;margin:0 0 clamp(34px,5vw,62px);filter:drop-shadow(0 14px 30px rgba(0,0,0,.16))}
+#athlys .auth-brand__eyebrow{display:flex;align-items:center;gap:11px;color:#B9C4D3;font-size:10px;font-weight:800;letter-spacing:.19em}
+#athlys .auth-brand__eyebrow span{width:25px;height:3px;border-radius:4px;background:#B5F348;box-shadow:0 0 14px rgba(181,243,72,.4)}
+#athlys .auth-brand h1{max-width:650px;margin:22px 0 16px;color:#F3F0EC;font-size:clamp(38px,5vw,66px);font-weight:850;line-height:1.04;letter-spacing:-.055em}
+#athlys .auth-brand h1 em{color:#B5F348;font-style:normal}
+#athlys .auth-brand__copy{max-width:510px;margin:0;color:#C3CBD7;font-size:clamp(14px,1.3vw,17px);line-height:1.8}
+#athlys .auth-brand__pillars{display:flex;flex-wrap:wrap;gap:9px;margin:30px 0 0}
+#athlys .auth-brand__pillars span{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid rgba(190,205,222,.17);border-radius:999px;background:rgba(11,31,58,.35);color:#E8EAF0;font-size:10px;font-weight:750;letter-spacing:.02em}
+#athlys .auth-brand__pillars i{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 12px currentColor}
+#athlys .auth-brand__pillars i.is-orange{background:#FA923B;color:#FA923B}
+#athlys .auth-brand__pillars i.is-cyan{background:#24D3EE;color:#24D3EE}
+#athlys .auth-brand__pillars i.is-green{background:#B5F348;color:#B5F348}
+#athlys .auth-brand__pillars i.is-white{background:#F3F0EC;color:#F3F0EC}
+#athlys .auth-brand__principle{display:grid;gap:6px;margin-top:clamp(28px,4vw,48px);padding-left:14px;border-left:2px solid #FA923B}
+#athlys .auth-brand__principle span{color:#92A2B8;font-size:9px;font-weight:850;letter-spacing:.16em}
+#athlys .auth-brand__principle strong{color:#F3F0EC;font-size:13px;font-weight:700}
+#athlys .auth-card{position:relative;z-index:1;width:min(100%,490px);margin:0 auto;padding:clamp(24px,3vw,38px);overflow:hidden;border:1px solid rgba(189,205,224,.19);border-radius:23px;background:linear-gradient(145deg,rgba(27,47,74,.97),rgba(17,34,59,.98))!important;box-shadow:0 28px 85px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.045);backdrop-filter:blur(18px)}
+#athlys .auth-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#FA923B 0%,#24D3EE 52%,#B5F348 100%)}
+#athlys .auth-card__top{display:grid;gap:18px}
+#athlys .auth-card__eyebrow{color:#AEBBD0;font-size:9px;font-weight:850;letter-spacing:.17em}
+#athlys .auth-tabs{display:flex;gap:5px;padding:5px;border:1px solid rgba(189,205,224,.1);border-radius:12px;background:#101f36!important}
+#athlys .auth-tabs button{flex:1;min-height:40px;padding:10px 8px;border:1px solid transparent;border-radius:9px;background:transparent!important;color:#AEBBD0;font-size:11px;font-weight:750;transition:background .18s ease,color .18s ease,border-color .18s ease}
+#athlys .auth-tabs button.active{border-color:rgba(181,243,72,.2);background:#263d53!important;color:#F3F0EC;box-shadow:0 4px 14px rgba(0,0,0,.14)}
+#athlys .auth-card h2{margin:25px 0 8px;color:#F3F0EC;font-size:clamp(23px,2.4vw,28px);font-weight:820;letter-spacing:-.035em}
+#athlys .auth-card .auth-card__intro{margin:0 0 22px;color:#B8C4D3;font-size:12px;line-height:1.65}
+#athlys .auth-card label{display:block;margin:0 0 15px;color:#D7DFE9;font-size:11px;font-weight:700}
+#athlys .auth-card input,#athlys .auth-card select{width:100%;min-height:47px;margin-top:7px;padding:12px 13px;border:1px solid rgba(189,205,224,.2);border-radius:11px;background:#101f36!important;color:#F3F0EC;font-size:12px;transition:border-color .18s ease,box-shadow .18s ease}
+#athlys .auth-card input::placeholder{color:#7F90A7}
+#athlys .auth-card input:focus,#athlys .auth-card select:focus{border-color:#24D3EE;outline:0;box-shadow:0 0 0 3px rgba(36,211,238,.13)}
+#athlys .auth-card .btn.primary{min-height:48px;margin-top:7px;border:1px solid #B5F348;border-radius:11px;background:#B5F348!important;color:#13213c!important;font-size:12px;font-weight:850;box-shadow:0 8px 22px rgba(181,243,72,.13);transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+#athlys .auth-card .btn.primary:hover{transform:translateY(-1px);filter:brightness(1.035);box-shadow:0 12px 28px rgba(181,243,72,.2)}
+#athlys .auth-card .text-action{color:#66D9EA!important;font-size:11px}
+#athlys .auth-card .error{margin:0 0 16px;padding:12px 13px;border:1px solid rgba(231,124,118,.25);border-radius:10px;background:rgba(231,124,118,.1)!important;color:#FFB2AA;font-size:11px;line-height:1.5}
+#athlys .auth-card__foot{display:flex;align-items:flex-start;gap:9px;margin-top:24px;padding-top:17px;border-top:1px solid rgba(189,205,224,.12)}
+#athlys .auth-card__security{display:grid;place-items:center;width:18px;height:18px;flex:none;border-radius:50%;background:rgba(181,243,72,.13);color:#B5F348;font-size:11px;font-weight:900}
+#athlys .auth-card__foot small{margin:0;color:#94A4B9;font-size:9px;line-height:1.6}
+#athlys .auth-layout>.auth-card:only-child{grid-column:1/-1;justify-self:center}
+@media(max-width:900px){#athlys .auth-layout{grid-template-columns:minmax(0,1fr) minmax(320px,.9fr);gap:28px;padding:38px 28px}#athlys .auth-brand__lockup{width:clamp(180px,23vw,240px);margin-bottom:35px}#athlys .auth-brand h1{font-size:clamp(34px,4.5vw,48px)}#athlys .auth-brand__pillars{gap:7px}#athlys .auth-brand__pillars span{padding:8px 10px;font-size:9px}}
+@media(max-width:720px){#athlys .auth-layout{display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:26px;min-height:100vh;min-height:100svh;padding:max(30px,env(safe-area-inset-top)) 16px max(28px,env(safe-area-inset-bottom))}#athlys .auth-layout::before{right:-48%;top:-13%;width:125vw}#athlys .auth-brand{width:100%;max-width:520px;margin:0 auto;text-align:center}#athlys .auth-brand__lockup{width:clamp(178px,48vw,225px);margin:0 auto 22px}#athlys .auth-brand__eyebrow{justify-content:center;font-size:9px}#athlys .auth-brand__eyebrow span{width:18px}#athlys .auth-brand h1{max-width:440px;margin:13px auto 9px;font-size:clamp(29px,8vw,38px)}#athlys .auth-brand__copy{max-width:440px;margin:0 auto;font-size:12px;line-height:1.6}#athlys .auth-brand__pillars{justify-content:center;gap:6px;margin-top:17px}#athlys .auth-brand__pillars span{padding:7px 9px;font-size:9px}#athlys .auth-brand__principle{display:none}#athlys .auth-card{width:100%;max-width:520px;padding:23px 19px;margin:0 auto;border-radius:19px}#athlys .auth-card__top{gap:13px}#athlys .auth-card h2{margin-top:20px;font-size:23px}#athlys .auth-card__foot{margin-top:19px;padding-top:14px}}
+@media(max-width:380px){#athlys .auth-layout{gap:20px;padding-left:13px;padding-right:13px}#athlys .auth-brand__lockup{width:168px;margin-bottom:17px}#athlys .auth-brand h1{font-size:28px}#athlys .auth-brand__pillars span{padding:6px 8px;font-size:8px}#athlys .auth-card{padding:20px 15px}#athlys .auth-card .form-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){#athlys .auth-card .btn.primary,#athlys .auth-tabs button{transition:none}#athlys .auth-card .btn.primary:hover{transform:none}}
