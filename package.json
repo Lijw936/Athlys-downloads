@@ -9,7 +9,8 @@
     "build:web": "esbuild web/native-app.js --bundle --format=iife --outfile=web/native-app.bundle.js && esbuild web/intent-launcher.js --bundle --format=iife --outfile=web/intent-launcher.bundle.js && esbuild web/supabase-client.js --bundle --format=iife --outfile=web/supabase-client.bundle.js",
     "test:local-intelligence": "node --test tests/athlys-local-intelligence.test.cjs",
     "test": "npm run test:local-intelligence",
-    "test:supabase-migrations": "node --test tests/supabase-migrations.test.mjs > /tmp/athlys-migrations-tests.log 2>&1 || { cat /tmp/athlys-migrations-tests.log; exit 1; }; cat /tmp/athlys-migrations-tests.log; grep -Eq '(^# tests 7$|^ℹ tests 7$)' /tmp/athlys-migrations-tests.log; grep -Eq '(^# pass 7$|^ℹ pass 7$)' /tmp/athlys-migrations-tests.log; grep -Eq '(^# fail 0$|^ℹ fail 0$)' /tmp/athlys-migrations-tests.log"
+    "test:supabase-migrations": "node --test tests/supabase-migrations.test.mjs > /tmp/athlys-migrations-tests.log 2>&1 || { cat /tmp/athlys-migrations-tests.log; exit 1; }; cat /tmp/athlys-migrations-tests.log; grep -Eq '(^# tests 7$|^ℹ tests 7$)' /tmp/athlys-migrations-tests.log; grep -Eq '(^# pass 7$|^ℹ pass 7$)' /tmp/athlys-migrations-tests.log; grep -Eq '(^# fail 0$|^ℹ fail 0$)' /tmp/athlys-migrations-tests.log",
+    "test:local-ai-ui": "node --test tests/athlys-neural-intent.test.cjs tests/athlys-interface-integration.test.cjs"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
