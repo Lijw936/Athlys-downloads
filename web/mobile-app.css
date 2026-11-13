@@ -375,3 +375,73 @@
   #athlys .feeling-scale-option svg{width:21px!important;height:21px!important}
   #athlys .feeling-scale-option small{font-size:7.5px}
 }
+
+
+/* Chat mobile — véritable espace plein écran, sans fenêtre flottante. */
+@media (max-width:700px){
+  body.athlys-chat-open{overflow:hidden!important;background:var(--bg)}
+  body.athlys-chat-open #athlys .topbar,
+  body.athlys-chat-open #athlys .mobile-nav{display:none!important}
+  body.athlys-chat-open #athlys .layout{
+    position:fixed!important;inset:0!important;display:block!important;
+    width:100%!important;height:100dvh!important;min-height:100dvh!important;
+    overflow:hidden!important;margin:0!important;padding:0!important;
+  }
+  body.athlys-chat-open #athlys .main{
+    position:absolute!important;inset:0!important;width:100%!important;
+    height:100dvh!important;min-height:100dvh!important;max-height:100dvh!important;
+    overflow:hidden!important;margin:0!important;padding:0!important;
+    background:var(--bg)!important;
+  }
+  body.athlys-chat-open #athlys .chat-page{
+    display:flex!important;flex-direction:column!important;
+    width:100%!important;height:100dvh!important;min-height:0!important;
+    max-height:100dvh!important;margin:0!important;padding:0!important;
+    overflow:hidden!important;border:0!important;border-radius:0!important;
+    background:var(--bg)!important;
+  }
+  body.athlys-chat-open #athlys .chat-page>.heading,
+  body.athlys-chat-open #athlys .chat-page>.page-heading{display:none!important}
+  body.athlys-chat-open #athlys .chat-shell{
+    display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:minmax(0,1fr)!important;flex:1 1 auto!important;
+    width:100%!important;height:100%!important;min-height:0!important;
+    max-height:none!important;margin:0!important;border:0!important;
+    border-radius:0!important;box-shadow:none!important;overflow:hidden!important;
+  }
+  body.athlys-chat-open #athlys .chat-contacts,
+  body.athlys-chat-open #athlys .chat-conversation{
+    min-height:0!important;height:100%!important;max-height:none!important;
+    border-radius:0!important;
+  }
+  body.athlys-chat-open #athlys .chat-contacts{
+    padding:calc(14px + env(safe-area-inset-top)) 16px
+      calc(14px + env(safe-area-inset-bottom))!important;
+    overflow-y:auto!important;overscroll-behavior:contain;
+  }
+  body.athlys-chat-open #athlys .chat-conversation{
+    display:flex!important;flex-direction:column!important;overflow:hidden!important;
+  }
+  body.athlys-chat-open #athlys .chat-conversation-head{
+    flex:0 0 auto!important;min-height:62px!important;
+    padding:calc(9px + env(safe-area-inset-top)) 14px 9px!important;
+  }
+  body.athlys-chat-open #athlys .chat-thread{
+    flex:1 1 0!important;min-height:0!important;max-height:none!important;
+    padding:16px 13px!important;overflow-y:auto!important;
+    overscroll-behavior:contain;touch-action:pan-y;
+  }
+  body.athlys-chat-open #athlys .chat-composer{
+    position:relative!important;bottom:auto!important;z-index:2!important;
+    flex:0 0 auto!important;grid-template-columns:minmax(0,1fr) auto!important;
+    gap:8px!important;margin:0!important;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom))!important;
+    border-top:1px solid var(--line)!important;background:var(--surface)!important;
+  }
+  body.athlys-chat-open #athlys .chat-composer input{min-width:0!important}
+  body.athlys-chat-open #athlys .chat-back{display:inline-flex!important}
+  body.athlys-chat-open #athlys .chat-page.mobile-list-open .chat-contacts{display:block!important}
+  body.athlys-chat-open #athlys .chat-page.mobile-list-open .chat-conversation{display:none!important}
+  body.athlys-chat-open #athlys .chat-page.mobile-conversation-open .chat-contacts{display:none!important}
+  body.athlys-chat-open #athlys .chat-page.mobile-conversation-open .chat-conversation{display:flex!important}
+}
