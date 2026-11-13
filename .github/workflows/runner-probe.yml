@@ -1,0 +1,16 @@
+name: Athlys public runner probe
+on:
+  push:
+    branches: [ci/runner-probe-20261113]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Verify public GitHub-hosted runner
+        run: |
+          echo "Athlys public runner available"
+          uname -a
+          node --version
