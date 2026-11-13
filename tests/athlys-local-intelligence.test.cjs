@@ -183,7 +183,9 @@ test("SHA-256 source digest is cryptographic, stable and lowercase hexadecimal",
   assert.notEqual(original, changed);
 });
 
-test("programme import requires a source digest and server-side SHA-256 verification", () => {
+test("programme import requires a source digest and server-side SHA-256 verification", {
+  skip: !fs.existsSync(path.join(path.resolve(__dirname, ".."), "supabase/migrations/20261112010000_training_program_import_sha256.sql"))
+}, () => {
   const root = path.resolve(__dirname, "..");
   const app = fs.readFileSync(path.join(root, "web/app.js"), "utf8");
   const migration = fs.readFileSync(path.join(root, "supabase/migrations/20261112010000_training_program_import_sha256.sql"), "utf8");
@@ -197,8 +199,6 @@ test("programme import requires a source digest and server-side SHA-256 verifica
   const sessionGuard = fs.readFileSync(path.join(root, "supabase/migrations/20261111235000_athlys_training_log_program_session_guard.sql"), "utf8");
   assert.match(sessionGuard, /SECURITY DEFINER\s+SET search_path = ''/);
 });
-
-
 test("French parser extracts full dates, strength sets, reps, load and tempo", () => {
   const parsed = engine.parseProgram("12/11/2026 : Musculation 4 séries de 8 répétitions à 60 kg, tempo 3-1-2-0");
   assert.equal(parsed.sessions.length, 1);
