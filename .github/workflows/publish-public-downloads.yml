@@ -1,0 +1,140 @@
+name: Publish builds to public Athlys downloads
+
+concurrency:
+  group: athlys-publish-${{ github.event.workflow_run.name }}
+  cancel-in-progress: true
+
+on:
+  workflow_run:
+    workflows:
+      - Build Athlys for Windows
+      - Build Athlys Mobile Android APK
+      - Build Athlys Club for Windows
+    types: [completed]
+    branches: [main, feat/001-coach-match-implementation]
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  publish:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    env:
+      PUBLISH_TOKEN: ${{ secrets.ATHLYS_TARGET_TOKEN || secrets.ATHLYS_DOWNLOADS_TOKEN }}
+    steps:
+      - name: Download the artifacts from the completed build
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+          path: dist
+          merge-multiple: true
+
+      - name: Prepare Windows release files
+        if: github.event.workflow_run.name == 'Build Athlys for Windows'
+        run: |
+          mkdir -p release
+          find dist -type f -name '*.exe' -exec cp {} release/ \;
+          test "$(find release -maxdepth 1 -type f -name '*.exe' | wc -l)" -eq 2
+          ls -lh release/*.exe
+          sha256sum release/*.exe > release/SHA256SUMS.txt
+
+      - name: Prepare Athlys Club release files
+        if: github.event.workflow_run.name == 'Build Athlys Club for Windows'
+        run: |
+          mkdir -p release
+          find dist -type f -name 'Athlys-Club-*.exe' -print0 | xargs -0 -I {} cp {} release/
+          test -s release/Athlys-Club-1.0.1-x64.exe
+          test -s release/Athlys-Club-Portable-1.0.1-x64.exe
+          sha256sum release/Athlys-Club-*.exe > release/SHA256SUMS.txt
+      - name: Prepare Android release file
+        if: github.event.workflow_run.name == 'Build Athlys Mobile Android APK'
+        run: |
+          mkdir -p release
+          apk="$(find dist -type f -name 'app-debug.apk' -print -quit)"
+          test -n "$apk"
+          cp "$apk" release/Athlys-Android.apk
+          sha256sum release/Athlys-Android.apk > release/SHA256SUMS.txt
+
+      - name: Publish Windows release
+        if: github.event.workflow_run.name == 'Build Athlys for Windows' && env.PUBLISH_TOKEN != ''
+        uses: softprops/action-gh-release@v3
+        with:
+          repository: Lijw936/Athlys-downloads
+          token: ${{ env.PUBLISH_TOKEN }}
+          tag_name: athlys-windows-latest
+          name: Athlys Windows — dernière version
+          body: "Windows x64. Installateur et version portable. Build non signée : SmartScreen peut afficher un avertissement."
+          prerelease: false
+          make_latest: false
+          overwrite_files: true
+          files: |
+            release/*.exe
+            release/SHA256SUMS.txt
+
+      - name: Publish Athlys Club Windows release
+        if: github.event.workflow_run.name == 'Build Athlys Club for Windows' && env.PUBLISH_TOKEN != ''
+        uses: softprops/action-gh-release@v3
+        with:
+          repository: Lijw936/Athlys-downloads
+          token: ${{ env.PUBLISH_TOKEN }}
+          tag_name: athlys-club-windows-latest
+          name: Athlys Club Windows — dernière version
+          body: "Athlys Club 1.0.1 — terminal administratif club Windows x64. Connecteur SI-FFA en attente d’habilitation officielle."
+          prerelease: false
+          make_latest: false
+          overwrite_files: true
+          files: |
+            release/Athlys-Club-1.0.1-x64.exe
+            release/Athlys-Club-Portable-1.0.1-x64.exe
+            release/SHA256SUMS.txt
+      - name: Publish Android release
+        if: github.event.workflow_run.name == 'Build Athlys Mobile Android APK' && env.PUBLISH_TOKEN != ''
+        uses: softprops/action-gh-release@v3
+        with:
+          repository: Lijw936/Athlys-downloads
+          token: ${{ env.PUBLISH_TOKEN }}
+          tag_name: athlys-android-latest
+          name: Athlys Android — dernière version de test
+          body: "Athlys Mobile Android 1.3.4 — écran de connexion refondu, animation de chargement officielle, navigation mobile sans Quantum et identité visuelle Athlys harmonisée. Intègre l’aperçu Coach Match avec huit profils fictifs et demandes simulées. Le marché Coach Match réel reste désactivé. Inclut la synchronisation Health Connect périodique via WorkManager (intervalle minimum 1 h, exécution différée possible par Android). APK debug de test, non publiée sur Google Play et non signée avec une clé de production."
+          prerelease: false
+          make_latest: false
+          overwrite_files: true
+          files: |
+            release/Athlys-Android.apk
+            release/SHA256SUMS.txt
+
+      - name: Verify public Windows download URLs
+        if: github.event.workflow_run.name == 'Build Athlys for Windows' && env.PUBLISH_TOKEN != ''
+        run: |
+          for asset in Athlys-1.2.1-x64.exe Athlys-Portable-1.2.1-x64.exe; do
+            url="https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-windows-latest/$asset"
+            code="$(curl --silent --show-error --head --location --output /dev/null --write-out '%{http_code}' --max-time 45 "$url")"
+            test "$code" = "200" || { echo "Asset verification failed: $asset (HTTP $code)"; exit 1; }
+          done
+
+      - name: Verify public Athlys Club download URLs
+        if: github.event.workflow_run.name == 'Build Athlys Club for Windows' && env.PUBLISH_TOKEN != ''
+        run: |
+          for asset in Athlys-Club-1.0.1-x64.exe Athlys-Club-Portable-1.0.1-x64.exe; do
+            url="https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-club-windows-latest/$asset"
+            code="$(curl --silent --show-error --head --location --output /dev/null --write-out '%{http_code}' --max-time 45 "$url")"
+            test "$code" = "200" || { echo "Club asset verification failed: $asset (HTTP $code)"; exit 1; }
+          done
+      - name: Verify public Android download URL
+        if: github.event.workflow_run.name == 'Build Athlys Mobile Android APK' && env.PUBLISH_TOKEN != ''
+        run: |
+          url="https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-android-latest/Athlys-Android.apk"
+          code="$(curl --silent --show-error --head --location --output /dev/null --write-out '%{http_code}' --max-time 45 "$url")"
+          test "$code" = "200" || { echo "Android asset verification failed (HTTP $code)"; exit 1; }
+
+      - name: Explain missing distribution token
+        if: env.PUBLISH_TOKEN == ''
+        run: |
+          echo "::error::Missing ATHLYS_TARGET_TOKEN or ATHLYS_DOWNLOADS_TOKEN. Add a repository Actions secret in Athlys2 with Contents: Read and write access to Lijw936/Athlys-downloads."
+          exit 1
