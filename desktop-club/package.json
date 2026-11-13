@@ -1,0 +1,60 @@
+{
+  "name": "athlys-club-desktop",
+  "version": "1.0.1",
+  "private": true,
+  "description": "Athlys Club — administration, membres et licences",
+  "main": "main.cjs",
+  "scripts": {
+    "dist": "node copy-web.cjs && electron-builder --win nsis portable",
+    "check": "node --check main.cjs && node --check copy-web.cjs"
+  },
+  "devDependencies": {
+    "electron": "^39.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.athlys.club",
+    "productName": "Athlys Club",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.cjs",
+      "copy-web.cjs",
+      "offline.html",
+      "package.json",
+      "athlys.ico",
+      "web/**/*"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "athlys.ico",
+      "artifactName": "Athlys-Club-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Athlys Club"
+    },
+    "portable": {
+      "artifactName": "Athlys-Club-Portable-${version}-${arch}.${ext}"
+    }
+  }
+}
