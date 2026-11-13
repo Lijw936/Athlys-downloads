@@ -1,0 +1,1475 @@
+/* Athlys — refonte chaleureuse inspirée du logo (orange, bleu, vert).
+   Une base graphite douce, des surfaces chaudes et des accents lumineux en dégradé. */
+:root{
+  color-scheme:dark;
+  --bg:#17171d;
+  --surface:#222229;
+  --surface2:#2b2a32;
+  --line:#403b40;
+  --text:#f7f3ef;
+  --muted:#c0b8b2;
+  --soft:#938a86;
+  --cyan:#49aee0;
+  --cyan-soft:#203e50;
+  --orange:#f28b3c;
+  --green:#83c98b;
+  --red:#e58b83;
+  --shadow:0 18px 48px rgba(0,0,0,.24);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --bg:#f5f0eb;
+  --surface:#fffaf5;
+  --surface2:#f2e9e1;
+  --line:#e4d7cd;
+  --text:#302923;
+  --muted:#756a63;
+  --soft:#988b82;
+  --cyan:#278bbd;
+  --cyan-soft:#dcecf3;
+  --orange:#d97832;
+  --green:#4b9862;
+  --red:#b85e57;
+  --shadow:0 14px 38px rgba(72,47,31,.09);
+}
+html,body,#athlys{background:var(--bg);color:var(--text)}
+#athlys{
+  background:
+    radial-gradient(ellipse at 7% 0%,rgba(242,139,60,.14),transparent 31%),
+    radial-gradient(ellipse at 88% 8%,rgba(73,174,224,.12),transparent 34%),
+    radial-gradient(ellipse at 76% 62%,rgba(131,201,139,.07),transparent 32%),
+    var(--bg);
+}
+.topbar{
+  background:linear-gradient(105deg,rgba(43,34,31,.97),rgba(29,30,38,.96) 54%,rgba(25,34,40,.96));
+  backdrop-filter:blur(20px);
+  border-color:rgba(255,255,255,.08);
+}
+:root[data-theme="light"] .topbar{
+  background:linear-gradient(105deg,rgba(255,246,237,.96),rgba(248,246,242,.96) 54%,rgba(239,247,248,.96));
+}
+.brand img{border-radius:14px}
+.brand b{letter-spacing:.17em}
+.sidebar{
+  background:linear-gradient(180deg,rgba(42,33,31,.92),rgba(31,30,36,.94) 52%,rgba(26,35,38,.92));
+  border-color:rgba(255,255,255,.07);
+}
+:root[data-theme="light"] .sidebar{
+  background:linear-gradient(180deg,#fff5eb,#f7f0eb 54%,#edf5f3);
+}
+.sidebar-workspace,.sidebar-bottom{border-color:var(--line)}
+.sidebar-emblem{
+  background:linear-gradient(135deg,var(--orange),#f5b35b 48%,var(--green));
+  color:#30251e;border-radius:12px;
+}
+.sidebar-group button{
+  border-radius:11px;
+  transition:background .2s ease,color .2s ease,transform .2s ease;
+}
+.sidebar-group button.active{
+  background:linear-gradient(105deg,rgba(242,139,60,.19),rgba(73,174,224,.10));
+  box-shadow:inset 3px 0 var(--orange);
+  color:var(--text);
+}
+.sidebar-group button.active i{color:var(--orange)}
+.sidebar-group button:hover,.sidebar-bottom .logout:hover{
+  background:linear-gradient(100deg,rgba(242,139,60,.10),rgba(73,174,224,.07));
+  transform:translateX(2px);
+}
+.role-tag{color:var(--orange)}
+.desktop-search{background:rgba(255,255,255,.045)}
+.card,.metric,.exercise,.assistant-panel,.modal,.health-provider,.athlys-template{
+  background:linear-gradient(145deg,color-mix(in srgb,var(--surface) 95%,var(--orange) 5%),var(--surface) 62%,color-mix(in srgb,var(--surface) 96%,var(--cyan) 4%));
+  border-color:var(--line);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+}
+.card{
+  padding:22px;
+  transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+.card:hover{
+  border-color:color-mix(in srgb,var(--orange) 36%,var(--line));
+  box-shadow:0 20px 50px rgba(0,0,0,.28);
+}
+.metric{border-radius:16px;position:relative;overflow:hidden}
+.metric:nth-child(3n+1){background:linear-gradient(135deg,rgba(242,139,60,.16),var(--surface) 72%)}
+.metric:nth-child(3n+2){background:linear-gradient(135deg,rgba(73,174,224,.15),var(--surface) 72%)}
+.metric:nth-child(3n){background:linear-gradient(135deg,rgba(131,201,139,.14),var(--surface) 72%)}
+.metric:nth-child(3n+1) small:first-child{color:var(--orange)}
+.metric:nth-child(3n+2) small:first-child{color:var(--cyan)}
+.metric:nth-child(3n) small:first-child{color:var(--green)}
+.btn{
+  border-radius:12px;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.btn.primary{
+  background:linear-gradient(110deg,var(--orange),#f5b45d 54%,var(--green));
+  border-color:transparent;color:#2d241e;
+}
+.btn.primary:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 8px 22px rgba(242,139,60,.22)}
+.btn.secondary{background:var(--surface2);border-color:var(--line);color:var(--text)}
+.btn.link,.text-action{color:var(--orange)}
+input,select,textarea{border-radius:11px}
+input:not([type=checkbox]):not([type=radio]),select,textarea{
+  border-color:var(--line);background:var(--surface2);color:var(--text)
+}
+input::placeholder,textarea::placeholder{color:var(--soft)}
+.hero>div{
+  border-radius:18px;
+  background:linear-gradient(125deg,rgba(242,139,60,.25),rgba(73,174,224,.13) 57%,rgba(131,201,139,.15));
+  border-color:rgba(242,139,60,.22);
+}
+.hero>div:first-child>b{color:var(--text)}
+.hero small{color:#f2c49e}
+.hero-track i{background:linear-gradient(90deg,var(--orange),#efb35e,var(--green))}
+.progress i{background:linear-gradient(90deg,var(--orange),#e9bd66,var(--green))}
+.date-box,.symbol{background:var(--cyan-soft);color:var(--cyan);border-radius:11px}
+.pill{border-radius:999px}
+.pill.cyan{color:var(--cyan)}
+.pill.green{color:var(--green)}
+.tabs,.mobile-nav{
+  background:color-mix(in srgb,var(--surface) 94%,transparent);
+  backdrop-filter:blur(18px);border-color:var(--line)
+}
+.assistant-launch{
+  background:linear-gradient(110deg,var(--orange),#e8a451 52%,var(--green));
+  color:#2d241e;border-radius:999px;
+  box-shadow:0 8px 24px rgba(242,139,60,.22)
+}
+.assistant-orb{
+  background:linear-gradient(135deg,var(--orange),var(--cyan),var(--green));
+  color:#211e1c;border-radius:13px
+}
+.assistant-panel header{background:linear-gradient(110deg,var(--surface2),var(--surface))}
+.role-mode-option.active{
+  background:linear-gradient(110deg,var(--orange),#e8b45f,var(--green));
+  border-color:transparent;color:#2d241e
+}
+.preferences-form{display:grid;gap:14px}
+.preferences-form .preference-intro{
+  padding:12px 14px;border:1px solid var(--line);border-radius:13px;background:var(--surface2)
+}
+.preferences-form .preference-intro b{font-size:12px}
+.preferences-form .preference-intro p{margin:4px 0 0;line-height:1.55}
+.preferences-form>button{justify-self:start;min-width:210px}
+:root[data-sophistication="1"] .card{box-shadow:none;border-radius:13px}
+:root[data-sophistication="1"] .heading p{max-width:560px}
+:root[data-sophistication="1"] .metric{box-shadow:none}
+:root[data-sophistication="1"] .card-head{margin-bottom:10px}
+:root[data-sophistication="2"] .card,:root[data-sophistication="2"] .metric{box-shadow:var(--shadow)}
+:root[data-sophistication="3"] .card{border-radius:13px;padding:17px}
+:root[data-sophistication="3"] .metrics{gap:9px}
+:root[data-sophistication="3"] .metric{padding:12px;border-radius:12px}
+:root[data-sophistication="3"] .card-head{margin-bottom:11px}
+:root[data-font-size="1"] #athlys{zoom:.92}
+:root[data-font-size="2"] #athlys{zoom:1}
+:root[data-font-size="3"] #athlys{zoom:1.08}
+@media(max-width:700px){
+  .card{padding:17px;border-radius:16px}
+  .heading{align-items:flex-start;flex-direction:column;gap:12px}
+  .heading .actions{justify-content:flex-start}
+  .mobile-nav{box-shadow:0 -5px 22px rgba(9,30,50,.12)}
+}
+@media(prefers-reduced-motion:reduce){
+  .btn,.sidebar-group button,.card{transition:none!important}
+}
+
+/* Palette unie par composant : un seul ton dominant par vignette. */
+.card,.metric,.exercise,.assistant-panel,.modal,.health-provider,.athlys-template{
+  background:var(--surface);
+  border-color:var(--line);
+}
+.metric:nth-child(3n+1),.metric:nth-child(3n+2),.metric:nth-child(3n){
+  background:var(--surface);
+}
+.metric:nth-child(3n+1){border-top:2px solid var(--orange)}
+.metric:nth-child(3n+2){border-top:2px solid var(--cyan)}
+.metric:nth-child(3n){border-top:2px solid var(--green)}
+.hero>div{background:rgba(242,139,60,.13);border-color:rgba(242,139,60,.25)}
+.btn.primary{background:linear-gradient(110deg,#e98236,#f3a34f);color:#2d241e}
+.assistant-launch{background:linear-gradient(110deg,#e98236,#f3a34f);color:#2d241e}
+.assistant-orb{background:var(--orange);color:#211e1c}
+.role-mode-option.active{background:linear-gradient(110deg,#e98236,#f3a34f);color:#2d241e}
+.assistant-panel header{background:var(--surface2)}
+.sidebar-emblem{background:var(--orange);color:#30251e}
+
+/* Direction artistique épurée : aplats uniquement, accents chromatiques discrets. */
+:root{
+  --bg:#191a1f;
+  --surface:#24252c;
+  --surface2:#2d2e36;
+  --line:#3a3b43;
+  --text:#f3f0ec;
+  --muted:#b8b2ac;
+  --soft:#89857f;
+  --cyan:#55a4c8;
+  --cyan-soft:#243b49;
+  --orange:#df874a;
+  --green:#79ad83;
+  --red:#cf7771;
+  --shadow:0 12px 32px rgba(0,0,0,.20);
+}
+:root[data-theme="light"]{
+  --bg:#f4f1ed;
+  --surface:#fffdfa;
+  --surface2:#eee9e3;
+  --line:#ded7cf;
+  --text:#302d29;
+  --muted:#6e6861;
+  --soft:#918980;
+  --cyan:#337f9f;
+  --cyan-soft:#e2edf1;
+  --orange:#bd6d36;
+  --green:#4e8058;
+  --red:#a95752;
+  --shadow:0 10px 26px rgba(47,39,31,.07);
+}
+/* Neutralise les fonds dégradés sur toute l'application. */
+#athlys,#athlys *,.auth-layout,.auth-layout *{
+  background-image:none!important;
+}
+html,body,#athlys{background:var(--bg)!important;color:var(--text)}
+#athlys{background-color:var(--bg)!important}
+.auth-layout{background:var(--bg)!important}
+.topbar{background:var(--bg)!important;border-color:var(--line)}
+:root[data-theme="light"] .topbar{background:var(--bg)!important}
+.sidebar{background:var(--surface)!important;border-color:var(--line)}
+:root[data-theme="light"] .sidebar{background:var(--surface)!important}
+.sidebar-emblem{background:var(--orange)!important;color:#2e241d}
+.sidebar-group button.active{background:var(--surface2)!important;box-shadow:inset 3px 0 var(--orange)}
+.sidebar-group button:hover,.sidebar-bottom .logout:hover{background:var(--surface2)!important;transform:none}
+.card,.metric,.exercise,.assistant-panel,.modal,.health-provider,.athlys-template{
+  background:var(--surface)!important;
+  border-color:var(--line);
+  box-shadow:var(--shadow);
+}
+.card:hover{box-shadow:var(--shadow);border-color:#55504b}
+.metric{background:var(--surface)!important}
+.hero>div{background:var(--surface2)!important;border-color:var(--line)}
+.hero small{color:var(--orange)}
+.hero-track i{background:var(--orange)!important}
+.progress i{background:var(--cyan)!important}
+.bars i b{background:var(--cyan)!important}
+.btn.primary{background:var(--orange)!important;border-color:var(--orange);color:#2c211a}
+.btn.primary:hover{filter:brightness(1.04);transform:translateY(-1px);box-shadow:0 5px 14px rgba(223,135,74,.16)}
+.btn.secondary{background:var(--surface2)!important}
+.btn.link,.text-action{color:var(--orange)}
+.assistant-launch{background:var(--orange)!important;color:#2c211a;box-shadow:0 5px 16px rgba(223,135,74,.16)}
+.assistant-orb{background:var(--cyan)!important;color:#17232a}
+.assistant-panel header{background:var(--surface2)!important}
+.role-mode-option.active{background:var(--orange)!important;color:#2c211a;border-color:var(--orange)}
+.desktop-search{background:var(--surface)!important}
+.preferences-form .preference-intro{background:var(--surface2)!important}
+.date-box,.symbol{background:var(--cyan-soft)!important;color:var(--cyan)}
+.tabs,.mobile-nav{background:var(--surface)!important}
+@media(prefers-reduced-motion:reduce){
+  .btn,.sidebar-group button,.card{transition:none!important}
+}
+
+/* Répartition équilibrée des trois accents de marque.
+   Le graphite reste majoritaire ; chaque zone reçoit une seule couleur d'accent. */
+:root{
+  --brand-orange:#df874a;
+  --brand-blue:#55a4c8;
+  --brand-green:#79ad83;
+  --orange:var(--brand-orange);
+  --cyan:var(--brand-blue);
+  --green:var(--brand-green);
+}
+/* Indicateurs : alternance régulière orange / bleu / vert. */
+.metrics>.metric:nth-child(3n+1){border-top:2px solid var(--brand-orange)}
+.metrics>.metric:nth-child(3n+2){border-top:2px solid var(--brand-blue)}
+.metrics>.metric:nth-child(3n){border-top:2px solid var(--brand-green)}
+.metrics>.metric:nth-child(3n+1) small:first-child{color:var(--brand-orange)}
+.metrics>.metric:nth-child(3n+2) small:first-child{color:var(--brand-blue)}
+.metrics>.metric:nth-child(3n) small:first-child{color:var(--brand-green)}
+/* Objectifs : une couleur par barre de progression, en alternance. */
+.goal:nth-child(3n+1) .progress i{background:var(--brand-orange)!important}
+.goal:nth-child(3n+2) .progress i{background:var(--brand-blue)!important}
+.goal:nth-child(3n) .progress i{background:var(--brand-green)!important}
+/* Activités et listes : les pictogrammes répartissent les accents sans colorer les cartes. */
+.list-row:nth-child(3n+1) .symbol,.calendar-item:nth-child(3n+1) .symbol{background:#493326!important;color:var(--brand-orange)}
+.list-row:nth-child(3n+2) .symbol,.calendar-item:nth-child(3n+2) .symbol{background:#263c49!important;color:var(--brand-blue)}
+.list-row:nth-child(3n) .symbol,.calendar-item:nth-child(3n) .symbol{background:#2d4033!important;color:var(--brand-green)}
+/* Graphiques : alternance des colonnes, toujours en aplats unis. */
+.bars>div:nth-child(3n+1) i b{background:var(--brand-orange)!important}
+.bars>div:nth-child(3n+2) i b{background:var(--brand-blue)!important}
+.bars>div:nth-child(3n) i b{background:var(--brand-green)!important}
+/* Tuiles secondaires et repères de navigation. */
+.detail-grid>div:nth-child(3n+1){border-left:2px solid var(--brand-orange)}
+.detail-grid>div:nth-child(3n+2){border-left:2px solid var(--brand-blue)}
+.detail-grid>div:nth-child(3n){border-left:2px solid var(--brand-green)}
+.hero>div:first-child{border-left:3px solid var(--brand-orange)}
+.hero>div:nth-child(2){border-left:3px solid var(--brand-blue)}
+.pill.cyan{color:var(--brand-blue)}
+.pill.green{color:var(--brand-green)}
+.health-dot{background:var(--brand-orange)}
+.health-dot.ready{background:var(--brand-green)}
+.role-mode-option.active{background:var(--brand-blue)!important;border-color:var(--brand-blue);color:#17232a}
+.sidebar-group button.active{box-shadow:inset 3px 0 var(--brand-orange)}
+.btn.primary,.assistant-launch{background:var(--brand-orange)!important;border-color:var(--brand-orange);color:#2c211a}
+.assistant-orb{background:var(--brand-blue)!important;color:#17232a}
+
+/* Reprise des deux directions visuelles des brouillons Athlys.
+   Coach : institutionnel, précis, lignes nettes.
+   Athlète : chaleureux, arrondi, accueillant.
+   Les données et la navigation restent celles de l'application complète. */
+body[data-app="coach"]{
+  --bg:#f4f6f9;
+  --surface:#ffffff;
+  --surface2:#eef1f5;
+  --line:#dde2ea;
+  --text:#1b2433;
+  --muted:#5d6778;
+  --soft:#8791a1;
+  --cyan:#1f6fb2;
+  --cyan-soft:#e5eef7;
+  --orange:#e2802b;
+  --green:#4f9d2a;
+  --red:#c45f5b;
+  --btn:#1b2433;
+  --btnt:#ffffff;
+  font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;
+  font-size:16px;
+  background:var(--bg);
+  color:var(--text);
+}
+body[data-app="athlete"]{
+  --bg:#fbf6ef;
+  --surface:#ffffff;
+  --surface2:#f4eee6;
+  --line:#ebe5db;
+  --text:#2a2640;
+  --muted:#6c7488;
+  --soft:#928b91;
+  --cyan:#1a9bc0;
+  --cyan-soft:#e4f1f3;
+  --orange:#e0703a;
+  --green:#4f9d2a;
+  --red:#c45f5b;
+  --btn:#e0703a;
+  --btnt:#ffffff;
+  font-family:ui-rounded,"SF Pro Rounded","Avenir Next Rounded",Nunito,"Segoe UI",system-ui,sans-serif;
+  font-size:17px;
+  background:var(--bg);
+  color:var(--text);
+}
+/* Dark variants follow each draft's role-specific palette. */
+:root[data-theme="dark"] body[data-app="coach"]{
+  --bg:#121a2b;--surface:#1a2540;--surface2:#202d49;--line:#2a3860;
+  --text:#f1f3f8;--muted:#a3adc4;--soft:#8795b1;
+  --cyan:#3e9ad2;--cyan-soft:#253b5c;--orange:#f58a2d;--green:#8bd33f;
+  --red:#e47d77;--btn:#3e9ad2;--btnt:#10213a;
+}
+:root[data-theme="dark"] body[data-app="athlete"]{
+  --bg:#17142b;--surface:#221e3d;--surface2:#2c274a;--line:#352f5c;
+  --text:#f4f0ff;--muted:#b2aacb;--soft:#8c84a5;
+  --cyan:#43b9d2;--cyan-soft:#26384e;--orange:#f58a55;--green:#8bd33f;
+  --red:#e47d77;--btn:#e0703a;--btnt:#ffffff;
+}
+body[data-app] #athlys{background:var(--bg)!important;color:var(--text)}
+body[data-app] .topbar{
+  height:66px;padding:0 22px;background:var(--bg)!important;
+  border-bottom:1px solid var(--line);backdrop-filter:none;
+}
+body[data-app] .brand b{letter-spacing:.12em}
+body[data-app] .brand small{color:var(--muted)}
+body[data-app] .role-tag{color:var(--cyan);border-color:var(--line)}
+body[data-app] .icon-btn{background:var(--surface);border-color:var(--line)}
+body[data-app] .avatar{background:var(--btn);color:var(--btnt)}
+body[data-app] .layout{display:block;max-width:none;min-height:calc(100vh - 66px)}
+body[data-app] .sidebar{
+  position:sticky;top:66px;z-index:18;align-self:auto;height:auto;max-height:none;
+  display:flex;flex-direction:row;align-items:center;gap:8px;
+  overflow-x:auto;overflow-y:hidden;white-space:nowrap;
+  padding:8px 18px;background:var(--surface)!important;
+  border-right:0;border-bottom:1px solid var(--line);
+  scrollbar-width:thin;
+}
+body[data-app] .sidebar-workspace{display:none}
+body[data-app] .sidebar-group{
+  display:flex;flex:none;align-items:center;gap:3px;
+  margin:0;padding:0 9px 0 0;border-right:1px solid var(--line);
+}
+body[data-app] .sidebar-group>small{display:none}
+body[data-app] .sidebar-group button{
+  width:auto;min-height:38px;display:inline-flex;align-items:center;gap:7px;
+  padding:8px 10px;border:0;border-radius:8px;
+  background:transparent;color:var(--muted);font-size:11px;
+}
+body[data-app] .sidebar-group button i{width:auto;color:var(--soft);font-size:14px}
+body[data-app] .sidebar-group button.active{
+  background:var(--surface2)!important;color:var(--text);
+  box-shadow:none;border-radius:8px;
+}
+body[data-app] .sidebar-group button.active i{color:var(--cyan)}
+body[data-app] .sidebar-bottom{
+  display:flex;flex:none;align-items:center;gap:6px;
+  margin:0 0 0 auto;padding:0;border:0;
+}
+body[data-app] .sidebar-status{display:none}
+body[data-app] .sidebar-bottom .logout{
+  width:auto;min-height:38px;padding:8px 10px;border:1px solid var(--line);
+  border-radius:8px;background:var(--surface);white-space:nowrap;font-size:11px;
+}
+body[data-app] .main{
+  width:100%;max-width:1160px;margin:0 auto;
+  padding:26px clamp(18px,3vw,36px) 76px;
+}
+body[data-app] .heading{margin-bottom:22px}
+body[data-app] .heading h1{font-size:30px;font-weight:800;letter-spacing:-.025em}
+body[data-app] .heading p{color:var(--muted)}
+body[data-app] .card,
+body[data-app] .metric,
+body[data-app] .exercise,
+body[data-app] .health-provider,
+body[data-app] .athlys-template,
+body[data-app] .assistant-panel,
+body[data-app] .modal{
+  background:var(--surface)!important;border-color:var(--line);
+}
+body[data-app] .card{padding:18px}
+body[data-app] .metric{box-shadow:none;background:var(--surface)!important}
+body[data-app] .hero>div{background:var(--surface)!important;border-color:var(--line)}
+body[data-app] .hero>div:first-child{border-left:3px solid var(--orange)}
+body[data-app] .hero>div:nth-child(2){border-left:3px solid var(--cyan)}
+body[data-app] .btn{min-height:40px;border-radius:8px;padding:9px 15px}
+body[data-app="coach"] .btn.primary{
+  background:var(--btn)!important;border-color:var(--btn);color:var(--btnt);
+}
+body[data-app="athlete"] .btn.primary{
+  background:var(--orange)!important;border-color:var(--orange);color:#ffffff;
+}
+body[data-app] .btn.secondary{background:var(--surface)!important;color:var(--text);border-color:var(--line)}
+body[data-app] input,
+body[data-app] select,
+body[data-app] textarea{
+  background:var(--bg);border-color:var(--line);color:var(--text);border-radius:10px;
+}
+body[data-app] .progress{background:var(--line)}
+body[data-app] .progress i{background:var(--cyan)!important}
+body[data-app] .hero-track{background:var(--line)}
+body[data-app] .hero-track i{background:var(--orange)!important}
+body[data-app] .pill{background:var(--surface2);border-color:var(--line)}
+body[data-app] .pill.cyan{color:var(--cyan)}
+body[data-app] .pill.green{color:var(--green)}
+body[data-app] .symbol{background:var(--surface2);color:var(--cyan)}
+body[data-app] .mobile-nav{
+  background:var(--surface)!important;border-color:var(--line);
+  backdrop-filter:none;box-shadow:0 -4px 16px rgba(20,28,43,.06);
+}
+body[data-app] .mobile-nav button.active{background:var(--surface2);color:var(--cyan)}
+body[data-app="coach"] .card,
+body[data-app="coach"] .metric,
+body[data-app="coach"] .exercise,
+body[data-app="coach"] .health-provider,
+body[data-app="coach"] .athlys-template{border-radius:10px;box-shadow:none}
+body[data-app="coach"] .btn,
+body[data-app="coach"] .sidebar-group button,
+body[data-app="coach"] .mobile-nav{border-radius:8px}
+body[data-app="athlete"] .card,
+body[data-app="athlete"] .metric,
+body[data-app="athlete"] .exercise,
+body[data-app="athlete"] .health-provider,
+body[data-app="athlete"] .athlys-template{
+  border-radius:22px;
+  box-shadow:0 1px 2px rgba(34,48,74,.05),0 6px 18px rgba(34,48,74,.04);
+}
+body[data-app="athlete"] .btn{border-radius:999px}
+body[data-app="athlete"] .mobile-nav{border-radius:22px 22px 0 0}
+body[data-app="athlete"] .mobile-nav button.active{
+  background:var(--cyan-soft);color:var(--cyan);border-radius:16px;
+}
+body[data-app="athlete"] .assistant-launch{
+  background:var(--orange)!important;color:#fff;box-shadow:0 6px 18px rgba(34,48,74,.18);
+}
+body[data-app="coach"] .assistant-launch{
+  background:var(--btn)!important;color:var(--btnt);box-shadow:none;border-radius:8px;
+}
+/* Sélecteur de ressenti : cinq visages sobres et accessibles, reliés aux champs existants. */
+.feeling-scale{min-width:0;margin:0 0 14px;padding:0;border:0}
+.feeling-scale legend{margin:0 0 7px;color:var(--muted);font-size:11px;font-weight:800}
+.feeling-scale-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.feeling-scale-option{
+  min-width:0;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  padding:8px 4px;border:1px solid var(--line);border-radius:14px;
+  background:var(--surface)!important;color:var(--muted);
+}
+.feeling-scale-option svg{width:24px;height:24px;color:var(--mood);stroke:currentColor}
+.feeling-scale-option b{font-size:11px;line-height:1}
+.feeling-scale-option small{font-size:9px;line-height:1.1;text-align:center;color:var(--muted)}
+.feeling-scale-option[data-value="1"]{--mood:#c45f5b}
+.feeling-scale-option[data-value="2"]{--mood:#d58a48}
+.feeling-scale-option[data-value="3"]{--mood:#8b8990}
+.feeling-scale-option[data-value="4"]{--mood:#398fb5}
+.feeling-scale-option[data-value="5"]{--mood:#4f9d2a}
+.feeling-scale-option[aria-pressed="true"]{
+  border:2px solid var(--mood);padding:7px 3px;
+  background:var(--surface2)!important;color:var(--text);
+}
+.feeling-scale-option[aria-pressed="true"] small{color:var(--text)}
+body[data-app="coach"] .feeling-scale-option{border-radius:9px;min-height:68px}
+body[data-app="athlete"] .feeling-scale-option{border-radius:15px;min-height:76px}
+@media(min-width:701px){
+  body[data-app] .layout{display:block}
+  body[data-app] .sidebar{scrollbar-width:thin}
+}
+@media(max-width:700px){
+  body[data-app] .sidebar{display:none!important}
+  body[data-app] .main{padding:16px 12px calc(100px + env(safe-area-inset-bottom))}
+  .feeling-scale-options{gap:5px}
+  .feeling-scale-option{min-height:72px;padding:6px 2px}
+  .feeling-scale-option small{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  body[data-app] .btn,body[data-app] .card,body[data-app] .sidebar-group button{transition:none!important}
+}
+
+/* --------------------------------------------------------------------------
+   ATHLYS — fidélité aux deux brouillons Coach / Athlète.
+   Cette couche ne change que la présentation : navigation, données, formulaires
+   et traitements restent ceux de l'application existante.
+   -------------------------------------------------------------------------- */
+body[data-app="coach"]{
+  --bg:#f4f6f9;
+  --surface:#ffffff;
+  --surface2:#f0f3f7;
+  --line:#dde2ea;
+  --text:#1b2433;
+  --muted:#5d6778;
+  --soft:#8791a1;
+  --cyan:#1f6fb2;
+  --cyan-soft:#e5eef7;
+  --orange:#e2802b;
+  --green:#4f9d2a;
+  --red:#c45f5b;
+  --btn:#1b2433;
+  --btnt:#ffffff;
+  color:var(--text);
+  background:var(--bg);
+  font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;
+  font-size:16px;
+}
+body[data-app="athlete"]{
+  --bg:#fbf6ef;
+  --surface:#ffffff;
+  --surface2:#f4eee6;
+  --line:#ebe5db;
+  --text:#2a2640;
+  --muted:#6c7488;
+  --soft:#928b91;
+  --cyan:#1a9bc0;
+  --cyan-soft:#e4f1f3;
+  --orange:#e0703a;
+  --green:#4f9d2a;
+  --red:#c45f5b;
+  --btn:#e0703a;
+  --btnt:#ffffff;
+  color:var(--text);
+  background:var(--bg);
+  font-family:ui-rounded,"SF Pro Rounded","Avenir Next Rounded",Nunito,"Segoe UI",system-ui,sans-serif;
+  font-size:17px;
+}
+/* Role-specific dark mode, matching the drafts' separate atmospheres. */
+:root[data-theme="dark"] body[data-app="coach"]{
+  --bg:#121a2b;--surface:#1a2540;--surface2:#202d49;--line:#2a3860;
+  --text:#f1f3f8;--muted:#a3adc4;--soft:#8795b1;
+  --cyan:#3e9ad2;--cyan-soft:#253b5c;--orange:#f58a2d;--green:#8bd33f;
+  --red:#e47d77;--btn:#3e9ad2;--btnt:#10213a;
+}
+:root[data-theme="dark"] body[data-app="athlete"]{
+  --bg:#17142b;--surface:#221e3d;--surface2:#2c274a;--line:#352f5c;
+  --text:#f4f0ff;--muted:#b2aacb;--soft:#8c84a5;
+  --cyan:#43b9d2;--cyan-soft:#26384e;--orange:#f58a55;--green:#8bd33f;
+  --red:#e47d77;--btn:#e0703a;--btnt:#ffffff;
+}
+body[data-app],body[data-app] #athlys{
+  background:var(--bg)!important;
+  color:var(--text);
+}
+body[data-app] .topbar{
+  height:66px;
+  padding:0 18px;
+  background:var(--bg)!important;
+  border-bottom:1px solid var(--line);
+  backdrop-filter:none;
+}
+body[data-app] .brand b{letter-spacing:.12em}
+body[data-app] .brand small{color:var(--muted)}
+body[data-app] .role-tag{color:var(--cyan);border-color:var(--line)}
+body[data-app] .icon-btn{background:var(--surface);border-color:var(--line);color:var(--text)}
+body[data-app] .avatar{background:var(--btn);color:var(--btnt)}
+/* Navigation horizontale, comme les onglets du brouillon, sans supprimer les modules. */
+body[data-app] .layout{
+  display:block;
+  max-width:none;
+  min-height:calc(100vh - 66px);
+}
+body[data-app] .sidebar{
+  position:sticky;
+  top:66px;
+  z-index:18;
+  height:auto;
+  max-height:none;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:8px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  white-space:nowrap;
+  padding:8px 18px;
+  background:var(--surface)!important;
+  border-right:0;
+  border-bottom:1px solid var(--line);
+  scrollbar-width:thin;
+}
+body[data-app] .sidebar-workspace{display:none}
+body[data-app] .sidebar-group{
+  display:flex;
+  flex:none;
+  align-items:center;
+  gap:3px;
+  margin:0;
+  padding:0 9px 0 0;
+  border-right:1px solid var(--line);
+}
+body[data-app] .sidebar-group>small{display:none}
+body[data-app] .sidebar-group button{
+  width:auto;
+  min-height:38px;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 10px;
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:var(--muted);
+  font-size:11px;
+  transition:background .15s ease,color .15s ease;
+}
+body[data-app] .sidebar-group button i{width:auto;color:var(--soft);font-size:14px}
+body[data-app] .sidebar-group button:hover{background:var(--surface2);color:var(--text);transform:none}
+body[data-app] .sidebar-group button.active{
+  background:var(--surface2)!important;
+  color:var(--text);
+  box-shadow:none;
+  border-radius:8px;
+}
+body[data-app] .sidebar-group button.active i{color:var(--cyan)}
+body[data-app] .sidebar-bottom{
+  display:flex;
+  flex:none;
+  align-items:center;
+  gap:6px;
+  margin:0 0 0 auto;
+  padding:0;
+  border:0;
+}
+body[data-app] .sidebar-status{display:none}
+body[data-app] .sidebar-bottom .logout{
+  width:auto;
+  min-height:38px;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:var(--surface);
+  white-space:nowrap;
+  font-size:11px;
+}
+body[data-app] .main{
+  width:100%;
+  max-width:880px;
+  margin:0 auto;
+  padding:24px 20px 86px;
+}
+body[data-app] .heading{margin-bottom:18px}
+body[data-app] .heading h1{
+  margin:6px 0 4px;
+  color:var(--text);
+  font-weight:800;
+  letter-spacing:-.02em;
+}
+body[data-app] .heading p{color:var(--muted)}
+body[data-app] .card,
+body[data-app] .metric,
+body[data-app] .exercise,
+body[data-app] .health-provider,
+body[data-app] .athlys-template,
+body[data-app] .assistant-panel,
+body[data-app] .modal{
+  background:var(--surface)!important;
+  border-color:var(--line);
+}
+body[data-app] .card{padding:16px}
+body[data-app] .metric{background:var(--surface)!important}
+body[data-app] .hero>div{
+  background:var(--surface)!important;
+  border-color:var(--line);
+  border-radius:14px;
+}
+body[data-app] .hero>div:first-child{border-left:3px solid var(--orange)}
+body[data-app] .hero>div:nth-child(2){border-left:3px solid var(--cyan)}
+body[data-app] .btn{
+  min-height:42px;
+  border-radius:10px;
+  padding:9px 16px;
+}
+body[data-app="coach"] .btn,
+body[data-app="coach"] .chip,
+body[data-app="coach"] .seg,
+body[data-app="coach"] .seg button{border-radius:8px}
+body[data-app="coach"] .btn.primary{
+  background:var(--btn)!important;
+  border-color:var(--btn);
+  color:var(--btnt);
+}
+body[data-app="athlete"] .btn{
+  border-radius:999px;
+  padding:11px 20px;
+}
+body[data-app="athlete"] .btn.primary{
+  background:var(--orange)!important;
+  border-color:var(--orange);
+  color:#ffffff;
+}
+body[data-app] .btn.secondary{
+  background:var(--surface)!important;
+  color:var(--text);
+  border-color:var(--line);
+}
+body[data-app] .btn.link,body[data-app] .text-action{color:var(--orange)}
+body[data-app] input,
+body[data-app] select,
+body[data-app] textarea{
+  background:var(--bg);
+  border-color:var(--line);
+  color:var(--text);
+  border-radius:10px;
+}
+body[data-app="athlete"] input,
+body[data-app="athlete"] select,
+body[data-app="athlete"] textarea{border-radius:14px}
+body[data-app] .progress{background:var(--line)}
+body[data-app] .progress i{background:var(--cyan)!important}
+body[data-app] .hero-track{background:var(--line)}
+body[data-app] .hero-track i{background:var(--orange)!important}
+body[data-app] .pill{background:var(--surface2);border-color:var(--line)}
+body[data-app] .pill.cyan{color:var(--cyan)}
+body[data-app] .pill.green{color:var(--green)}
+body[data-app] .symbol{background:var(--surface2);color:var(--cyan)}
+body[data-app] .date-box{background:var(--cyan-soft);color:var(--cyan)}
+body[data-app] .desktop-search{background:var(--surface)!important}
+body[data-app] .assistant-panel header{background:var(--surface2)!important}
+body[data-app="coach"] .assistant-launch{
+  background:var(--btn)!important;
+  color:var(--btnt);
+  box-shadow:none;
+  border-radius:8px;
+}
+body[data-app="athlete"] .assistant-launch{
+  background:var(--orange)!important;
+  color:#fff;
+  box-shadow:0 6px 18px rgba(34,48,74,.12);
+}
+body[data-app] .assistant-orb{background:var(--cyan)!important;color:#17232a}
+body[data-app] .mobile-nav{
+  background:var(--surface)!important;
+  border-color:var(--line);
+  backdrop-filter:none;
+  box-shadow:0 -4px 16px rgba(20,28,43,.06);
+}
+body[data-app="coach"] .mobile-nav{
+  border-radius:0;
+  box-shadow:none;
+  border-top:1px solid var(--line);
+}
+body[data-app="coach"] .mobile-nav button.active{
+  background:transparent;
+  color:var(--text);
+  border-radius:0;
+  box-shadow:inset 0 3px 0 var(--cyan);
+}
+body[data-app="athlete"] .mobile-nav{border-radius:22px 22px 0 0}
+body[data-app="athlete"] .mobile-nav button.active{
+  background:var(--cyan-soft);
+  color:var(--cyan);
+  border-radius:16px;
+}
+/* Le brouillon Coach reste net et sans ombre ; le brouillon Athlète est doux et arrondi. */
+body[data-app="coach"] .card,
+body[data-app="coach"] .metric,
+body[data-app="coach"] .exercise,
+body[data-app="coach"] .health-provider,
+body[data-app="coach"] .athlys-template{border-radius:10px;box-shadow:none}
+body[data-app="coach"] .card:hover{box-shadow:none}
+body[data-app="athlete"] .card,
+body[data-app="athlete"] .metric,
+body[data-app="athlete"] .exercise,
+body[data-app="athlete"] .health-provider,
+body[data-app="athlete"] .athlys-template{
+  border-radius:22px;
+  box-shadow:0 1px 2px rgba(34,48,74,.05),0 6px 18px rgba(34,48,74,.04);
+}
+body[data-app="athlete"] .heading h1{font-size:32px}
+body[data-app="coach"] .heading h1{font-size:24px}
+body[data-app="athlete"] .hero>div{border-radius:18px}
+body[data-app="athlete"] .hero>div:first-child{background:var(--surface)!important}
+body[data-app="athlete"] .hero>div:nth-child(2){background:var(--surface)!important}
+/* Icônes du ressenti : 5 visages SVG, du plus difficile au plus favorable.
+   Les champs cachés et les valeurs 1–5 restent pilotés par le JS existant. */
+.feeling-scale{min-width:0;margin:0 0 14px;padding:0;border:0}
+.feeling-scale legend{margin:0 0 7px;color:var(--muted);font-size:12px;font-weight:800}
+.feeling-scale-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.feeling-scale-option{
+  min-width:0;
+  min-height:76px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  padding:8px 4px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--surface)!important;
+  color:var(--muted);
+  transition:border-color .15s ease,background .15s ease,color .15s ease;
+}
+.feeling-scale-option svg{width:25px;height:25px;color:var(--mood);stroke:currentColor}
+.feeling-scale-option b{font-size:11px;line-height:1}
+.feeling-scale-option small{font-size:9px;line-height:1.1;text-align:center;color:var(--muted)}
+.feeling-scale-option[data-value="1"]{--mood:#c45f5b}
+.feeling-scale-option[data-value="2"]{--mood:#d58a48}
+.feeling-scale-option[data-value="3"]{--mood:#8b8990}
+.feeling-scale-option[data-value="4"]{--mood:#398fb5}
+.feeling-scale-option[data-value="5"]{--mood:#4f9d2a}
+.feeling-scale-option[aria-pressed="true"]{
+  border:2px solid var(--mood);
+  padding:7px 3px;
+  background:var(--surface2)!important;
+  color:var(--text);
+}
+.feeling-scale-option[aria-pressed="true"] small{color:var(--text)}
+body[data-app="coach"] .feeling-scale-option{border-radius:9px;min-height:68px}
+body[data-app="athlete"] .feeling-scale-option{border-radius:15px;min-height:76px}
+@media(min-width:701px){
+  body[data-app] .layout{display:block}
+}
+@media(max-width:700px){
+  body[data-app] .sidebar{display:none!important}
+  body[data-app] .main{padding:16px 12px calc(100px + env(safe-area-inset-bottom))}
+  body[data-app="coach"] .heading h1{font-size:24px}
+  body[data-app="athlete"] .heading h1{font-size:28px}
+  .feeling-scale-options{gap:5px}
+  .feeling-scale-option{min-height:72px;padding:6px 2px}
+  .feeling-scale-option small{font-size:8px}
+}
+/* Les réglages de densité et de sophistication restent actifs dans les deux rôles. */
+:root[data-sophistication="1"] body[data-app="coach"] .card{padding:13px;border-radius:8px}
+:root[data-sophistication="1"] body[data-app="athlete"] .card{padding:14px;border-radius:16px}
+:root[data-sophistication="3"] body[data-app="coach"] .card{padding:20px;border-radius:12px}
+:root[data-sophistication="3"] body[data-app="athlete"] .card{padding:20px;border-radius:24px}
+@media(prefers-reduced-motion:reduce){
+  body[data-app] .btn,
+  body[data-app] .card,
+  body[data-app] .sidebar-group button,
+  .feeling-scale-option{transition:none!important}
+}
+
+/* --------------------------------------------------------------------------
+   Référence visuelle du brouillon Athlys : indigo nocturne, surfaces violettes,
+   orange action, vert performance. Les dégradés sont réservés au bandeau clé.
+   Navigation PC : véritable rail latéral, lisible et toujours accessible.
+   -------------------------------------------------------------------------- */
+:root[data-theme="dark"] body[data-app="athlete"]{
+  --bg:#17142b;
+  --surface:#221e3d;
+  --surface2:#2b2648;
+  --line:#352f5c;
+  --text:#f4f0ff;
+  --muted:#b2aacb;
+  --soft:#8c84a5;
+  --cyan:#43b9d2;
+  --cyan-soft:#26384e;
+  --orange:#e0703a;
+  --green:#8bd33f;
+  --red:#e47d77;
+  --btn:#e0703a;
+  --btnt:#ffffff;
+}
+:root[data-theme="dark"] body[data-app="coach"]{
+  --bg:#0d1730;
+  --surface:#14213d;
+  --surface2:#1a2a49;
+  --line:#26355a;
+  --text:#eef2fa;
+  --muted:#9aa6c0;
+  --soft:#8291ad;
+  --cyan:#1ec8f0;
+  --cyan-soft:#1a3b55;
+  --orange:#f58a2d;
+  --green:#8bd33f;
+  --red:#e47d77;
+  --btn:#1ec8f0;
+  --btnt:#13213c;
+}
+body[data-app] #athlys,
+body[data-app]{background:var(--bg)!important;color:var(--text)}
+body[data-app] .topbar{
+  position:sticky;top:0;z-index:30;
+  height:74px;padding:0 28px;
+  display:grid;grid-template-columns:250px minmax(240px,1fr) auto;
+  column-gap:28px;
+  background:var(--bg)!important;
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(14px);
+}
+body[data-app] .brand img{width:40px;height:40px;border-radius:12px}
+body[data-app] .brand b{font-size:15px;letter-spacing:.15em}
+body[data-app] .brand small{font-size:10px;color:var(--muted)}
+body[data-app] .desktop-search{
+  width:min(100%,560px);margin:auto 0;
+  background:var(--surface)!important;border:1px solid var(--line);
+  border-radius:12px;
+}
+body[data-app] .desktop-search input{background:transparent;border:0}
+body[data-app] .head-actions{gap:10px}
+body[data-app] .role-tag{color:var(--cyan);border-color:var(--line)}
+body[data-app] .icon-btn{background:var(--surface);border-color:var(--line);color:var(--text)}
+body[data-app] .avatar{background:var(--surface2);color:var(--text);border:1px solid var(--line)}
+/* PC : barre latérale verticale, groupes visibles, défilement indépendant. */
+@media(min-width:701px){
+  body[data-app] .layout{
+    display:grid!important;
+    grid-template-columns:252px minmax(0,1fr);
+    max-width:none;
+    min-height:calc(100vh - 74px);
+    margin:0;
+  }
+  body[data-app] .sidebar{
+    position:sticky;top:74px;z-index:20;
+    align-self:start;width:252px;height:calc(100vh - 74px);
+    max-height:calc(100vh - 74px);
+    display:flex;flex-direction:column;align-items:stretch;gap:0;
+    overflow-x:hidden;overflow-y:auto;white-space:normal;
+    padding:18px 13px 14px;
+    background:var(--surface)!important;
+    border-right:1px solid var(--line);
+    border-bottom:0;
+    scrollbar-width:thin;
+  }
+  body[data-app] .sidebar-workspace{
+    display:flex;align-items:center;gap:11px;
+    padding:5px 8px 17px;margin:0 0 12px;
+    border-bottom:1px solid var(--line);
+  }
+  body[data-app] .sidebar-emblem{
+    width:37px;height:37px;display:grid;place-items:center;flex:none;
+    border-radius:12px;background:var(--orange)!important;
+    color:#2a1d17;font-size:18px;font-weight:900;
+  }
+  body[data-app] .sidebar-workspace b,
+  body[data-app] .sidebar-workspace small{display:block}
+  body[data-app] .sidebar-workspace b{font-size:10px;letter-spacing:.12em}
+  body[data-app] .sidebar-workspace small{
+    margin-top:4px;color:var(--muted);font-size:8px;
+    font-weight:800;letter-spacing:.13em;
+  }
+  body[data-app] .sidebar-group{
+    display:block;flex:none;margin:7px 0 12px;padding:0;
+    border:0;
+  }
+  body[data-app] .sidebar-group>small{
+    display:block;padding:8px 10px 7px;
+    color:var(--soft);font-size:8px;font-weight:900;letter-spacing:.16em;
+  }
+  body[data-app] .sidebar-group button{
+    width:100%;min-height:42px;display:flex;align-items:center;gap:11px;
+    padding:9px 11px;margin:2px 0;
+    border:0;border-radius:10px;
+    background:transparent;color:var(--muted);
+    font-size:11px;font-weight:700;text-align:left;
+    transition:background .16s ease,color .16s ease;
+  }
+  body[data-app] .sidebar-group button i{
+    width:20px;flex:none;color:var(--soft);font-size:16px;
+    font-style:normal;text-align:center;
+  }
+  body[data-app] .sidebar-group button:hover{
+    background:var(--surface2)!important;color:var(--text);transform:none;
+  }
+  body[data-app] .sidebar-group button.active{
+    background:var(--surface2)!important;
+    color:var(--text);box-shadow:inset 3px 0 var(--orange);
+  }
+  body[data-app] .sidebar-group button.active i{color:var(--orange)}
+  body[data-app] .sidebar-bottom{
+    display:block;flex:none;margin-top:auto;padding-top:12px;
+    border-top:1px solid var(--line);
+  }
+  body[data-app] .sidebar-status{
+    display:flex;align-items:center;gap:8px;
+    padding:8px 10px 12px;color:var(--soft);font-size:9px;
+  }
+  body[data-app] .sidebar-status i{
+    width:7px;height:7px;flex:none;border-radius:50%;
+    background:var(--green);
+  }
+  body[data-app] .sidebar-bottom .logout{
+    width:100%;min-height:40px;display:flex;align-items:center;gap:10px;
+    padding:8px 10px;border:1px solid var(--line);border-radius:10px;
+    background:transparent;color:var(--muted);font-size:11px;text-align:left;
+  }
+  body[data-app] .main{
+    width:100%;max-width:1420px;margin:0;
+    padding:30px clamp(26px,3vw,48px) 76px;
+  }
+  body[data-app] .heading{align-items:center;margin-bottom:23px}
+  body[data-app] .heading h1{font-size:32px;letter-spacing:-.035em}
+  body[data-app] .heading p{font-size:12px}
+  body[data-app] .mobile-nav{display:none!important}
+}
+@media(min-width:1400px){
+  body[data-app] .layout{grid-template-columns:266px minmax(0,1fr)}
+  body[data-app] .sidebar{width:266px}
+  body[data-app] .main{padding-left:44px;padding-right:52px}
+}
+@media(min-width:701px) and (max-width:1080px){
+  body[data-app] .topbar{
+    height:68px;padding:0 18px;
+    grid-template-columns:200px minmax(150px,1fr) auto;column-gap:14px;
+  }
+  body[data-app] .layout{grid-template-columns:218px minmax(0,1fr);min-height:calc(100vh - 68px)}
+  body[data-app] .sidebar{top:68px;width:218px;height:calc(100vh - 68px);max-height:calc(100vh - 68px)}
+  body[data-app] .main{padding:24px 20px 70px}
+  body[data-app] .desktop-search{max-width:360px}
+}
+@media(min-width:701px) and (max-width:850px){
+  body[data-app] .topbar{grid-template-columns:175px minmax(0,1fr) auto;column-gap:10px;padding:0 12px}
+  body[data-app] .desktop-search{display:none}
+  body[data-app] .layout{grid-template-columns:196px minmax(0,1fr)}
+  body[data-app] .sidebar{width:196px;padding-left:9px;padding-right:9px}
+  body[data-app] .sidebar-group button{font-size:10px;gap:8px}
+  body[data-app] .main{padding:20px 14px 68px}
+}
+/* Le bandeau de forme reprend le dégradé signature du brouillon, pas les cartes. */
+body[data-app="athlete"] .hero>div:first-child{
+  background:linear-gradient(115deg,#3b3566 0%,#79505c 52%,#e0703a 100%)!important;
+  border:0;border-radius:22px;color:#fff;
+}
+body[data-app="athlete"] .hero>div:first-child small,
+body[data-app="athlete"] .hero>div:first-child p,
+body[data-app="athlete"] .hero>div:first-child b{color:#fff}
+body[data-app="athlete"] .hero>div:first-child .hero-track{background:rgba(255,255,255,.20)}
+body[data-app="athlete"] .hero>div:first-child .hero-track i{background:var(--green)!important}
+body[data-app="athlete"] .hero>div:nth-child(2){
+  background:var(--surface)!important;border:1px solid var(--line);
+}
+body[data-app="athlete"] .metric{background:var(--surface)!important;border-color:var(--line)}
+body[data-app="athlete"] .assistant-launch{background:var(--orange)!important;color:#fff}
+body[data-app="athlete"] .assistant-orb{background:var(--cyan)!important;color:#17232a}
+body[data-app] .feeling-scale-option{
+  background:var(--surface)!important;border-color:var(--line);color:var(--muted);
+}
+body[data-app] .feeling-scale-option[aria-pressed="true"]{
+  background:var(--surface2)!important;border-color:var(--mood);color:var(--text);
+}
+/* Mobile : on conserve les onglets bas du brouillon ; les écrans PC utilisent le rail. */
+@media(max-width:700px){
+  body[data-app] .topbar{height:calc(62px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 13px 0;display:flex}
+  body[data-app] .layout{display:block!important;min-height:calc(100dvh - 62px)}
+  body[data-app] .sidebar{display:none!important}
+  body[data-app] .main{max-width:none;margin:0;padding:16px 12px calc(100px + env(safe-area-inset-bottom))}
+  body[data-app] .mobile-nav{display:flex!important;position:fixed;left:0;right:0;bottom:0;z-index:45}
+  body[data-app="athlete"] .hero{grid-template-columns:1fr}
+  body[data-app="athlete"] .hero>div:first-child{border-radius:22px}
+}
+@media(prefers-reduced-motion:reduce){
+  body[data-app] .sidebar-group button{transition:none!important}
+}
+
+/* Le seul fondu de l'interface est le bandeau de forme signature du brouillon. */
+#athlys .hero > div:first-child{
+  background-image:linear-gradient(115deg,#3b3566 0%,#79505c 52%,#e0703a 100%)!important;
+  background-color:transparent!important;
+}
+
+/* Barre latérale indépendante — comportement de type application de bureau. */
+@media(min-width:701px){
+  body[data-app]{
+    --athlys-sidebar-width:264px;
+    height:100vh;
+    overflow:hidden;
+  }
+  body[data-app] #athlys{
+    height:100vh;
+    min-height:100vh;
+    overflow:hidden;
+  }
+  /* Panneau latéral fixe, avec son propre défilement vertical. */
+  body[data-app] .sidebar{
+    position:fixed!important;
+    left:0;top:0;bottom:0;
+    z-index:70;
+    width:var(--athlys-sidebar-width)!important;
+    height:100vh!important;
+    max-height:100vh!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain;
+    scrollbar-gutter:stable;
+    padding:17px 13px 14px;
+    border-right:1px solid var(--line)!important;
+    border-bottom:0!important;
+    background:var(--surface)!important;
+  }
+  /* Le logo et le titre de l'espace partagent une seule ligne. */
+  body[data-app] .sidebar-workspace{
+    min-height:53px;
+    display:flex!important;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-start;
+    gap:11px;
+    padding:3px 9px 15px;
+    margin:0 0 13px;
+    border-bottom:1px solid var(--line);
+  }
+  body[data-app] .sidebar-emblem{
+    width:34px;height:34px;min-width:34px;
+    display:flex!important;align-items:center;justify-content:center;
+    padding:0!important;margin:0;
+    background:transparent!important;
+    border-radius:0!important;
+    color:inherit;
+    overflow:hidden;
+  }
+  body[data-app] .sidebar-emblem img{
+    display:block;width:34px;height:34px;
+    object-fit:contain;border-radius:0;
+  }
+  body[data-app] .sidebar-workspace>span:last-child{
+    min-width:0;display:flex;flex-direction:column;justify-content:center;
+  }
+  body[data-app] .sidebar-workspace b{
+    display:block;margin:0;
+    color:var(--text);font-size:11px;line-height:1.25;
+    font-weight:900;letter-spacing:.13em;white-space:nowrap;
+  }
+  body[data-app] .sidebar-workspace small{
+    display:block;margin:4px 0 0;
+    color:var(--muted);font-size:8px;line-height:1.2;
+    font-weight:800;letter-spacing:.13em;
+  }
+  /* La barre supérieure reste attachée à la zone de travail, pas à la sidebar. */
+  body[data-app] .topbar{
+    position:fixed!important;
+    top:0;left:var(--athlys-sidebar-width);right:0;
+    z-index:65;
+    width:auto;
+    height:74px;
+    padding:0 26px;
+    display:flex!important;
+    align-items:center;
+    justify-content:flex-start;
+    gap:18px;
+    border-bottom:1px solid var(--line);
+    background:var(--bg)!important;
+  }
+  body[data-app] .topbar>.brand{display:none!important}
+  body[data-app] .desktop-search{
+    display:flex!important;
+    flex:1 1 420px;
+    width:auto;
+    max-width:620px;
+    min-width:180px;
+    margin:0;
+  }
+  body[data-app] .head-actions{
+    display:flex;flex:none;align-items:center;
+    gap:10px;margin-left:auto;
+  }
+  /* Le contenu central défile seul, sans entraîner ni l'en-tête ni le menu. */
+  body[data-app] .layout{
+    display:block!important;
+    width:auto;max-width:none;
+    min-height:0;height:100vh;
+    margin:0 0 0 var(--athlys-sidebar-width);
+    padding:74px 0 0;
+    overflow:hidden;
+  }
+  body[data-app] .main{
+    width:100%;max-width:none;
+    height:calc(100vh - 74px);
+    min-height:0;
+    margin:0;
+    padding:30px clamp(28px,3.2vw,54px) 76px;
+    overflow-x:hidden;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scrollbar-gutter:stable;
+  }
+  body[data-app] .mobile-nav{display:none!important}
+}
+@media(min-width:1400px){
+  body[data-app]{--athlys-sidebar-width:276px}
+  body[data-app] .sidebar{padding-left:16px;padding-right:16px}
+  body[data-app] .topbar{padding-left:34px;padding-right:38px}
+}
+@media(min-width:701px) and (max-width:900px){
+  body[data-app]{--athlys-sidebar-width:226px}
+  body[data-app] .sidebar{padding-left:9px;padding-right:9px}
+  body[data-app] .topbar{padding-left:16px;padding-right:16px;gap:10px}
+  body[data-app] .desktop-search{max-width:none}
+  body[data-app] .head-actions{gap:6px}
+  body[data-app] .head-actions .role-tag{display:none}
+  body[data-app] .main{padding:24px 20px 70px}
+}
+
+/* Espace coach : identité visuelle identique à l'espace athlète.
+   Seules les données et les fonctions dépendent du rôle ; pas la direction artistique. */
+body[data-app="coach"]{
+  --bg:#fbf6ef;
+  --surface:#ffffff;
+  --surface2:#f4eee6;
+  --line:#ebe5db;
+  --text:#2a2640;
+  --muted:#6c7488;
+  --soft:#928b91;
+  --cyan:#1a9bc0;
+  --cyan-soft:#e4f1f3;
+  --orange:#e0703a;
+  --green:#4f9d2a;
+  --red:#c45f5b;
+  --btn:#e0703a;
+  --btnt:#ffffff;
+  font-family:ui-rounded,"SF Pro Rounded","Avenir Next Rounded",Nunito,"Segoe UI",system-ui,sans-serif;
+  font-size:17px;
+  background:var(--bg);
+  color:var(--text);
+}
+/* Même palette indigo nocturne lorsque le thème sombre est actif. */
+:root[data-theme="dark"] body[data-app="coach"]{
+  --bg:#17142b;
+  --surface:#221e3d;
+  --surface2:#2c274a;
+  --line:#352f5c;
+  --text:#f4f0ff;
+  --muted:#b2aacb;
+  --soft:#8c84a5;
+  --cyan:#43b9d2;
+  --cyan-soft:#26384e;
+  --orange:#f58a55;
+  --green:#8bd33f;
+  --red:#e47d77;
+  --btn:#e0703a;
+  --btnt:#ffffff;
+}
+/* Cartes, boutons, formulaires et navigation : mêmes rayons et mêmes reliefs. */
+body[data-app="coach"] .card,
+body[data-app="coach"] .metric,
+body[data-app="coach"] .exercise,
+body[data-app="coach"] .health-provider,
+body[data-app="coach"] .athlys-template,
+body[data-app="coach"] .assistant-panel,
+body[data-app="coach"] .modal{
+  border-radius:22px!important;
+  box-shadow:0 1px 2px rgba(34,48,74,.05),0 6px 18px rgba(34,48,74,.04)!important;
+  background:var(--surface)!important;
+  border-color:var(--line);
+}
+body[data-app="coach"] .card{padding:18px}
+body[data-app="coach"] .card:hover{box-shadow:0 1px 2px rgba(34,48,74,.05),0 6px 18px rgba(34,48,74,.04)!important}
+body[data-app="coach"] .btn{
+  border-radius:999px!important;
+  min-height:42px;
+  padding:11px 20px;
+}
+body[data-app="coach"] .btn.primary{
+  background:var(--orange)!important;
+  border-color:var(--orange)!important;
+  color:#ffffff!important;
+}
+body[data-app="coach"] .btn.secondary{
+  background:var(--surface)!important;
+  color:var(--text)!important;
+  border-color:var(--line)!important;
+}
+body[data-app="coach"] .hero>div{
+  border-radius:18px;
+  background:var(--surface)!important;
+  border:1px solid var(--line);
+}
+body[data-app="coach"] .hero>div:first-child{
+  background:linear-gradient(115deg,#3b3566 0%,#79505c 52%,#e0703a 100%)!important;
+  border:0;
+  border-radius:22px;
+  color:#fff;
+}
+body[data-app="coach"] .hero>div:first-child small,
+body[data-app="coach"] .hero>div:first-child p,
+body[data-app="coach"] .hero>div:first-child b{color:#fff}
+body[data-app="coach"] .hero>div:first-child .hero-track{background:rgba(255,255,255,.20)}
+body[data-app="coach"] .hero>div:first-child .hero-track i{background:var(--green)!important}
+body[data-app="coach"] .hero>div:nth-child(2){background:var(--surface)!important;border:1px solid var(--line)}
+body[data-app="coach"] .metric{background:var(--surface)!important;border-color:var(--line)}
+body[data-app="coach"] .progress{background:var(--line)}
+body[data-app="coach"] .progress i{background:var(--cyan)!important}
+body[data-app="coach"] .pill{background:var(--surface2);border-color:var(--line);border-radius:999px}
+body[data-app="coach"] .symbol{background:var(--surface2);color:var(--cyan)}
+body[data-app="coach"] .date-box{background:var(--cyan-soft);color:var(--cyan)}
+body[data-app="coach"] .assistant-launch{
+  background:var(--orange)!important;
+  color:#fff!important;
+  border-radius:999px!important;
+  box-shadow:0 6px 18px rgba(34,48,74,.12);
+}
+body[data-app="coach"] .assistant-orb{background:var(--cyan)!important;color:#17232a}
+body[data-app="coach"] .assistant-panel header{background:var(--surface2)!important}
+body[data-app="coach"] input,
+body[data-app="coach"] select,
+body[data-app="coach"] textarea{
+  background:var(--bg);
+  border-color:var(--line);
+  color:var(--text);
+  border-radius:14px;
+}
+body[data-app="coach"] .role-tag{color:var(--cyan)}
+body[data-app="coach"] .sidebar{background:var(--surface)!important}
+body[data-app="coach"] .sidebar-group button.active{
+  background:var(--surface2)!important;
+  color:var(--text);
+  box-shadow:inset 3px 0 var(--orange);
+}
+body[data-app="coach"] .sidebar-group button.active i{color:var(--orange)}
+body[data-app="coach"] .mobile-nav{
+  background:var(--surface)!important;
+  border-radius:22px 22px 0 0;
+  box-shadow:0 -4px 16px rgba(20,28,43,.06);
+}
+body[data-app="coach"] .mobile-nav button.active{
+  background:var(--cyan-soft);
+  color:var(--cyan);
+  border-radius:16px;
+}
+body[data-app="coach"] .feeling-scale-option{
+  background:var(--surface)!important;
+  border-radius:15px;
+}
+@media(max-width:700px){
+  body[data-app="coach"] .hero{grid-template-columns:1fr}
+  body[data-app="coach"] .hero>div:first-child{border-radius:22px}
+}
+
+
+/* Logo officiel Athlys — affichage permanent dans l'en-tête bureau. */
+@media (min-width:701px){
+  body[data-app] .topbar>.brand{
+    display:flex!important;
+    align-items:center;
+    flex:0 0 auto;
+    width:190px;
+    min-width:160px;
+    margin:0 8px 0 0;
+  }
+  body[data-app] .topbar>.brand img{
+    display:block!important;
+    width:174px!important;
+    height:48px!important;
+    max-width:100%;
+    object-fit:contain;
+    object-position:left center;
+    border-radius:0!important;
+  }
+}
+@media (max-width:700px){
+  body[data-app] .topbar>.brand{display:flex!important}
+  body[data-app] .topbar>.brand img{width:126px!important;height:38px!important;object-fit:contain}
+}
+
+
+/* Pilotage hebdomadaire : reprend exactement le fondu de FORME DÉCLARÉE. */
+body[data-app="coach"] .coach-week-card{
+  background:linear-gradient(115deg,#3b3566 0%,#79505c 52%,#e0703a 100%)!important;
+  border:0!important;
+  color:#fff!important;
+}
+body[data-app="coach"] .coach-week-card .card-head h2,
+body[data-app="coach"] .coach-week-card .pulse-head small,
+body[data-app="coach"] .coach-week-card .pulse-head h3,
+body[data-app="coach"] .coach-week-card .pulse-period,
+body[data-app="coach"] .coach-week-card .pulse-grid b,
+body[data-app="coach"] .coach-week-card .pulse-grid small,
+body[data-app="coach"] .coach-week-card .pulse-footer,
+body[data-app="coach"] .coach-week-card .pulse-alerts b,
+body[data-app="coach"] .coach-week-card .pulse-alerts span{color:#fff!important}
+body[data-app="coach"] .coach-week-card .pulse-period{border-color:rgba(255,255,255,.3)}
+body[data-app="coach"] .coach-week-card .pulse-grid>div{background:rgba(255,255,255,.13)}
+body[data-app="coach"] .coach-week-card .pulse-grid i{background:rgba(255,255,255,.22)}
+body[data-app="coach"] .coach-week-card .pulse-grid em{background:#fff}
+body[data-app="coach"] .coach-week-card .pulse-footer button{color:#fff;text-decoration:underline;text-underline-offset:3px}
+body[data-app="coach"] .coach-week-card .pulse-alerts>div{background:rgba(255,255,255,.12);border-left-color:rgba(255,255,255,.8)}
+/* Le logo reste dans la barre latérale, jamais en double dans l'en-tête bureau. */
+@media(min-width:701px){
+  body[data-app] .topbar>.brand{display:none!important}
+}
+
+
+/* Version bureau sur navigateur : fondu identique à FORME DÉCLARÉE
+   et logo unique conservé dans la barre latérale. */
+@media (min-width:701px){
+  body[data-app="coach"] .coach-week-card{
+    background-image:linear-gradient(115deg,#3b3566 0%,#79505c 52%,#e0703a 100%)!important;
+    background-color:transparent!important;
+    border:0!important;
+    color:#fff!important;
+  }
+  body[data-app="coach"] .coach-week-card .card-head h2,
+  body[data-app="coach"] .coach-week-card .pulse-head small,
+  body[data-app="coach"] .coach-week-card .pulse-head h3,
+  body[data-app="coach"] .coach-week-card .pulse-period,
+  body[data-app="coach"] .coach-week-card .pulse-grid b,
+  body[data-app="coach"] .coach-week-card .pulse-grid small,
+  body[data-app="coach"] .coach-week-card .pulse-footer,
+  body[data-app="coach"] .coach-week-card .pulse-alerts b,
+  body[data-app="coach"] .coach-week-card .pulse-alerts span{color:#fff!important}
+  body[data-app="coach"] .coach-week-card .pulse-period{border-color:rgba(255,255,255,.3)}
+  body[data-app="coach"] .coach-week-card .pulse-grid>div{background:rgba(255,255,255,.13)}
+  body[data-app="coach"] .coach-week-card .pulse-grid i{background:rgba(255,255,255,.22)}
+  body[data-app="coach"] .coach-week-card .pulse-grid em{background:#fff}
+  body[data-app="coach"] .coach-week-card .pulse-footer button{color:#fff;text-decoration:underline;text-underline-offset:3px}
+  body[data-app="coach"] .coach-week-card .pulse-alerts>div{background:rgba(255,255,255,.12);border-left-color:rgba(255,255,255,.8)}
+  body[data-app] .topbar>.brand{display:none!important}
+  body[data-app] .sidebar-workspace{display:flex!important}
+  body[data-app] .sidebar-emblem img{display:block!important}
+}
+
+
+/* Correctif visuel ferme : la carte Pilotage hebdomadaire doit rester une vraie bulle. */
+#athlys section.card.coach-week-card,
+body[data-app="coach"] #athlys section.coach-week-card{
+  display:block!important;width:100%!important;min-height:150px;
+  padding:24px!important;margin:18px 0 24px!important;
+  border:0!important;border-radius:22px!important;
+  background:linear-gradient(115deg,#3b3566 0%,#79505c 52%,#e0703a 100%)!important;
+  background-color:#79505c!important;color:#fff!important;
+  box-shadow:0 14px 34px rgba(59,53,102,.18)!important;overflow:hidden;
+}
+#athlys section.card.coach-week-card .card-head h2,
+#athlys section.card.coach-week-card .pulse-head small,
+#athlys section.card.coach-week-card .pulse-head h3,
+#athlys section.card.coach-week-card .pulse-period,
+#athlys section.card.coach-week-card .pulse-grid b,
+#athlys section.card.coach-week-card .pulse-grid small,
+#athlys section.card.coach-week-card .pulse-footer,
+#athlys section.card.coach-week-card .pulse-alerts b,
+#athlys section.card.coach-week-card .pulse-alerts span{color:#fff!important}
+#athlys section.card.coach-week-card .pulse-grid>div{background:rgba(255,255,255,.15)!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:14px!important}
+#athlys section.card.coach-week-card .pulse-grid i{background:rgba(255,255,255,.24)!important}
+#athlys section.card.coach-week-card .pulse-grid em{background:#fff!important}
+#athlys section.card.coach-week-card .pulse-period{border-color:rgba(255,255,255,.35)!important}
+#athlys section.card.coach-week-card .pulse-footer button{color:#fff!important}
+#athlys section.card.coach-week-card .pulse-alerts>div{background:rgba(255,255,255,.14)!important}

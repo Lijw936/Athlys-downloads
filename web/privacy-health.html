@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a1427">
+<title>Athlys — Données de santé et objets connectés</title>
+<style>
+:root{color-scheme:dark;background:#0a1427;color:#f2f7fb;font:16px/1.65 system-ui,-apple-system,sans-serif}
+body{max-width:820px;margin:0 auto;padding:32px 22px 64px}
+h1{font-size:clamp(28px,5vw,42px);line-height:1.1;letter-spacing:-.04em}
+h2{margin-top:30px;font-size:19px}
+p,li{color:#c2cede}
+a{color:#29c4df}
+small{color:#91a3ba}
+</style>
+</head>
+<body>
+<p><a href="/">← Retour à Athlys</a></p>
+<h1>Données de santé et objets connectés</h1>
+<p>Cette notice décrit la passerelle de lecture entre Athlys et les plateformes de santé du téléphone. Elle complète les informations de confidentialité présentées dans l’application.</p>
+<h2>Sources et autorisations</h2>
+<p>Sur Android, Athlys peut lire les données autorisées dans Android Health Connect. Sur iOS, l’application native Athlys pourra lire les données autorisées dans Apple HealthKit. Les applications des fabricants (par exemple Garmin Connect, Polar Flow, WHOOP ou Samsung Health) doivent d’abord synchroniser leurs données vers la plateforme santé du téléphone. La disponibilité de chaque mesure dépend du fabricant, de l’appareil, de sa configuration et des autorisations accordées.</p>
+<p>Athlys demande deux niveaux d’autorisation : un consentement Athlys distinct pour chaque catégorie (activité, récupération et données corporelles), puis les permissions de lecture Android Health Connect correspondantes. Les types actuellement importés sont les pas, la distance, les calories actives, la fréquence cardiaque et le poids. La catégorie cycle est prévue par l’API mais n’est pas encore importée dans la version Android actuelle. Athlys ne demande aucune autorisation d’écriture dans Health Connect et ne modifie pas les données de la plateforme.</p>
+<h2>Finalités et fonctionnement</h2>
+<p>Sur Android, les mesures sont lues à la demande sur une fenêtre de 30 jours, regroupées par type puis transmises à l’API Supabase `athlys-health-connect` v1. Elles sont stockées dans la table dédiée `health_connect_records`, sous l’identité du compte Athlys authentifié. Les identifiants stables et les clés d’idempotence évitent les doublons lors des renvois. La synchronisation n’est pas continue et ne s’exécute pas en arrière-plan. Les données servent à compléter le suivi sportif et les analyses de l’athlète. Les données manquantes ne sont pas estimées.</p>
+<h2>Partage avec l’entraîneur</h2>
+<p>Les enregistrements Health Connect transmis à l’API sont privés et ne sont pas partagés avec l’entraîneur par défaut. Le partage éventuel d’autres mesures Athlys reste régi par les réglages propres à ces mesures. Les règles RLS du compte authentifié limitent la lecture et la modification des enregistrements Health Connect.</p>
+<h2>Traitement et conservation</h2>
+<p>Les mesures Health Connect sont enregistrées dans `health_connect_records` et les décisions de consentement dans `health_connect_consent_events`, dans la base Athlys associée au compte. Elles peuvent être consultées par les fonctions d’analyse Athlys autorisées pour ce compte. Certaines fonctions de réponse de l’assistant peuvent transmettre un contexte sportif minimisé au fournisseur de modèle configuré ; les requêtes de recherche Web externes ne doivent pas contenir les mesures personnelles. L’utilisateur doit consulter les informations générales de confidentialité et les conditions des services utilisés dans Athlys pour connaître l’ensemble des traitements applicables.</p>
+<p>Athlys ne déclenche pas de transfert direct vers le fabricant de la montre. Les autorisations et synchronisations vers Apple Santé ou Health Connect restent contrôlées dans les applications et réglages du téléphone.</p>
+<h2>Retrait du consentement et suppression</h2>
+<p>L’utilisateur peut décocher une catégorie dans la page « Objets connectés » et enregistrer ses choix : le retrait du consentement supprime les enregistrements Athlys de cette catégorie. Il peut également supprimer toutes les mesures importées depuis cette page. L’accès natif peut être révoqué depuis les réglages Android Health Connect. La suppression des données Athlys ne supprime pas les données conservées dans l’application du fabricant ou dans Health Connect.</p>
+<h2>Limites</h2>
+<p>Les données disponibles dépendent de l’appareil, du fabricant, des applications intermédiaires, des autorisations accordées et des restrictions de la plateforme. Cette passerelle ne constitue pas un dispositif médical. Les mesures sont indicatives et ne remplacent pas l’avis d’un professionnel de santé.</p>
+<p><small>Notice fonctionnelle Athlys — mise à jour le 3 novembre 2026.</small></p>
+</body>
+</html>
