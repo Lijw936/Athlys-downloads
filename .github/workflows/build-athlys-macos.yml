@@ -1,0 +1,71 @@
+name: Build and publish Athlys macOS (public source, free public runner)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-athlys-macos.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - name: Checkout sanitized public Athlys source
+        uses: actions/checkout@v4
+        with:
+          ref: build/athlys-public-source
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Create macOS application icon
+        run: |
+          mkdir -p /tmp/athlys.iconset
+          for size in 16 32 128 256 512; do
+            sips -z "$size" "$size" web/assets/athlys-logo.png --out "/tmp/athlys.iconset/icon_${size}x${size}.png" >/dev/null
+            double=$((size * 2))
+            sips -z "$double" "$double" web/assets/athlys-logo.png --out "/tmp/athlys.iconset/icon_${size}x${size}@2x.png" >/dev/null
+          done
+          iconutil -c icns /tmp/athlys.iconset -o desktop/athlys.icns
+          test -s desktop/athlys.icns
+
+      - name: Validate Athlys Desktop
+        working-directory: desktop
+        run: |
+          node --check main.cjs
+          node --check copy-web.cjs
+
+      - name: Build Apple Silicon and Intel installers
+        working-directory: desktop
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+        run: |
+          npm install --prefer-online --no-audit --no-fund
+          npm run dist:mac
+          test -s dist/Athlys-1.2.1-arm64.dmg
+          test -s dist/Athlys-1.2.1-x64.dmg
+
+      - name: Prepare checksums
+        working-directory: desktop/dist
+        run: shasum -a 256 *.dmg *.zip > SHA256SUMS.txt
+
+      - name: Publish macOS installers
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view athlys-macos-latest --repo Lijw936/Athlys-downloads
+          gh release upload athlys-macos-latest desktop/dist/*.dmg desktop/dist/*.zip desktop/dist/SHA256SUMS.txt --clobber --repo Lijw936/Athlys-downloads
+
+      - name: Verify public download URLs
+        run: |
+          for asset in Athlys-1.2.1-arm64.dmg Athlys-1.2.1-x64.dmg; do
+            url="https://github.com/Lijw936/Athlys-downloads/releases/download/athlys-macos-latest/$asset"
+            code="$(curl --silent --show-error --head --location --output /dev/null --write-out '%{http_code}' --max-time 60 "$url")"
+            test "$code" = "200" || { echo "Asset verification failed: $asset (HTTP $code)"; exit 1; }
+          done
