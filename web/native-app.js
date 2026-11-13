@@ -1,0 +1,11 @@
+import { App } from '@capacitor/app';
+import { LocalNotifications } from '@capacitor/local-notifications';
+import { SplashScreen } from '@capacitor/splash-screen';
+import { Health } from '@capgo/capacitor-health';
+import { registerPlugin } from '@capacitor/core';
+const HealthConnectBackground = registerPlugin('HealthConnectBackground');
+window.athlysApp = App;
+window.athlysSplashScreen = SplashScreen;
+window.athlysLocalNotifications = LocalNotifications;
+window.athlysHealth = Health;
+window.AthlysHealthBackground = HealthConnectBackground;

@@ -1,0 +1,17 @@
+{
+  "id": "/mobile.html",
+  "name": "Athlys Mobile",
+  "short_name": "Athlys",
+  "description": "Athlys — entraînement, coaching et suivi mobile.",
+  "lang": "fr-FR",
+  "start_url": "/mobile.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#13213c",
+  "theme_color": "#13213c",
+  "icons": [
+    {"src": "/assets/athlys-logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+    {"src": "/assets/athlys-logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+  ]
+}
