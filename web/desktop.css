@@ -1,0 +1,105 @@
+/* Athlys Browser Workspace — desktop-first shell for macOS, Windows and Linux */
+@media (min-width:701px){
+  html,body{min-width:760px}
+  #athlys{min-height:100vh}
+  .topbar{
+    height:76px;padding:0 clamp(22px,3vw,48px);
+    display:grid;grid-template-columns:245px minmax(220px,1fr) auto;column-gap:34px;
+    background:rgba(23,19,41,.94);backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.065)
+  }
+  :root[data-theme="light"] .topbar{background:rgba(245,241,248,.94)}
+  .brand{min-width:0}
+  .brand img{width:40px;height:40px}
+  .brand b{font-size:15px;letter-spacing:.22em}
+  .brand small{font-size:10px}
+  .desktop-search{
+    display:flex;align-items:center;gap:11px;width:min(100%,510px);height:42px;
+    margin:auto 0;padding:0 12px;border:1px solid var(--line);border-radius:12px;
+    background:var(--surface);color:var(--muted)
+  }
+  .desktop-search>span{font-size:22px;line-height:1;color:var(--soft)}
+  .desktop-search input{flex:1;min-width:0;height:38px;padding:0;border:0;outline:0!important;
+    background:transparent;color:var(--text);font-size:11px;box-shadow:none}
+  .desktop-search input::placeholder{color:var(--soft)}
+  .desktop-search kbd{flex:none;padding:4px 7px;border:1px solid var(--line);border-radius:6px;
+    background:var(--surface2);color:var(--soft);font:10px system-ui;white-space:nowrap}
+  .head-actions{gap:12px}
+  .desktop-create{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+  .role-tag{font-size:9px;letter-spacing:.15em}
+  .layout{
+    display:grid;grid-template-columns:246px minmax(0,1fr);max-width:1800px;
+    min-height:calc(100vh - 76px);margin:0 auto
+  }
+  .sidebar{
+    position:sticky;top:76px;align-self:start;height:calc(100vh - 76px);overflow-y:auto;
+    padding:20px 14px 16px;border-right:1px solid rgba(255,255,255,.065);
+    background:rgba(21,17,38,.46);gap:0
+  }
+  :root[data-theme="light"] .sidebar{background:rgba(255,255,255,.55)}
+  .sidebar-workspace{display:flex;align-items:center;gap:10px;padding:5px 8px 19px;margin-bottom:12px;
+    border-bottom:1px solid var(--line)}
+  .sidebar-emblem{width:34px;height:34px;display:grid;place-items:center;flex:none;border-radius:11px;
+    background:var(--orange);color:white;font-size:17px;font-weight:900}
+  .sidebar-workspace b,.sidebar-workspace small{display:block}
+  .sidebar-workspace b{font-size:10px;letter-spacing:.13em}
+  .sidebar-workspace small{margin-top:4px;color:var(--soft);font-size:8px;font-weight:800;letter-spacing:.12em}
+  .sidebar-group{margin:8px 0 13px}
+  .sidebar-group>small{display:block;padding:8px 10px;color:var(--soft);font-size:8px;
+    font-weight:900;letter-spacing:.16em}
+  .sidebar-group button,.sidebar-bottom .logout{
+    width:100%;display:flex;align-items:center;gap:11px;min-height:39px;padding:8px 10px;
+    border:0;border-radius:9px;background:transparent;color:var(--muted);
+    text-align:left;font-size:11px;font-weight:650;transition:background .15s,color .15s
+  }
+  .sidebar-group button i,.sidebar-bottom .logout i{
+    width:19px;flex:none;color:var(--soft);font-size:15px;font-style:normal;text-align:center
+  }
+  .sidebar-group button:hover,.sidebar-bottom .logout:hover{background:var(--surface2);color:var(--text)}
+  .sidebar-group button.active{background:rgba(232,117,53,.12);color:var(--text);box-shadow:inset 2px 0 var(--orange)}
+  .sidebar-group button.active i{color:var(--orange)}
+  .sidebar-bottom{margin-top:auto;padding-top:13px;border-top:1px solid var(--line)}
+  .sidebar-status{display:flex;align-items:center;gap:8px;padding:7px 10px 11px;color:var(--soft);font-size:9px}
+  .sidebar-status i{width:6px;height:6px;flex:none;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(139,216,62,.12)}
+  .sidebar-bottom .logout{color:var(--muted)}
+  .main{width:100%;max-width:none;margin:0;padding:34px clamp(26px,3.2vw,58px) 76px}
+  .heading{margin-bottom:25px;align-items:center}
+  .heading h1{font-size:clamp(29px,2.3vw,38px);letter-spacing:-.045em}
+  .heading p{font-size:12px;max-width:690px}
+  .heading small{font-size:9px;letter-spacing:.17em}
+  .actions{gap:9px}
+  .btn{min-height:40px;padding:10px 15px;font-size:10px}
+  .metrics{gap:13px;margin-bottom:20px}
+  .metric{padding:17px 18px;border-radius:13px}
+  .metric small,.metric span{font-size:10px}
+  .metric b{font-size:27px;margin:11px 0 5px}
+  .columns{grid-template-columns:minmax(0,1.3fr) minmax(300px,.82fr);gap:18px}
+  .card{padding:20px 21px;margin-bottom:17px;border-radius:15px}
+  .card-head{margin-bottom:16px}
+  .card h2{font-size:14px}
+  .coach-pulse{padding:4px 0}
+  .pulse-head h3{font-size:19px}
+  .pulse-grid{gap:12px}
+  .pulse-grid>div{padding:15px}
+  .pulse-grid b{font-size:26px}
+  .pulse-grid small{font-size:10px}
+  .team-layout{grid-template-columns:minmax(0,1.25fr) minmax(290px,.75fr);gap:18px}
+  .team-profile{padding:20px}
+  .mobile-nav{display:none!important}
+  .assistant{right:24px;bottom:24px}
+  .assistant-launch{box-shadow:0 8px 24px rgba(0,0,0,.22)}
+  .assistant-panel{right:0;bottom:62px;width:370px;max-height:min(680px,calc(100vh - 120px))}
+  .modal-backdrop{align-items:center;padding:28px}
+  .modal{max-height:calc(100vh - 56px)}
+}
+@media (min-width:701px) and (max-width:1100px){
+  .topbar{grid-template-columns:195px minmax(160px,1fr) auto;column-gap:16px;padding:0 20px}
+  .layout{grid-template-columns:205px minmax(0,1fr)}
+  .sidebar{padding-left:11px;padding-right:11px}
+  .main{padding:27px 23px 65px}
+  .desktop-search{max-width:390px}
+  .desktop-search kbd{display:none}
+  .columns{grid-template-columns:minmax(0,1fr) minmax(250px,.8fr);gap:12px}
+}
+@media (max-width:700px){.desktop-search,.desktop-create{display:none!important}}
+@media (prefers-reduced-motion:reduce){.sidebar-group button,.btn{transition:none!important}}
