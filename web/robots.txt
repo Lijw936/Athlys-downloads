@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://athlys-vitrine.vercel.app/sitemap.xml
