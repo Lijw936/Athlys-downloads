@@ -17,9 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: heat936/Athlys2
-          ref: 1b98e27c0ca12b62e92f920c92a9b004c96b58a4
-          token: ${{ secrets.ATHLYS_SOURCE_READ_TOKEN }}
+          repository: Lijw936/Athlys-downloads
+          ref: build/athlys-public-source
       - uses: actions/setup-node@v4
         with:
           node-version: 22
