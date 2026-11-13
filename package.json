@@ -1,0 +1,32 @@
+{
+  "name": "athlys-android",
+  "version": "1.2.0",
+  "private": true,
+  "description": "Athlys mobile coaching app",
+  "scripts": {
+    "android:sync": "cap sync android",
+    "verify:release": "npm run test:local-intelligence && npm run test:supabase-migrations && node scripts/verify-release.cjs",
+    "build:web": "esbuild web/native-app.js --bundle --format=iife --outfile=web/native-app.bundle.js && esbuild web/intent-launcher.js --bundle --format=iife --outfile=web/intent-launcher.bundle.js && esbuild web/supabase-client.js --bundle --format=iife --outfile=web/supabase-client.bundle.js",
+    "test:local-intelligence": "node --test tests/athlys-local-intelligence.test.cjs",
+    "test": "npm run test:local-intelligence",
+    "test:supabase-migrations": "node --test tests/supabase-migrations.test.mjs > /tmp/athlys-migrations-tests.log 2>&1 || { cat /tmp/athlys-migrations-tests.log; exit 1; }; cat /tmp/athlys-migrations-tests.log; grep -Eq '(^# tests 7$|^ℹ tests 7$)' /tmp/athlys-migrations-tests.log; grep -Eq '(^# pass 7$|^ℹ pass 7$)' /tmp/athlys-migrations-tests.log; grep -Eq '(^# fail 0$|^ℹ fail 0$)' /tmp/athlys-migrations-tests.log"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/core": "^7.4.3",
+    "@capacitor/local-notifications": "^7.0.0",
+    "@capacitor/app": "^7.0.0",
+    "@supabase/supabase-js": "2.118.0",
+    "@capgo/capacitor-health": "7.0.2",
+    "@capacitor/ios": "^7.4.3",
+    "@electric-sql/pglite": "0.5.16",
+    "@capacitor/splash-screen": "^7.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.3",
+    "esbuild": "^0.25.11"
+  },
+  "overrides": {
+    "tslib": "2.8.1"
+  }
+}
