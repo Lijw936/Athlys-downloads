@@ -1,0 +1,85 @@
+{
+  "name": "athlys-desktop",
+  "version": "1.2.1",
+  "private": true,
+  "description": "Athlys Desktop — espace Windows de pilotage et d'analyse pour entraîneurs",
+  "main": "main.cjs",
+  "scripts": {
+    "dist": "node copy-web.cjs && electron-builder --win nsis portable",
+    "dist:mac": "node copy-web.cjs && electron-builder --mac dmg zip --arm64 && electron-builder --mac dmg zip --x64",
+    "check": "node --check main.cjs && node --check copy-web.cjs"
+  },
+  "devDependencies": {
+    "electron": "^39.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.athlys.desktop",
+    "productName": "Athlys",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.cjs",
+      "copy-web.cjs",
+      "athlys.ico",
+      "package.json",
+      "athlys.icns",
+      "offline.html",
+      "web/**/*"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "athlys.ico",
+      "artifactName": "Athlys-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Athlys"
+    },
+    "portable": {
+      "artifactName": "Athlys-Portable-${version}-${arch}.${ext}"
+    },
+    "mac": {
+      "category": "public.app-category.healthcare-fitness",
+      "icon": "athlys.icns",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "artifactName": "Athlys-${version}-${arch}.${ext}",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    }
+  }
+}
