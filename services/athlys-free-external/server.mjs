@@ -27,15 +27,17 @@ export function convertSource(text){
  const parsed=engine.parseProgram(text);
  const questions=new Set(parsed.global_ambiguities.map(x=>x.message));
  questions.add('Vérifier les blocs et préciser séparément la durée totale et le RPE de chaque séance.');
- const sessions=parsed.sessions.map(s=>({day:s.title,start:s.source_span.start,end:s.source_span.end,planned_date:null,duration_total_minutes:null,blocks:s.blocks.map(b=>{
-  const start=b.source_start,end=b.source_end;
+ const sessions=parsed.sessions.map(s=>({day:s.title,start:s.source_span.start,end:s.source_span.end,planned_date:null,duration_total_minutes:null,blocks:(()=>{let cursor=s.source_span.start;return s.blocks.map(b=>{
+  let start=b.source_start,end=b.source_end;
+  if(!Number.isInteger(start)||!Number.isInteger(end)||start<cursor||text.slice(start,end)!==b.text){start=text.indexOf(b.text,cursor);end=start+b.text.length;}
+  if(start<cursor||end>s.source_span.end)deny('SOURCE_OFFSET_MISMATCH');cursor=end;
   if(!Number.isInteger(start)||!Number.isInteger(end)||start<0||end>text.length||text.slice(start,end)!==b.text)deny('SOURCE_OFFSET_MISMATCH');
   // Numeric interpretations stay proposals: preserve only exact source quotes in fields.
   const fields=[];
   const rpe=/\bRPE\s*(?:[:=@]|de)?\s*(\d{1,2}(?:[.,]\d+)?)\b/gi;let m;
   while((m=rpe.exec(b.text))!==null)fields.push({field:'RPE',raw:m[1],start:start+m.index,end:start+m.index+m[0].length,quote:m[0]});
   return {type:b.type,text:b.text,start,end,active:!/(?:ne\s+pas\s+faire|pas de|annul|supprim)/i.test(b.text),fields,requires_coach_review:true};
- })}));
+ });})()}));
  return {sessions,clarification_questions:[...questions],source_sha256:createHash('sha256').update(text).digest('hex'),source_length:text.length,requires_coach_review:true,automatically_imported:false};
 }
 export function infer(task,text,role){
@@ -49,7 +51,7 @@ export function infer(task,text,role){
  const classification=engine.classifyIntent(text);
  return {...common,reply:'Précise l’indicateur à expliquer (RPE, CTL, ATL, ACWR, EWMA), ou colle un programme dans l’import du coach. Le LM génératif n’est pas disponible sur ce service gratuit.',intent:classification.intent,intent_experimental:true};
 }
-export function createServer({env=process.env,fetchImpl=fetch}={}){
+export function createServer({env=process.env,fetchImpl=fetch,inferImpl=(task,text,actor)=>infer(task,text,actor.role),healthProvider=()=>({})}={}){
  const origins=new Set((env.ATHLYS_ALLOWED_ORIGINS||'').split(',').filter(Boolean));
  let inflight=0;
  return http.createServer(async(req,res)=>{
@@ -59,7 +61,7 @@ export function createServer({env=process.env,fetchImpl=fetch}={}){
   if(origin&&!origins.has(origin)){reply(403,{error:'ORIGIN_DENIED'});return;}
   if(origin){res.setHeader('Access-Control-Allow-Origin',origin);res.setHeader('Vary','Origin');}
   if(req.method==='OPTIONS'&&req.url==='/infer'){res.setHeader('Access-Control-Allow-Methods','POST, OPTIONS');res.setHeader('Access-Control-Allow-Headers','Authorization, Content-Type');res.writeHead(204);res.end();return;}
-  if(req.method==='GET'&&req.url==='/health'){reply(200,{status:'ready',execution:'external_server',generative_lm:false,tasks:['chat','program_parse'],mode:'external_reference_fallback',scientific_models_promoted:false,budget_eur:0});return;}
+  if(req.method==='GET'&&req.url==='/health'){reply(200,{status:'ready',execution:'external_server',generative_lm:false,tasks:['chat','program_parse'],mode:'external_reference_fallback',scientific_models_promoted:false,budget_eur:0,...healthProvider()});return;}
   if(req.method!=='POST'||req.url!=='/infer'){reply(404,{error:'NOT_FOUND'});return;}
   if(env.ATHLYS_FREE_ONLY!=='true'){reply(503,{error:'FREE_ONLY_POLICY_REQUIRED'});return;}
   if(inflight>=4){reply(503,{error:'CAPACITY_REACHED',retry_after_seconds:30});return;}
@@ -71,10 +73,10 @@ export function createServer({env=process.env,fetchImpl=fetch}={}){
    for await(const chunk of req){bytes+=chunk.length;if(bytes>90000)deny('MESSAGE_TOO_LARGE');chunks.push(chunk);}
    let input;try{input=JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{deny('INVALID_JSON');}
    if(!input||Array.isArray(input)||Object.keys(input).sort().join(',')!=='id,task,text,v'||input.v!==1||typeof input.id!=='string'||!/^[-a-f0-9]{36}$/.test(input.id))deny('INVALID_ENVELOPE');
-   const result=infer(input.task,input.text,actor.role);reply(200,{id:input.id,result});
+   req.setTimeout(0);const result=await inferImpl(input.task,input.text,actor,{id:input.id});reply(200,{id:input.id,result});
   }catch(e){
    const code=e.code||e.message;
-   const status=code==='COACH_REQUIRED'||code==='ROLE_DENIED'?403:/^AUTHENTICATION/.test(code)?401:['INVALID_INPUT','INVALID_JSON','INVALID_ENVELOPE','SOURCE_OFFSET_MISMATCH','MESSAGE_TOO_LARGE','REMOVE_PERSONAL_SENSITIVE_INFORMATION'].includes(code)?400:503;
+   const status=code==='COACH_REQUIRED'||code==='ROLE_DENIED'||code==='REQUEST_SCOPE_CHANGED'?403:/^AUTHENTICATION/.test(code)?401:['INVALID_INPUT','INVALID_JSON','INVALID_ENVELOPE','SOURCE_OFFSET_MISMATCH','MESSAGE_TOO_LARGE','REMOVE_PERSONAL_SENSITIVE_INFORMATION','INVALID_PROJECTION','REQUEST_ID_REUSED','PROGRAM_TOO_COMPLEX'].includes(code)?400:503;
    if(!res.headersSent&&!res.destroyed)reply(status,{error:status===503?'SERVICE_UNAVAILABLE':code});
   }finally{inflight--;}
  });

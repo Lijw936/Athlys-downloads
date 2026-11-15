@@ -1,0 +1,5 @@
+
+# Generated external runtime/model: never commit weights or partial downloads.
+.athlys-runtime/
+.athlys-model/
+probes/*.gguf
