@@ -1,0 +1,262 @@
+name: Athlys IRL public builds and decisions
+'on':
+  push:
+    branches:
+    - build/athlys-irl-public-20261115
+    paths:
+    - .github/workflows/irl-public.yml
+    - web/**
+    - desktop/**
+    - desktop-club/**
+    - native/**
+    - scripts/**
+    - package*.json
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: athlys-irl-public-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  android:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: '21'
+        cache: gradle
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: npm ci --no-audit --no-fund
+    - name: Build web assets for Android and browser
+      run: 'npm run build:web
+
+        npm test
+
+        '
+    - name: Check JavaScript
+      run: 'node --check web/app.js
+
+        node --check web/athlys-external-rtc.mjs
+
+        node --check web/supabase-client.bundle.js'
+    - name: Smoke test Health Connect API endpoint
+      run: "code=\"$(curl --silent --show-error --output /tmp/athlys-health-api.json --write-out '%{http_code}' --max-time\
+        \ 25 'https://ixccwxonchzzjdjeajzw.supabase.co/functions/v1/athlys-health-connect/v1/health-connect/status')\"\nif\
+        \ [ \"$code\" != \"401\" ]; then\n  echo \"Health Connect API endpoint returned HTTP $code (expected 401 without an\
+        \ Athlys session).\"\n  cat /tmp/athlys-health-api.json || true\n  exit 1\nfi\necho \"Health Connect API endpoint\
+        \ is reachable and rejects unauthenticated requests as expected.\"\n"
+    - name: Select the dedicated mobile experience
+      run: cp web/mobile.html web/index.html
+    - name: Generate Android project
+      run: npx cap add android
+    - name: Install official Athlys native splash asset
+      run: 'mkdir -p android/app/src/main/res/drawable
+
+        # Capacitor''s generated splash.png and this branded splash.webp share the same Android resource name.
+
+        # Keep the official WebP asset and remove the generated PNG to avoid aapt duplicate-resource failure.
+
+        rm -f android/app/src/main/res/drawable/splash.png
+
+        cp web/assets/athlys-logo.webp android/app/src/main/res/drawable/splash.webp
+
+        test -s android/app/src/main/res/drawable/splash.webp
+
+        '
+    - name: Register native Health Connect settings launcher
+      run: "mkdir -p android/app/src/main/java/com/athlys/app\ncat > android/app/src/main/java/com/athlys/app/IntentLauncherPlugin.java\
+        \ <<'JAVA'\npackage com.athlys.app;\nimport android.content.Intent;\nimport com.getcapacitor.JSObject;\nimport com.getcapacitor.Plugin;\n\
+        import com.getcapacitor.PluginCall;\nimport com.getcapacitor.PluginMethod;\nimport com.getcapacitor.annotation.CapacitorPlugin;\n\
+        @CapacitorPlugin(name = \"IntentLauncher\")\npublic class IntentLauncherPlugin extends Plugin {\n  @PluginMethod\n\
+        \  public void startActivityAsync(PluginCall call) {\n    String action = call.getString(\"action\");\n    if (action\
+        \ == null || action.trim().isEmpty()) {\n      call.reject(\"Missing intent action\");\n      return;\n    }\n   \
+        \ try {\n      Intent intent = new Intent(action);\n      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n      getContext().startActivity(intent);\n\
+        \      call.resolve(new JSObject());\n    } catch (Exception error) {\n      call.reject(\"Unable to open Android\
+        \ settings\", error);\n    }\n  }\n}\nJAVA\ncat > android/app/src/main/java/com/athlys/app/MainActivity.java <<'JAVA'\n\
+        package com.athlys.app;\nimport android.os.Bundle;\nimport com.getcapacitor.BridgeActivity;\npublic class MainActivity\
+        \ extends BridgeActivity {\n  @Override\n  public void onCreate(Bundle savedInstanceState) {\n    registerPlugin(IntentLauncherPlugin.class);\n\
+        \    registerPlugin(HealthConnectPermissionsPlugin.class);\n    super.onCreate(savedInstanceState);\n  }\n}\nJAVA\n\
+        cp native/android/HealthConnectPermissionsPlugin.java android/app/src/main/java/com/athlys/app/HealthConnectPermissionsPlugin.java\n"
+    - name: Configure Android Health Connect requirements
+      run: "python - <<'PY'\nfrom pathlib import Path\nimport re\n# Health Connect 1.1.0 is built against API 36 and requires\
+        \ AGP 8.9.1+.\nroot = Path(\"android\")\nagp_updated = False\ncompile_sdk_updated = False\ngradle_files = [p for p\
+        \ in root.rglob(\"*\") if p.is_file() and p.suffix in {\".gradle\", \".kts\", \".toml\", \".properties\"}]\nfor gradle_file\
+        \ in gradle_files:\n    gradle_source = gradle_file.read_text()\n    updated = gradle_source.replace(\"8.7.2\", \"\
+        8.9.1\")\n    if updated != gradle_source:\n        agp_updated = True\n    gradle_source = updated\n    gradle_source\
+        \ = re.sub(r\"(\\bcompileSdkVersion\\s*(?:=\\s*)?)35\\b\", r\"\\g<1>36\", gradle_source)\n    gradle_source = re.sub(r\"\
+        (\\bcompileSdk\\s*(?:=\\s*)?)35\\b\", r\"\\g<1>36\", gradle_source)\n    if gradle_source != updated:\n        compile_sdk_updated\
+        \ = True\n    gradle_file.write_text(gradle_source)\nremaining = [str(p) for p in gradle_files if \"8.7.2\" in p.read_text()]\n\
+        if remaining:\n    raise SystemExit(\"Old Gradle plugin version 8.7.2 remains in: \" + \", \".join(remaining))\nif\
+        \ not agp_updated:\n    raise SystemExit(\"Could not upgrade Android Gradle Plugin from 8.7.2 to 8.9.1\")\nif not\
+        \ compile_sdk_updated:\n    raise SystemExit(\"Could not raise Android compile SDK to API 36\")\nprint(\"Android Gradle\
+        \ Plugin 8.9.1 and compile SDK 36 configured.\")\npath = Path(\"android/app/build.gradle\")\nsource = path.read_text()\n\
+        if \"compileOptions\" not in source:\n    match = re.search(r\"android\\s*\\{\", source)\n    if not match:\n    \
+        \    raise SystemExit(\"Android application block not found\")\n    source = source[:match.end()] + \"\"\"\n    compileOptions\
+        \ {\n        sourceCompatibility JavaVersion.VERSION_21\n        targetCompatibility JavaVersion.VERSION_21\n    \
+        \    coreLibraryDesugaringEnabled true\n    }\n\"\"\" + source[match.end():]\nelse:\n    match = re.search(r\"compileOptions\\\
+        s*\\{\", source)\n    if not match:\n        raise SystemExit(\"Unable to locate Android compileOptions\")\n    block_end\
+        \ = source.find(\"}\", match.end())\n    block = source[match.start():block_end]\n    if \"coreLibraryDesugaringEnabled\"\
+        \ not in block:\n        source = source[:block_end] + \"\\n        coreLibraryDesugaringEnabled true\" + source[block_end:]\n\
+        source = source.replace(\"minSdkVersion rootProject.ext.minSdkVersion\", \"minSdkVersion 26\")\nif not re.search(r\"\
+        minSdk(?:Version)?\\s+26\", source):\n    source = re.sub(r\"minSdkVersion\\s+\\S+\", \"minSdkVersion 26\", source,\
+        \ count=1)\ndependencies = re.search(r\"dependencies\\s*\\{\", source)\nif not dependencies:\n    raise SystemExit(\"\
+        Android app dependencies block not found\")\nif \"desugar_jdk_libs\" not in source:\n    source = source[:dependencies.end()]\
+        \ + \"\\n    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'\" + source[dependencies.end():]\nif\
+        \ \"androidx.health.connect:connect-client:1.1.0\" not in source:\n    source = source[:dependencies.end()] + \"\\\
+        n    implementation 'androidx.health.connect:connect-client:1.1.0'\" + source[dependencies.end():]\npath.write_text(source)\n\
+        if \"coreLibraryDesugaringEnabled true\" not in source or \"desugar_jdk_libs:2.1.4\" not in source or \"androidx.health.connect:connect-client:1.1.0\"\
+        \ not in source or not re.search(r\"minSdkVersion\\s+26\", source):\n    raise SystemExit(\"Health Connect Android\
+        \ requirements were not configured\")\nprint(\"Android API 26+, Java 21 and core library desugaring configured.\"\
+        )\nPY\n"
+    - name: Prepare isolated IRL variant
+      run: python scripts/prepare-irl-build.py --platform android
+    - name: Generate Athlys launcher icons
+      run: "python -m pip install --quiet Pillow\npython - <<'PY'\nfrom pathlib import Path\nfrom PIL import Image, ImageOps\n\
+        root = Path(\"android/app/src/main/res\")\nsource_path = Path(\"web/assets/athlys-logo.webp\")\nwith Image.open(source_path)\
+        \ as check:\n    check.verify()\nsource = Image.open(source_path).convert(\"RGBA\")\ndef contain_on_canvas(image,\
+        \ size, background):\n    fitted = ImageOps.contain(image, (size, size), method=Image.Resampling.LANCZOS)\n    canvas\
+        \ = Image.new(\"RGBA\", (size, size), background)\n    canvas.alpha_composite(fitted, ((size-fitted.width)//2, (size-fitted.height)//2))\n\
+        \    return canvas\nfolders = {\"mipmap-mdpi\": 48, \"mipmap-hdpi\": 72, \"mipmap-xhdpi\": 96, \"mipmap-xxhdpi\":\
+        \ 144, \"mipmap-xxxhdpi\": 192}\nfor folder, dimension in folders.items():\n    target = root / folder\n    target.mkdir(parents=True,\
+        \ exist_ok=True)\n    icon = contain_on_canvas(source, dimension, (10, 20, 39, 255))\n    icon.save(target / \"ic_launcher.png\"\
+        , optimize=True)\n    icon.save(target / \"ic_launcher_round.png\", optimize=True)\ndrawable = root / \"drawable\"\
+        \ndrawable.mkdir(parents=True, exist_ok=True)\nforeground = contain_on_canvas(source, 432, (0, 0, 0, 0))\nforeground.save(drawable\
+        \ / \"athlys_icon_foreground.png\", optimize=True)\nvalues = root / \"values\"\nvalues.mkdir(parents=True, exist_ok=True)\n\
+        colors = values / \"colors.xml\"\nexisting = colors.read_text() if colors.exists() else '<?xml version=\"1.0\" encoding=\"\
+        utf-8\"?>\\n<resources>\\n</resources>\\n'\nif \"athlys_icon_bg\" not in existing:\n    existing = existing.replace(\"\
+        </resources>\", '  <color name=\"athlys_icon_bg\">#0A1427</color>\\n</resources>')\ncolors.write_text(existing)\n\
+        adaptive = root / \"mipmap-anydpi-v26\"\nadaptive.mkdir(parents=True, exist_ok=True)\nxml = '<?xml version=\"1.0\"\
+        \ encoding=\"utf-8\"?>\\n<adaptive-icon xmlns:android=\"http://schemas.android.com/apk/res/android\"><background android:drawable=\"\
+        @color/athlys_icon_bg\" /><foreground android:drawable=\"@drawable/athlys_icon_foreground\" /></adaptive-icon>\\n'\n\
+        (adaptive / \"ic_launcher.xml\").write_text(xml)\n(adaptive / \"ic_launcher_round.xml\").write_text(xml)\nPY\n"
+    - name: Add password recovery deep link
+      run: "python - <<'PY'\nfrom pathlib import Path\np=Path(\"android/app/src/main/AndroidManifest.xml\")\ns=p.read_text()\n\
+        import re\nmatch=re.search(r'<activity\\b[^>]*>',s)\nif not match: raise SystemExit(\"No Android activity found in\
+        \ manifest\")\nend=s.find(\"</activity>\",match.end())\nif end<0: raise SystemExit(\"Activity closing tag not found\"\
+        )\nintent='''<intent-filter>\n    <action android:name=\"android.intent.action.VIEW\" />\n    <category android:name=\"\
+        android.intent.category.DEFAULT\" />\n    <category android:name=\"android.intent.category.BROWSABLE\" />\n    <data\
+        \ android:scheme=\"com.athlys.app\" android:host=\"auth\" android:pathPrefix=\"/callback\" />\n</intent-filter>'''\n\
+        if 'android:host=\"auth\"' not in s:\n    s=s[:end]+intent+s[end:]\np.write_text(s)\nPY\n"
+    - name: Register Health Connect privacy rationale
+      run: "mkdir -p android/app/src/main/java/com/athlys/app\ncat > android/app/src/main/java/com/athlys/app/PermissionsRationaleActivity.java\
+        \ <<'JAVA'\npackage com.athlys.app;\nimport android.app.Activity;\nimport android.os.Bundle;\nimport android.webkit.WebSettings;\n\
+        import android.webkit.WebView;\npublic class PermissionsRationaleActivity extends Activity {\n  @Override\n  protected\
+        \ void onCreate(Bundle savedInstanceState) {\n    super.onCreate(savedInstanceState);\n    WebView policy = new WebView(this);\n\
+        \    WebSettings settings = policy.getSettings();\n    settings.setJavaScriptEnabled(false);\n    settings.setAllowFileAccess(true);\n\
+        \    policy.loadUrl(\"file:///android_asset/public/privacypolicy.html\");\n    setContentView(policy);\n  }\n}\nJAVA\n\
+        python - <<'PY'\nfrom pathlib import Path\np = Path(\"android/app/src/main/AndroidManifest.xml\")\ns = p.read_text()\n\
+        # Declare every read scope requested by Athlys explicitly in the app manifest.\nhealth_permissions = [\n    \"android.permission.health.READ_STEPS\"\
+        ,\n    \"android.permission.health.READ_DISTANCE\",\n    \"android.permission.health.READ_ACTIVE_CALORIES_BURNED\"\
+        ,\n    \"android.permission.health.READ_HEART_RATE\",\n    \"android.permission.health.READ_WEIGHT\",\n]\nfor permission\
+        \ in health_permissions:\n    tag = f'<uses-permission android:name=\"{permission}\" />'\n    if tag not in s:\n \
+        \       marker = \"<application\"\n        if marker not in s:\n            raise SystemExit(\"Android application\
+        \ manifest element not found\")\n        s = s.replace(marker, \"    \" + tag + \"\\n    \" + marker, 1)\nif \"com.google.android.apps.healthdata\"\
+        \ not in s:\n    import re\n    manifest_match = re.search(r\"<manifest\\b[^>]*>\", s)\n    if not manifest_match:\n\
+        \        raise SystemExit(\"Android manifest root element not found\")\n    queries = '\\n    <queries>\\n       \
+        \ <package android:name=\"com.google.android.apps.healthdata\" />\\n    </queries>'\n    s = s[:manifest_match.end()]\
+        \ + queries + s[manifest_match.end():]\nif \"ACTION_SHOW_PERMISSIONS_RATIONALE\" not in s:\n    rationale = \"\"\"\
+        \n    <activity android:name=\".PermissionsRationaleActivity\" android:exported=\"true\">\n      <intent-filter>\n\
+        \        <action android:name=\"androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE\" />\n      </intent-filter>\n \
+        \   </activity>\n    <activity-alias\n        android:name=\".ViewPermissionUsageActivity\"\n        android:exported=\"\
+        true\"\n        android:targetActivity=\".PermissionsRationaleActivity\"\n        android:permission=\"android.permission.START_VIEW_PERMISSION_USAGE\"\
+        >\n      <intent-filter>\n        <action android:name=\"android.intent.action.VIEW_PERMISSION_USAGE\" />\n      \
+        \  <category android:name=\"android.intent.category.HEALTH_PERMISSIONS\" />\n      </intent-filter>\n    </activity-alias>\n\
+        \    \"\"\"\n    pos = s.rfind(\"</application>\")\n    if pos < 0: raise SystemExit(\"Android application closing\
+        \ tag not found\")\n    s = s[:pos] + rationale + s[pos:]\np.write_text(s)\nif \"ACTION_SHOW_PERMISSIONS_RATIONALE\"\
+        \ not in s or \"START_VIEW_PERMISSION_USAGE\" not in s:\n    raise SystemExit(\"Health Connect privacy rationale manifest\
+        \ registration failed\")\nprint(\"Health Connect privacy rationale activity registered for Android 13 and Android\
+        \ 14+.\")\nPY\n"
+    - name: Install native hourly Health Connect background sync
+      run: python native/android/install-background-sync.py
+    - name: Sync and build APK
+      run: 'npx cap sync android
+
+        test -s android/app/src/main/assets/public/privacypolicy.html
+
+        cd android
+
+        chmod +x gradlew
+
+        ./gradlew --no-daemon assembleDebug
+
+        '
+    - name: Prepare verified IRL APK
+      run: 'mkdir -p release
+
+        cp android/app/build/outputs/apk/debug/app-debug.apk release/Athlys-1.3.9-IRL.apk
+
+        unzip -t release/Athlys-1.3.9-IRL.apk
+
+        sha256sum release/Athlys-1.3.9-IRL.apk > release/SHA256SUMS-android.txt
+
+        cp docs/DECISIONS.md release/DECISIONS.md'
+    - uses: actions/upload-artifact@v4
+      with:
+        name: Athlys-Android-1.3.9-IRL
+        path: release/*
+        if-no-files-found: error
+        retention-days: 30
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Build and check public web client
+      run: 'npm ci --no-audit --no-fund
+
+        npm run build:web
+
+        npm run test:public-client
+
+        python scripts/prepare-irl-build.py --platform windows'
+    - name: Package Coach and Club portable applications
+      shell: pwsh
+      run: "foreach ($folder in @('desktop','desktop-club')) {\n  Push-Location $folder\n  npm install --no-audit --no-fund\n\
+        \  if ($LASTEXITCODE -ne 0) { throw 'Dependency installation failed' }\n  node copy-web.cjs\n  if ($LASTEXITCODE -ne\
+        \ 0) { throw 'Web copy failed' }\n  npx electron-builder --config electron-builder.irl.json --win portable --x64 --publish\
+        \ never\n  if ($LASTEXITCODE -ne 0) { throw 'Windows build failed' }\n  Pop-Location\n}\nNew-Item -ItemType Directory\
+        \ -Force release | Out-Null\nCopy-Item desktop/dist/*Portable*.exe release/\nCopy-Item desktop-club/dist/*Portable*.exe\
+        \ release/\nGet-ChildItem release/*.exe | ForEach-Object { ((Get-FileHash $_ -Algorithm SHA256).Hash.ToLower() + '\
+        \  ' + $_.Name) } | Set-Content release/SHA256SUMS-windows.txt\nCopy-Item docs/DECISIONS.md release/DECISIONS.md"
+    - uses: actions/upload-artifact@v4
+      with:
+        name: Athlys-Windows-IRL-Coach-Club
+        path: release/*
+        if-no-files-found: error
+        retention-days: 30
+  release:
+    needs:
+    - android
+    - windows
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/download-artifact@v4
+      with:
+        pattern: Athlys-*-IRL*
+        path: release
+        merge-multiple: true
+    - name: Publish exact experimental build
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: 'tag="irl-20261115-${GITHUB_RUN_ID}"
+
+        gh release create "$tag" release/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "Athlys
+        IRL — Android 1.3.9 et Windows Coach/Club" --notes-file docs/RELEASE.md'

@@ -2,15 +2,15 @@
   "name": "athlys-club-desktop",
   "version": "1.0.1",
   "private": true,
-  "description": "Athlys Club — administration, membres et licences",
+  "description": "Athlys Club \u2014 administration, membres et licences",
   "main": "main.cjs",
   "scripts": {
     "dist": "node copy-web.cjs && electron-builder --win nsis portable",
     "check": "node --check main.cjs && node --check copy-web.cjs"
   },
   "devDependencies": {
-    "electron": "^39.0.0",
-    "electron-builder": "^26.0.12"
+    "electron": "39.8.10",
+    "electron-builder": "26.18.0"
   },
   "build": {
     "appId": "com.athlys.club",

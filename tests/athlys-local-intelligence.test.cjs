@@ -238,3 +238,16 @@ test("French month dates are parsed and interval recoveries are not mistaken for
   assert.equal(parsed.sessions[1].planned_date, "2026-11-12");
   assert.equal(parsed.sessions[1].duration_minutes, 30);
 });
+
+test('RPE calibration rejects future, same-day date-only and invalid observations',()=>{
+ const base={plannedRpe:6,durationMinutes:60,sport:'course',sessionType:'training',now:'2026-11-15T12:00:00Z',programSessions:[]};
+ const history=['2026-11-16','2026-11-15','invalid','2026-11-14'].map(session_date=>({session_date,completed:true,discipline:'course',duration_minutes:60,rpe:9,metrics:{planned_rpe:6}}));
+ const p=engine.projectRPE({...base,history});assert.equal(p.sampleCount,1);assert.equal(p.personalized,false);
+ assert.equal(engine.projectRPE({...base,now:'invalid',history}).status,'insufficient_input');
+});
+test('captured planned RPE survives later programme edits and explicit unknown stays unknown',()=>{
+ const base={plannedRpe:6,durationMinutes:60,sport:'course',now:'2026-11-15T12:00:00Z',programSessions:[{id:'session',intensity:9,discipline:'course'}]};
+ const history=Array.from({length:8},(_,i)=>({session_date:'2026-11-01',program_session_id:'session',discipline:'course',duration_minutes:60,rpe:7,metrics:{planned_rpe:6}}));
+ const p=engine.projectRPE({...base,history});assert.equal(p.sampleCount,8);assert.ok(p.projectedRpe>6);
+ history[0].metrics.planned_rpe=null;assert.equal(engine.projectRPE({...base,history}).sampleCount,7);
+});

@@ -1,5 +1,4 @@
-const CACHE_NAME = "athlys-shell-v48-mobile-chat-fullscreen";
-const SUPABASE_CDN = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js";
+const CACHE_NAME = "athlys-shell-v59-irl-rpe";
 const SHELL = [
   "/",
   "/index.html",
@@ -7,18 +6,22 @@ const SHELL = [
   "/mobile.webmanifest",
   "/mobile-app.css",
   "/auth-branding.css",
-  "/athlys-design-system.css",
-  "/app-visual-polish.css",
+  "/athlys-ui.css",
   "/mobile-loader.css",
   "/manifest.webmanifest",
   "/app.css",
   "/desktop.css",
-  "/refonte.css",
   "/ios.css",
   "/ios-install.css",
   "/athlys-neural-intent-model.js",
   "/athlys-local-intelligence.js",
+  "/athlys-device-mesh.js",
   "/app.js",
+  "/supabase-client.bundle.js",
+  "/trial.html",
+  "/trial.js",
+  "/trial-status.json",
+  "/athlys-external-rtc.mjs",
   "/offline-store.js",
   "/app-config.js",
   "/pwa.js",
@@ -32,13 +35,7 @@ const SHELL = [
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(async cache => {
     await cache.addAll(SHELL);
-    try {
-      const request = new Request(SUPABASE_CDN, { mode: "no-cors" });
-      const response = await fetch(request);
-      await cache.put(request, response);
-    } catch (error) {
-      console.warn("Athlys optional offline Supabase cache unavailable:", error);
-    }
+
   }));
 });
 self.addEventListener("message", event => {

@@ -10,7 +10,7 @@
   "use strict";
   var VERSION = "athlys-local-intelligence-1.0.0";
   var RPE_METHOD = "athlys-individual-rpe-v1";
-  var PARSER_VERSION = "athlys-local-program-parser-v1";
+  var PARSER_VERSION = "athlys-local-program-parser-v1.1";
   var DAY_NAMES = "lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche";
   var DAY_RE = new RegExp("^(?:(?:séance|seance)\\s*(?:n[°o]?\\s*)?\\d+|jour\\s*\\d+|s\\s*\\d+|(?:" + DAY_NAMES + ")|\\d{4}-\\d{2}-\\d{2}|\\d{1,2}[/.]\\d{1,2}[/.]\\d{4})(?:\\s*[:：–—-]\\s*(.*))?$", "i");
 
@@ -54,19 +54,22 @@
   }
 
   function extractDuration(text) {
-    var t = normalizeText(text), matches = [], re = /(\d+(?:[.,]\d+)?)\s*(h|heure(?:s)?|min(?:ute)?s?)(?![a-z])/g, m;
+    var t = String(text || "").split(/\r?\n/).map(normalizeText).join("\n"), matches = [];
+    var re = /(\d+(?:[.,]\d+)?)[ \t]*(h|heures?)(?![a-z])(?:(\d{1,3})(?:[ \t]*min(?:ute)?s?)?(?![a-z0-9])|[ \t]+(\d{1,3})[ \t]*min(?:ute)?s?(?![a-z])|(?!\d))|(\d+(?:[.,]\d+)?)[ \t]*min(?:ute)?s?(?![a-z])/g, m;
     while ((m = re.exec(t))) {
       var prefix = t.slice(Math.max(0, m.index - 36), m.index);
       /* A recovery duration is not a work duration and must not be double-counted. */
       if (/(?:recuperation|recup|repos)\s*(?:de|:)?\s*$/.test(prefix)) continue;
-      matches.push({ value: number(m[1]) * (/^h|heure/.test(m[2]) ? 60 : 1), index: m.index, end: re.lastIndex });
+      var hours = m[1] == null ? null : number(m[1]), minutes = number(m[3] == null ? m[4] : m[3]) || 0;
+      if (hours !== null && (minutes >= 60 || (minutes && !Number.isInteger(hours)))) continue;
+      matches.push({ value: hours === null ? number(m[5]) : hours * 60 + minutes, index: m.index, end: re.lastIndex });
     }
     return matches;
   }
   function extractRpe(text) {
     var s = String(text || ""), patterns = [
       /\b(?:rpe|effort perçu|intensité|intensite)\s*(?:prévu|prévu|cible|visé|vise)?\s*[:=]??\s*(\d+(?:[.,]\d+)?)\s*(?:\/\s*10)?/i,
-      /\b(\d+(?:[.,]\d+)?)\s*\/\s*10\s*(?:rpe|d'effort|effort)?/i
+      /(?:^|[^\d/])(\d+(?:[.,]\d+)?)\s*\/\s*10(?!\s*\/\s*\d)\s*(?:rpe|d'effort|effort)?/i
     ];
     for (var i = 0; i < patterns.length; i++) {
       var m = s.match(patterns[i]);
@@ -151,8 +154,9 @@
     return "exercise";
   }
   function sessionSegments(source) {
-    var rows = [], offset = 0, current = null, sawHeading = false, preamble = [];
-    String(source).split(/\r?\n/).forEach(function (line) {
+    var rows = [], offset = 0, current = null, sawHeading = false, preamble = [], previousSeparator = "";
+    String(source).split(/\n/).forEach(function (rawLine) {
+      var line = rawLine.replace(/\r$/, "");
       var match = line.trim().match(DAY_RE);
       if (match) {
         if (current) {
@@ -167,12 +171,14 @@
         };
         if (match[1]) { current.text = match[1]; current.text_start = offset + line.indexOf(match[1]); }
       } else if (current) {
-        current.text += (current.text ? "\n" : "") + line;
+        if (!current.text) current.text_start = offset;
+        current.text += (current.text ? previousSeparator : "") + line;
         current.source_end = offset + line.length;
       } else {
         current = { title: "Séance 1", text: line, source_start: offset, text_start: offset, source_end: offset + line.length, explicit_heading: false };
       }
-      offset += line.length + 1;
+      offset += rawLine.length + 1;
+      previousSeparator = rawLine.endsWith("\r") ? "\r\n" : "\n";
     });
     if (current) {
       if (sawHeading) {
@@ -197,9 +203,12 @@
     var plannedDate = extractPlannedDate(String(segment.title || "") + " " + clean);
     var strength = extractStrength(clean), targetPace = extractTargetPace(clean), intensityZone = extractIntensityZone(clean);
     var restDay = isRestDay(clean);
-    var explicitTotal = normalizeText(clean).match(/(?:duree totale|duree de la seance|seance de|session de)\s*(\d+(?:[.,]\d+)?)\s*(min(?:ute)?s?|h|heures?)/i);
-    var duration = explicitTotal ? number(explicitTotal[1]) * (/^h|heure/i.test(explicitTotal[2]) ? 60 : 1) : null;
+    var normalized = clean.split(/\r?\n/).map(normalizeText).join("\n");
+    var explicitTotal = normalized.match(/(?:duree totale|duree de la seance|seance de|session de)[ \t]*[:=]?[ \t]*/i);
+    var totalDurations = explicitTotal ? extractDuration(normalized.slice(explicitTotal.index + explicitTotal[0].length)) : [];
+    var duration = totalDurations.length && totalDurations[0].index === 0 ? totalDurations[0].value : null;
     if (duration === null && durations.length === 1 && !intervals.length) duration = durations[0].value;
+    if (duration !== null && (duration <= 0 || duration > 900)) duration = null;
     /* Do not sum fragments into a session duration: recovery and repeated blocks may be counted
        more than once, and work time may be unknown. Only explicit total or single-session duration is accepted. */
     var blocks = [];
@@ -219,8 +228,8 @@
         repetitions: pIntervals.length ? pIntervals[0].repetitions : null,
         distance_value: pIntervals.length && /^distance_/.test(pIntervals[0].unit) ? pIntervals[0].value : null,
         distance_unit: pIntervals.length && /^distance_/.test(pIntervals[0].unit) ? pIntervals[0].unit === "distance_km" ? "km" : "m" : null,
-        duration_minutes: pIntervals.length === 1 && pIntervals[0].unit === "duration_minutes"
-          ? round(pIntervals[0].value, 2)
+        duration_minutes: pIntervals.length === 1 && /^(duration_minutes|duration_seconds)$/.test(pIntervals[0].unit)
+          ? pIntervals[0].value / (pIntervals[0].unit === "duration_seconds" ? 60 : 1)
           : pDuration.length === 1 ? round(pDuration[0].value, 2) : null,
         recovery_minutes: pRecovery.length ? round(pRecovery[0].value, 2) : null,
         target_rpe: extractRpe(part),
@@ -322,13 +331,19 @@
     var sessions = Array.isArray(input.programSessions) ? input.programSessions : [];
     var byId = Object.create(null);
     sessions.forEach(function (s) { if (s && s.id) byId[String(s.id)] = s; });
+    function plannedFor(log, linked) {
+      /* A captured value, including unknown/null, survives later programme edits. */
+      if (log.metrics && Object.prototype.hasOwnProperty.call(log.metrics, "planned_rpe")) return number(log.metrics.planned_rpe);
+      return linked ? number(linked.intensity) : null;
+    }
     var now = input.now ? new Date(input.now).getTime() : Date.now();
+    if (!Number.isFinite(now)) return { status: "insufficient_input", projectedRpe: null, sampleCount: 0, confidence: "none", method: RPE_METHOD, reason: "La date de référence est invalide." };
     var observations = (Array.isArray(input.history) ? input.history : []).filter(function (log) {
       if (!log || log.completed === false) return false;
       var actual = number(log.rpe), minutes = number(log.duration_minutes);
       if (actual === null || minutes === null || actual < 1 || actual > 10 || minutes < 1) return false;
       var linked = log.program_session_id ? byId[String(log.program_session_id)] : null;
-      var planned = linked ? number(linked.intensity) : number(log.metrics && log.metrics.planned_rpe);
+      var planned = plannedFor(log, linked);
       if (planned === null || planned < 1 || planned > 10) return false;
       /* Planned intensity is a matching feature: do not transfer a response to a very different target. */
       if (Math.abs(planned - target) > 1.5) return false;
@@ -339,12 +354,17 @@
       var ratio = minutes / duration;
       if (ratio < 0.75 || ratio > 1.33) return false;
       var date = new Date(log.session_date || log.created_at || 0).getTime();
-      var ageDays = Number.isFinite(date) && date > 0 ? Math.max(0, (now - date) / 86400000) : 180;
+      /* A date-only record has no within-day ordering: exclude the reference
+         day and future/invalid records rather than treating them as age zero. */
+      if (!Number.isFinite(date) || date <= 0 || date >= now) return false;
+      var sourceDate = String(log.session_date || log.created_at || "");
+      if (/^\d{4}-\d{2}-\d{2}$/.test(sourceDate) && sourceDate === new Date(now).toISOString().slice(0,10)) return false;
+      var ageDays = (now - date) / 86400000;
       if (ageDays > 365) return false;
       return true;
     }).map(function (log) {
       var linked = log.program_session_id ? byId[String(log.program_session_id)] : null;
-      var planned = linked ? number(linked.intensity) : number(log.metrics && log.metrics.planned_rpe);
+      var planned = plannedFor(log, linked);
       var date = new Date(log.session_date || log.created_at || 0).getTime();
       var ageDays = Number.isFinite(date) && date > 0 ? Math.max(0, (now - date) / 86400000) : 180;
       return { value: number(log.rpe) - planned, weight: Math.exp(-ageDays / 120) };

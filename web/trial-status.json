@@ -1,0 +1,20 @@
+{
+  "build": "irl-rpe-20261115",
+  "models": [
+    {
+      "title": "Texte → RPE écrit",
+      "status": "Prototype non activé",
+      "detail": "600 programmes synthétiques. Sur 120 programmes réutilisés pour développement : rappel des valeurs RPE 44.0 %. Insuffisant pour remplacer l’extraction actuelle."
+    },
+    {
+      "title": "Séance prévue → RPE ressenti",
+      "status": "Recherche course/sauts",
+      "detail": "Erreur moyenne par sujet : 0.88 unité RPE source, 104 observations sur 7 sujets de test. Protocole de l’étude uniquement, sans validation de programmes Athlys."
+    },
+    {
+      "title": "Mesures physiologiques → RPE",
+      "status": "Candidat non retenu pour activation",
+      "detail": "Erreur moyenne : 1.09, contre 0,82 pour la référence médiane, sur 22 mesures de 11 sujets. Le modèle ne fait pas mieux que cette référence."
+    }
+  ]
+}

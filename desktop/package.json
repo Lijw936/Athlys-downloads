@@ -2,7 +2,7 @@
   "name": "athlys-desktop",
   "version": "1.2.1",
   "private": true,
-  "description": "Athlys Desktop — espace Windows de pilotage et d'analyse pour entraîneurs",
+  "description": "Athlys Desktop \u2014 espace Windows de pilotage et d'analyse pour entra\u00eeneurs",
   "main": "main.cjs",
   "scripts": {
     "dist": "node copy-web.cjs && electron-builder --win nsis portable",
@@ -10,8 +10,8 @@
     "check": "node --check main.cjs && node --check copy-web.cjs"
   },
   "devDependencies": {
-    "electron": "^39.0.0",
-    "electron-builder": "^26.0.12"
+    "electron": "39.8.10",
+    "electron-builder": "26.18.0"
   },
   "build": {
     "appId": "com.athlys.desktop",

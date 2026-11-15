@@ -11,31 +11,30 @@ test("Coach desktop, Coach mobile and Club app share the approved visual layer",
   const entrypoints = ["web/index.html", "web/app.html", "web/mobile.html", "web/club-app.html"];
   for (const file of entrypoints) {
     const html = read(file);
-    assert.match(html, /href=["']\/app-visual-polish\.css(?:\?[^"']*)?["']/i, file);
+    assert.match(html, /href=["']\/athlys-ui\.css(?:\?[^"']*)?["']/i, file);
   }
   assert.match(read("web/club-app.html"), /\/club\.css/);
   assert.match(read("web/mobile.html"), /\/mobile-app\.css/);
 });
 
 test("visual system exposes the Athlys navy, ivory, cyan, green and orange tokens", () => {
-  const css = read("web/app-visual-polish.css");
+  const css = read("web/athlys-ui.css");
   for (const token of [
-    "--athlys-ratio-navy: 50%",
-    "--athlys-ratio-ivory: 30%",
-    "--athlys-ratio-cyan: 10%",
-    "--athlys-ratio-green: 5%",
-    "--athlys-ratio-orange: 5%",
-    "--athlys-bg: #13213c",
-    "--athlys-surface: #F3F0EC"
+    "--athlys-navy:#10203a",
+    "--athlys-lime:#B5F348",
+    "--athlys-cyan:#24D3EE",
+    "--athlys-orange:#FA923B",
+    "--bg:#0d1a2f",
+    "--surface:#15263f"
   ]) assert.ok(css.includes(token), "missing visual token: " + token);
   assert.match(css, /prefers-reduced-motion/);
 });
 
 test("PWA refreshes its shell cache and precaches the local AI/ML and visual assets", () => {
   const sw = read("web/sw.js");
-  assert.match(sw, /athlys-shell-v47-local-ai-ui-validation/);
+  assert.match(sw, /athlys-shell-v59-irl-rpe/);
   for (const asset of [
-    '"/app-visual-polish.css"',
+    '"/athlys-ui.css"',
     '"/athlys-neural-intent-model.js"',
     '"/athlys-local-intelligence.js"',
     '"/app.js"'

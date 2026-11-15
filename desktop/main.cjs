@@ -2,6 +2,8 @@ const { app, BrowserWindow, shell } = require("electron");
 const path = require("node:path");
 const fs = require("node:fs");
 const http = require("node:http");
+const FIELD_TRIAL = require("./package.json").fieldTrial === true;
+if (FIELD_TRIAL) app.setName("Athlys IRL");
 
 let APP_ORIGIN = "";
 let APP_URL = "";
@@ -9,6 +11,7 @@ let localServer = null;
 
 const MIME = {
   ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
+  ".mjs": "text/javascript; charset=utf-8",
   ".css": "text/css; charset=utf-8", ".json": "application/json; charset=utf-8",
   ".webmanifest": "application/manifest+json; charset=utf-8", ".svg": "image/svg+xml",
   ".png": "image/png", ".webp": "image/webp", ".ico": "image/x-icon",
@@ -52,8 +55,8 @@ function startLocalServer() {
       });
     });
     localServer.once("error", reject);
-    localServer.listen(41731, "127.0.0.1", () => {
-      APP_ORIGIN = "http://127.0.0.1:41731";
+    localServer.listen(FIELD_TRIAL ? 41741 : 41731, "127.0.0.1", () => {
+      APP_ORIGIN = "http://127.0.0.1:" + (FIELD_TRIAL ? 41741 : 41731);
       APP_URL = APP_ORIGIN + "/?athlysClient=desktop";
       resolve();
     });
@@ -89,7 +92,7 @@ function createWindow() {
 
 const hasSingleInstance = app.requestSingleInstanceLock();
 if (hasSingleInstance) app.whenReady().then(async () => {
-  app.setAppUserModelId("com.athlys.desktop");
+  app.setAppUserModelId(FIELD_TRIAL ? "com.athlys.desktop.irl" : "com.athlys.desktop");
   await startLocalServer();
   createWindow();
   app.on("activate", () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });

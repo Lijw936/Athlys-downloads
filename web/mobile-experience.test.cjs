@@ -15,7 +15,7 @@ test("mobile entry uses official loader and does not load Quantum",()=>{
  assert.match(html,/#FA923B[\s\S]*?#24D3EE[\s\S]*?#B5F348/);
  assert.doesNotMatch(html,/quantum-engine\.js/);
  assert.match(html,/auth-branding\.css/);
- assert.match(html,/athlys-design-system\.css/);
+ assert.match(html,/athlys-ui\.css/);
  assert.match(html,/mobile-loader\.css/);
 });
 
@@ -59,7 +59,7 @@ test("mobile theme and service worker cache all new assets",()=>{
  assert.doesNotMatch(sw,/quantum-engine\.js/);
  const shellStart=sw.indexOf("const SHELL = ["),shellEnd=sw.indexOf("];",shellStart);
  assert.ok(shellStart>=0&&shellEnd>shellStart&&!sw.slice(shellStart,shellEnd).includes("quantum-engine.js"));
- for(const asset of ["auth-branding.css","athlys-design-system.css","mobile-loader.css","assets/athlys-lockup.svg"])assert.ok(sw.includes(asset),asset);
+ for(const asset of ["auth-branding.css","athlys-ui.css","mobile-loader.css","assets/athlys-lockup.svg"])assert.ok(sw.includes(asset),asset);
 });
 
 test("Android build and current download page versions are asserted separately",()=>{
@@ -71,24 +71,24 @@ test("Android build and current download page versions are asserted separately",
 });
 
 
-test("desktop Athlys and Club download packages include official branded startup loaders",()=>{ const desktop=read("web/index.html"),club=read("web/club-app.html"),clubCopy=read("desktop-club/copy-web.cjs"),clubCss=read("web/club.css"),clubJs=read("web/club.js"); for(const html of [desktop,club]){assert.match(html,/id="athlys-auth-loader"/);assert.match(html,/data-loader-ring/);assert.match(html,/\/assets\/athlys-lockup\.svg/);assert.match(html,/mobile-loader\.css/);} assert.match(desktop,/athlys-design-system\.css/);assert.match(club,/\/club\.js/);assert.match(clubCopy,/club-app\.html/);assert.match(clubCopy,/mobile-loader\.css/);assert.match(clubCopy,/athlys-lockup\.svg/);assert.match(clubCss,/#13213c/);assert.match(clubCss,/#24D3EE/);assert.match(clubCss,/#B5F348/);assert.match(clubCss,/#FA923B/);});
+test("desktop Athlys and Club download packages include official branded startup loaders",()=>{ const desktop=read("web/index.html"),club=read("web/club-app.html"),clubCopy=read("desktop-club/copy-web.cjs"),clubCss=read("web/club.css"),clubJs=read("web/club.js"); for(const html of [desktop,club]){assert.match(html,/id="athlys-auth-loader"/);assert.match(html,/data-loader-ring/);assert.match(html,/\/assets\/athlys-lockup\.svg/);assert.match(html,/mobile-loader\.css/);} assert.match(desktop,/athlys-ui\.css/);assert.match(club,/\/club\.js/);assert.match(clubCopy,/club-app\.html/);assert.match(clubCopy,/mobile-loader\.css/);assert.match(clubCopy,/athlys-lockup\.svg/);assert.match(clubCss,/#13213c/);assert.match(clubCss,/#24D3EE/);assert.match(clubCss,/#B5F348/);assert.match(clubCss,/#FA923B/);});
 
 
 test("all Athlys application shells load the shared visual refinement",()=>{
  const entries=["web/index.html","web/app.html","web/mobile.html","web/club-app.html"];
- for(const file of entries)assert.ok(read(file).includes("/app-visual-polish.css"),file);
- const css=read("web/app-visual-polish.css");
- for(const token of ["#13213c","#24D3EE","#B5F348","#FA923B","#F3F0EC"])assert.ok(css.includes(token),token);
+ for(const file of entries)assert.ok(read(file).includes("/athlys-ui.css"),file);
+ const css=read("web/athlys-ui.css");
+ for(const token of ["#10203a","#24D3EE","#B5F348","#FA923B","#0d1a2f"])assert.ok(css.includes(token),token);
  assert.ok(css.includes("body.athlys-club-app"));
  assert.ok(css.includes("prefers-reduced-motion"));
- assert.ok(read("web/sw.js").includes('"/app-visual-polish.css"'));
- assert.ok(read("desktop-club/copy-web.cjs").includes("app-visual-polish.css"));
+ assert.ok(read("web/sw.js").includes('"/athlys-ui.css"'));
+ assert.ok(read("desktop-club/copy-web.cjs").includes("athlys-ui.css"));
  assert.ok(read("web/club-app.html").includes('<body class="athlys-club-app">'));
 });
 
 
 test("mobile messaging uses a contact list, a focused conversation and a return action",()=>{
- const app=read("web/app.js"),css=read("web/app-visual-polish.css");
+ const app=read("web/app.js"),css=read("web/athlys-ui.css");
  assert.match(app,/chatMobileListOpen=true/);
  assert.match(app,/data-action="chat-back"/);
  assert.match(app,/a==="chat-back"/);
@@ -98,4 +98,17 @@ test("mobile messaging uses a contact list, a focused conversation and a return 
  assert.match(css,/\.chat-page\.mobile-list-open/);
  assert.match(css,/\.chat-page\.mobile-conversation-open/);
  assert.match(css,/\.chat-back/);
+});
+
+
+test("chat keeps Athlys navigation visible and uses a full-width messaging layout",()=>{
+ const css=read("web/mobile-app.css"),ui=read("web/athlys-ui.css"),app=read("web/app.js");
+ assert.match(css,/body\.athlys-chat-open #athlys \.mobile-nav\{display:grid!important/);
+ assert.doesNotMatch(css,/body\.athlys-chat-open #athlys \.mobile-nav\{display:none!important/);
+ assert.match(css,/body\.athlys-chat-open #athlys \.chat-page\.mobile-list-open \.chat-contacts/);
+ assert.match(css,/body\.athlys-chat-open #athlys \.chat-page\.mobile-conversation-open \.chat-conversation/);
+ assert.match(ui,/\.chat-thread \.message-bubble\.mine/);
+ assert.match(ui,/\.chat-composer \.btn\.primary/);
+ assert.match(app,/data-action="chat-back"/);
+ assert.match(app,/data-form="message"/);
 });

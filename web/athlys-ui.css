@@ -1,0 +1,268 @@
+/* Athlys — correction visuelle unifiee, 2026-11-13.
+   Palette officielle et contrastes, priorite aux interfaces mobiles. */
+:root{
+ color-scheme:dark;
+ --athlys-navy:#10203a;--athlys-lime:#B5F348;--athlys-cyan:#24D3EE;
+ --athlys-orange:#FA923B;--athlys-red:#FF8F86;
+ --bg:#0d1a2f;--surface:#15263f;--surface2:#1c3151;
+ --line:rgba(176,196,224,.14);--line-strong:rgba(176,196,224,.26);
+ --text:#f3f6fa;--muted:#b2bfd1;--soft:#8fa1ba;
+ --cyan:#24D3EE;--cyan-soft:rgba(36,211,238,.14);
+ --green:#B5F348;--orange:#FA923B;--red:#FF8F86;
+ --shadow:0 10px 30px rgba(3,10,22,.28);
+ --r-sm:10px;--r-md:14px;--r-lg:20px;
+ --font:Inter,"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif
+}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-webkit-tap-highlight-color:transparent}
+body{font-size:15px;line-height:1.45}
+#athlys{background:radial-gradient(120% 60% at 100% -10%,rgba(36,211,238,.10),transparent 55%),var(--bg)}
+::selection{background:rgba(36,211,238,.3)}
+button,input,select,textarea{font-family:inherit}
+button{touch-action:manipulation}
+:focus-visible{outline:2px solid var(--cyan)!important;outline-offset:2px!important}
+h1,h2,h3{font-family:var(--font)}
+#athlys .btn{min-height:46px;padding:0 18px;border-radius:var(--r-md);border:1px solid var(--line-strong);background:var(--surface2);color:var(--text);font-size:14px;font-weight:700;letter-spacing:0;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .15s,transform .1s,border-color .15s}
+#athlys .btn:active{transform:scale(.98)}
+#athlys .btn.primary{background:var(--athlys-lime);border-color:var(--athlys-lime);color:#0d1a2f}
+#athlys .btn.primary:active{background:#a3e03a}
+#athlys .btn.secondary{background:transparent;border-color:var(--line-strong);color:var(--text)}
+#athlys .btn.danger{background:rgba(255,143,134,.12);border-color:rgba(255,143,134,.38);color:var(--red)}
+#athlys .btn.link,#athlys .text-action{min-height:40px;padding:0 10px;border:0;background:transparent;color:var(--cyan);font-size:13px;font-weight:700}
+#athlys .btn:disabled{opacity:.5}
+#athlys .full{width:100%}
+#athlys .heading small{display:block;color:var(--soft);font-size:13px;font-weight:600;letter-spacing:0;text-transform:lowercase}
+#athlys .heading small::first-letter{text-transform:uppercase}
+#athlys .heading h1{margin:4px 0 6px;font-size:clamp(24px,6.4vw,30px);line-height:1.12;font-weight:800;letter-spacing:-.025em;color:var(--text)}
+#athlys .heading p{margin:0;color:var(--muted);font-size:14px;line-height:1.5;max-width:46ch}
+#athlys .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;box-shadow:none}
+#athlys .card h1,#athlys .card h2,#athlys .card h3,#athlys .card h4{color:var(--text)}
+#athlys .card h2{font-size:17px;font-weight:750;letter-spacing:-.01em}
+#athlys .card p{color:var(--muted)}
+#athlys .card-head{margin-bottom:12px}
+#athlys .metric{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:14px}
+#athlys .metric small{color:var(--muted);font-size:13px;font-weight:600}
+#athlys .metric b{margin:6px 0 2px;font-size:28px;line-height:1.05;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+#athlys .metric span{color:var(--soft);font-size:12.5px;line-height:1.35}
+#athlys .alert{background:var(--surface2);border-left-color:var(--cyan)}
+#athlys .alert.warn{border-left-color:var(--orange);background:rgba(250,146,59,.10)}
+#athlys .alert b{font-size:13px;color:var(--text)}
+#athlys .alert p{font-size:13px;color:var(--muted)}
+#athlys .pill{font-size:12px;padding:4px 10px;background:var(--surface2);border-color:var(--line);color:var(--muted)}
+#athlys .pill.green{color:var(--athlys-lime);background:rgba(181,243,72,.10);border-color:rgba(181,243,72,.28)}
+#athlys .pill.cyan{color:var(--cyan);background:var(--cyan-soft);border-color:rgba(36,211,238,.28)}
+#athlys .pill.warn{color:var(--athlys-orange);background:rgba(250,146,59,.12);border-color:rgba(250,146,59,.32)}
+#athlys .progress{background:rgba(255,255,255,.08)}
+#athlys .progress i{background:linear-gradient(90deg,var(--cyan),var(--athlys-lime))}
+#athlys .empty{color:var(--muted)}
+#athlys .empty b{font-size:15px;color:var(--text)}
+#athlys .empty p{font-size:13px}
+#athlys .list-row b,#athlys .roster-row b,#athlys .goal b,#athlys .program h3{font-size:15px;font-weight:700;color:var(--text)}
+#athlys .list-row small,#athlys .roster-row small,#athlys .goal small,#athlys .program p,#athlys .program small{font-size:13px;color:var(--muted)}
+#athlys .roster-num{color:var(--cyan);font-size:14px;font-weight:700}
+#athlys .date-box{width:52px;background:var(--cyan-soft);color:var(--cyan);border-radius:var(--r-sm)}
+#athlys .date-box b{font-size:19px;color:var(--cyan)}
+#athlys .date-box small{font-size:12px;color:var(--cyan)}
+#athlys .avatar{background:var(--surface2);color:var(--athlys-lime);border:1px solid var(--line-strong);border-radius:14px;font-weight:800}
+#athlys input,#athlys select,#athlys textarea{min-height:48px;padding:12px 14px;border:1px solid var(--line-strong);border-radius:var(--r-md);background:var(--bg);color:var(--text);font-size:16px;caret-color:var(--athlys-lime)}
+#athlys input::placeholder,#athlys textarea::placeholder{color:var(--soft)}
+#athlys input:focus,#athlys select:focus,#athlys textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(36,211,238,.18)}
+#athlys .card label,#athlys .modal label{font-size:13px;font-weight:650;color:var(--muted)}
+#athlys input[type=checkbox],#athlys input[type=radio]{accent-color:var(--athlys-lime)}
+#athlys .modal-backdrop{background:rgba(5,12,24,.72)}
+#athlys .modal{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r-lg) var(--r-lg) 0 0}
+#athlys .modal header{background:var(--surface);border-bottom:1px solid var(--line)}
+#athlys .modal header small{font-size:12px;letter-spacing:.04em;color:var(--cyan)}
+#athlys .modal h2{font-size:19px;color:var(--text)}
+#athlys .modal footer{background:var(--surface);border-top:1px solid var(--line);padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+#athlys .toast{background:var(--surface2);border-color:var(--cyan);color:var(--text);font-size:14px;border-radius:var(--r-md)}
+#athlys .message-bubble{background:var(--surface2);border-color:var(--line)}
+#athlys .message-bubble.mine{background:rgba(181,243,72,.16);color:var(--text)}
+#athlys .message-bubble p{font-size:15px}
+#athlys .message-bubble small{font-size:11.5px;color:var(--soft)}
+#athlys .assistant-panel{background:var(--surface);border-color:var(--line-strong)}
+#athlys .assistant-msg p{font-size:14px;background:var(--surface2)}
+#athlys .assistant-msg span{background:var(--cyan-soft);color:var(--cyan)}
+#athlys .assistant-msg.user span{background:var(--athlys-orange);color:#0d1a2f}
+#athlys .assistant-quick button{font-size:13px;padding:8px 12px;background:var(--surface2);border-color:var(--line-strong);color:var(--text)}
+#athlys .tool-grid button,#athlys .exercise{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);color:var(--text);text-align:left}
+#athlys .tool-grid button{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:14px;min-height:92px}
+#athlys .tool-grid button > b{width:40px;height:40px;border-radius:12px;background:var(--cyan-soft);color:var(--cyan);--ic-size:21px}
+#athlys .tool-grid button > span{font-size:14px;font-weight:700;color:var(--text);line-height:1.25}
+#athlys .tool-grid button:active{background:var(--surface2)}
+@media(max-width:700px){
+ #athlys .topbar{background:rgba(13,26,47,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+ #athlys .brand img{width:auto;height:26px;max-width:34vw}
+ #athlys .mobile-role-switch{background:var(--surface);border:1px solid var(--line-strong);border-radius:999px;padding:3px}
+ #athlys .mobile-role-switch button{min-height:32px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:700;color:var(--muted)}
+ #athlys .mobile-role-switch button.active{background:var(--athlys-lime)!important;color:#0d1a2f!important}
+ #athlys .mobile-quick-icon,#athlys .icon-btn{width:40px;height:40px;min-width:40px;border-radius:50%;background:var(--surface);border:1px solid var(--line-strong);color:var(--text);--ic-size:20px}
+ #athlys .icon-btn i{font-size:11px;font-weight:800;background:var(--athlys-orange);color:#0d1a2f;right:-2px;top:-3px;min-width:18px;text-align:center}
+ #athlys .profile-btn{width:40px;height:40px;min-width:40px}
+ #athlys .profile-btn .avatar{width:40px;height:40px;border-radius:50%}
+ #athlys .main{padding:16px 16px calc(112px + env(safe-area-inset-bottom))}
+ #athlys .heading{margin-bottom:18px}
+ #athlys .actions .btn{flex:1 1 0;min-width:0}
+ #athlys .metrics{gap:10px}
+ #athlys .metric{padding:14px}
+ #athlys .mobile-nav{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));padding:6px;gap:2px;background:rgba(21,38,63,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line-strong);border-radius:22px;box-shadow:0 12px 32px rgba(3,10,22,.5)}
+ #athlys .mobile-nav button{min-height:54px;gap:4px;padding:6px 2px;border-radius:16px;background:transparent;color:var(--soft);box-shadow:none;border:0}
+ #athlys .mobile-nav button > span{--ic-size:22px}
+ #athlys .mobile-nav button small{font-size:11px;font-weight:650;letter-spacing:0}
+ #athlys .mobile-nav button.active{background:rgba(181,243,72,.13);color:var(--athlys-lime)}
+ #athlys .mobile-nav button.active::before,#athlys .mobile-nav button.active::after{display:none}
+}
+@media(max-width:380px){#athlys .heading h1{font-size:23px}#athlys .mobile-role-switch button{padding:0 9px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+#athlys .calendar-item{flex-wrap:wrap;align-items:center;gap:0;border-bottom:1px solid var(--line);padding:6px 0 10px}
+#athlys .calendar-item > .list-row{flex:1 1 100%;border-bottom:0;padding-bottom:4px;align-items:center}
+#athlys .calendar-item .row-main{min-width:0}
+#athlys .calendar-item .row-main b{display:block;overflow-wrap:break-word;word-break:normal}
+#athlys .calendar-item > div:last-child:not(.list-row){display:flex;gap:8px;margin-left:64px}
+#athlys .calendar-item .btn{min-height:36px;padding:0 14px;font-size:13px}
+#athlys .calendar-item .btn.link{padding:0 10px}
+#athlys .main{overflow-wrap:break-word}
+#athlys .team-summary > div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:12px}
+#athlys .team-summary b{font-size:24px;font-weight:800;color:var(--text)}
+#athlys .team-summary small{font-size:12px;letter-spacing:0;text-transform:none;font-weight:600;color:var(--muted);line-height:1.3}
+#athlys .athlys-cohort-table{position:relative;-webkit-overflow-scrolling:touch}
+#athlys .athlys-cohort-row{font-size:14px;border-bottom:1px solid var(--line)}
+#athlys .athlys-cohort-row.head{font-size:12px;letter-spacing:.02em;text-transform:none;font-weight:700;color:var(--muted)}
+#athlys .athlys-cohort-row b{font-size:14px;color:var(--text)}
+#athlys button.athlys-cohort-row:active{background:var(--surface2)}
+/* Contraste de connexion, independant de la vue et des champs autofill */
+html body input:not([type="checkbox"]):not([type="radio"]),html body textarea,html body select{color:#f3f6fa!important;caret-color:#B5F348!important;-webkit-text-fill-color:#f3f6fa!important}
+html body input::placeholder,html body textarea::placeholder{color:#aebfd4!important;opacity:1}
+html body input:focus-visible,html body textarea:focus-visible,html body select:focus-visible{outline:2px solid #24D3EE;outline-offset:2px}
+html body input:-webkit-autofill,html body input:-webkit-autofill:hover,html body input:-webkit-autofill:focus{-webkit-text-fill-color:#f3f6fa!important;box-shadow:0 0 0 1000px #15263f inset!important;transition:background-color 5000s ease-in-out 0s}
+
+/* Mobile chat: conversations and return button stay legible and touch-friendly */
+#athlys .chat-page.mobile-list-open .chat-list{display:block}
+#athlys .chat-page.mobile-conversation-open .chat-conversation{display:flex;min-width:0}
+#athlys .chat-page .chat-back{min-height:44px;min-width:44px;color:var(--text);background:var(--surface2);border:1px solid var(--line-strong);border-radius:12px}
+body.athlys-club-app{background:var(--bg);color:var(--text)}
+body.athlys-club-app input,body.athlys-club-app textarea,body.athlys-club-app select{color:var(--text);background:var(--surface);caret-color:var(--athlys-lime)}
+
+/* Athlys Messenger: inspired by the usability of modern messaging apps. */
+#athlys .chat-shell{border-color:var(--line-strong);background:var(--surface)}
+#athlys .chat-contacts{background:var(--surface)}
+#athlys .chat-contacts-head{margin:2px 4px 16px;gap:12px}
+#athlys .chat-contacts-head b{font-size:21px;letter-spacing:-.025em;font-weight:800;color:var(--text)}
+#athlys .chat-contacts-head span{font-size:12px;font-weight:700;padding:5px 10px;background:rgba(181,243,72,.12);color:var(--athlys-lime)}
+#athlys .chat-contact-section{margin:18px 8px 9px;font-size:11px;font-weight:750;letter-spacing:.06em;color:var(--muted)}
+#athlys .chat-contact{min-height:68px;padding:12px 11px;gap:12px;border-radius:15px;border:1px solid transparent;transition:background .16s ease,border-color .16s ease}
+#athlys .chat-contact:hover,#athlys .chat-contact.active{background:var(--surface2);border-color:var(--line)}
+#athlys .chat-contact.active{box-shadow:inset 3px 0 var(--athlys-lime)}
+#athlys .chat-contact .avatar,#athlys .chat-group-avatar{width:45px;height:45px;flex:none;display:grid;place-items:center;border-radius:50%;background:rgba(181,243,72,.13);border:1px solid rgba(181,243,72,.2);color:var(--athlys-lime);font-size:21px;font-weight:750}
+#athlys .chat-contact b{font-size:15px;font-weight:750;line-height:1.35}
+#athlys .chat-contact small{font-size:12.5px;line-height:1.35;color:var(--muted);margin-top:4px}
+#athlys .chat-conversation{background:radial-gradient(ellipse at 0 100%,rgba(250,146,59,.055),transparent 48%),var(--bg)}
+#athlys .chat-conversation-head{background:var(--surface);border-bottom:1px solid var(--line-strong)}
+#athlys .chat-conversation-head b{font-size:16px;font-weight:750;line-height:1.3;color:var(--text)}
+#athlys .chat-conversation-head small{font-size:12px;color:var(--muted);margin-top:3px}
+#athlys .chat-thread{gap:10px;background-image:radial-gradient(rgba(181,243,72,.035) .8px,transparent .8px);background-size:18px 18px}
+#athlys .chat-thread .message-bubble{max-width:min(84%,510px);padding:11px 14px;border:1px solid var(--line-strong);border-radius:16px 16px 16px 5px;background:var(--surface);box-shadow:0 2px 6px rgba(0,0,0,.10)}
+#athlys .chat-thread .message-bubble.mine{border-color:rgba(181,243,72,.22);border-radius:16px 16px 5px 16px;background:#263d37}
+#athlys .chat-thread .message-bubble p{font-size:15px;line-height:1.48;color:var(--text);overflow-wrap:anywhere}
+#athlys .chat-thread .message-bubble small{font-size:11px;line-height:1.4;color:var(--muted);margin-top:5px}
+#athlys .chat-thread .message-bubble .team-message-author{font-size:12px;font-weight:800;color:var(--athlys-lime)}
+#athlys .chat-composer{background:var(--surface);border-top:1px solid var(--line-strong)}
+#athlys .chat-composer input{min-height:46px;border-radius:24px;padding:10px 17px;background:var(--bg);font-size:16px}
+#athlys .chat-composer .btn.primary{flex:0 0 46px;width:46px;height:46px;min-height:46px;border-radius:50%;background:var(--athlys-lime);border-color:var(--athlys-lime);color:var(--bg);font-size:19px}
+#athlys .chat-empty{font-size:14px;line-height:1.6;color:var(--muted)}
+@media(max-width:700px){
+ body.athlys-chat-open #athlys .chat-contacts-head{display:flex!important;margin:3px 5px 16px}
+ body.athlys-chat-open #athlys .chat-contact-section{display:block!important}
+ body.athlys-chat-open #athlys .chat-contact{display:flex!important;width:100%!important;max-width:none!important;min-width:0!important;margin-bottom:3px}
+ body.athlys-chat-open #athlys .chat-contact .avatar,body.athlys-chat-open #athlys .chat-contact .chat-group-avatar{width:48px;height:48px}
+ body.athlys-chat-open #athlys .chat-contact b{font-size:15px}
+ body.athlys-chat-open #athlys .chat-contact small{font-size:12px}
+ body.athlys-chat-open #athlys .chat-conversation-head{gap:10px!important}
+ body.athlys-chat-open #athlys .chat-conversation-head .chat-group-avatar{width:40px;height:40px;font-size:19px}
+ body.athlys-chat-open #athlys .chat-thread .message-bubble{max-width:88%}
+ body.athlys-chat-open #athlys .chat-composer .btn.primary{flex:0 0 46px}
+ body.athlys-chat-open #athlys .mobile-nav{display:grid!important}
+}
+
+
+
+/* Accent balance — cyan / green / orange.
+   Keep all application, card, chat and navigation backgrounds unchanged.
+   Stable module colors apply to Coach, Athlete and Club on every viewport.
+   Status pills, warning levels and destructive actions retain their meaning. */
+:root{
+ --accent-cyan:#24D3EE;--accent-green:#B5F348;--accent-orange:#FA923B;
+}
+:root[data-theme="light"]{
+ --accent-cyan:#08748A;--accent-green:#496B1B;--accent-orange:#9A4F16;
+}
+#athlys :is([data-nav="home"],[data-nav="messages"],[data-nav="quantum"],[data-nav="reports"],[data-nav="library"],[data-nav="integrations"]),
+#club-app :is([data-view="overview"],[data-view="federation"]){--module-accent:var(--accent-cyan)}
+#athlys :is([data-nav="team"],[data-nav="training"],[data-nav="performance"],[data-nav="questionnaires"],[data-nav="profile"],[data-nav="videos"]),
+#club-app :is([data-view="people"],[data-view="settings"]){--module-accent:var(--accent-green)}
+#athlys :is([data-nav="schedule"],[data-nav="goals"],[data-nav="competitions"],[data-nav="equipment"],[data-nav="notifications"],[data-nav="more"]),
+#club-app :is([data-view="licenses"],[data-view="team"]){--module-accent:var(--accent-orange)}
+#athlys .sidebar [data-nav] > i,
+#athlys .mobile-nav [data-nav] > span,
+#athlys .tool-grid [data-nav] > b,
+#athlys .quick-grid [data-nav] > b,
+#club-app [data-view] > .ico{color:var(--module-accent,var(--accent-cyan))}
+#athlys .sidebar [data-nav].active,
+#club-app .sidebar [data-view].active{box-shadow:inset 3px 0 var(--module-accent,var(--accent-cyan))}
+#athlys .mobile-nav [data-nav].active,
+#club-app .mobile-nav [data-view].active{color:var(--module-accent,var(--accent-cyan))}
+#athlys .tool-grid [data-nav]{border-color:var(--module-accent,var(--line))}
+#athlys .mobile-quick-icon,
+#athlys .assistant-quick button,
+#athlys .assistant-panel > header{color:var(--accent-cyan)}
+#athlys .icon-btn[data-nav="notifications"]{color:var(--accent-orange)}
+
+/* Small strokes and labels distribute the palette without recoloring surfaces. */
+#athlys .metrics > .metric:nth-child(3n+1),
+#athlys .team-summary > div:nth-child(3n+1),
+#athlys .coach-week-card .pulse-grid > div:nth-child(3n+1),
+#club-app .metrics > .metric:nth-child(3n+1){--metric-accent:var(--accent-cyan)}
+#athlys .metrics > .metric:nth-child(3n+2),
+#athlys .team-summary > div:nth-child(3n+2),
+#athlys .coach-week-card .pulse-grid > div:nth-child(3n+2),
+#club-app .metrics > .metric:nth-child(3n+2){--metric-accent:var(--accent-green)}
+#athlys .metrics > .metric:nth-child(3n),
+#athlys .team-summary > div:nth-child(3n),
+#athlys .coach-week-card .pulse-grid > div:nth-child(3n),
+#club-app .metrics > .metric:nth-child(3n){--metric-accent:var(--accent-orange)}
+#athlys .metrics > .metric,
+#athlys .team-summary > div,
+#athlys .coach-week-card .pulse-grid > div,
+#club-app .metrics > .metric{border-top-color:var(--metric-accent)}
+#athlys .metrics > .metric > small,
+#club-app .metrics > .metric > small{color:var(--metric-accent)}
+#athlys .coach-week-card .pulse-grid > div em{background:var(--metric-accent)}
+#athlys .date-box,
+#athlys .date-box b,
+#athlys .date-box small{color:var(--accent-orange)}
+#athlys .hero-tag{color:var(--accent-cyan)}
+
+/* Action colors: training/save stays green; communication cyan; planning orange. */
+#athlys .btn.primary[data-action="event-new"]{background:var(--athlys-orange);border-color:var(--athlys-orange);color:#0d1a2f}
+#athlys .btn.primary[data-action="event-new"]:active{background:#E98027}
+#athlys .chat-composer .btn.primary,
+#athlys .btn.primary[data-action="assistant-toggle"]{background:var(--athlys-cyan);border-color:var(--athlys-cyan);color:#0d1a2f}
+#athlys .chat-composer .btn.primary:active,
+#athlys .btn.primary[data-action="assistant-toggle"]:active{background:#1AB9D2}
+#club-app .btn-primary{background:var(--athlys-lime);border-color:var(--athlys-lime);color:#0d1a2f}
+#club-app .btn-accent{background:var(--athlys-orange);border-color:var(--athlys-orange);color:#0d1a2f}
+#club-app .btn[data-view="federation"]{border-color:var(--accent-cyan);color:var(--accent-cyan)}
+
+/* Pilotage hebdomadaire — dégradé bleu nuit vers orange, texte clair. */
+#athlys .coach-week-card{
+ background:linear-gradient(115deg,#10203A 0%,#263047 45%,#8C431E 100%);
+ border-color:rgba(250,146,59,.35);
+ color:#F3F6FA;
+}
+#athlys .coach-week-card h2,
+#athlys .coach-week-card h3,
+#athlys .coach-week-card .pulse-head small,
+#athlys .coach-week-card .pulse-period,
+#athlys .coach-week-card > .coach-pulse > p,
+#athlys .coach-week-card .pulse-footer,
+#athlys .coach-week-card .pulse-footer span{color:#F3F6FA}
+#athlys .coach-week-card .pulse-footer button{color:#B5F348}

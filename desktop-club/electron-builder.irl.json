@@ -1,0 +1,45 @@
+{
+  "appId": "com.athlys.club.irl",
+  "productName": "Athlys Club IRL",
+  "directories": {
+    "output": "dist"
+  },
+  "files": [
+    "main.cjs",
+    "copy-web.cjs",
+    "offline.html",
+    "package.json",
+    "athlys.ico",
+    "web/**/*"
+  ],
+  "asar": true,
+  "win": {
+    "target": [
+      {
+        "target": "portable",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "icon": "athlys.ico",
+    "artifactName": "Athlys-Club-${version}-${arch}.${ext}",
+    "signAndEditExecutable": false
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Athlys Club"
+  },
+  "portable": {
+    "artifactName": "Athlys-Club-IRL-Portable-${version}-${arch}.${ext}"
+  },
+  "extraMetadata": {
+    "version": "1.2.2-irl",
+    "name": "athlys-club-irl",
+    "fieldTrial": true
+  }
+}

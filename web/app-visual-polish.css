@@ -1500,3 +1500,216 @@ body.athlys-club-app{
 @media (max-width: 820px) {
   #athlys .main { color:#F3F0EC; }
 }
+
+
+/* ── Athlys interface refresh v2: warm balance, clarity and ergonomic navigation ──
+   Shared by Coach, Athlete and Club. Logo assets and official brand hues stay intact.
+   Visual balance target: navy 50%, warm ivory 30%, blue 10%, green 5%, orange 5%.
+*/
+:root{
+  --athlys-navy:#13213C;--athlys-navy-deep:#0B1F3A;
+  --athlys-ivory:#F3F0EC;--athlys-paper:#FFFCF7;--athlys-sand:#EAE4D9;
+  --athlys-blue:#24D3EE;--athlys-blue-ink:#08748A;
+  --athlys-green:#B5F348;--athlys-green-ink:#496B1B;
+  --athlys-orange:#FA923B;--athlys-orange-ink:#9A4F16;
+  --athlys-body:#536477;--athlys-line-soft:rgba(19,33,60,.14);
+  --athlys-card-radius:14px;--athlys-card-shadow:0 7px 22px rgba(5,17,35,.08);
+}
+:focus-visible{outline:3px solid var(--athlys-blue)!important;outline-offset:3px!important}
+button,a,input,select,textarea{touch-action:manipulation}
+
+/* Coach / Athlete shared shell */
+#athlys{
+  --bg:var(--athlys-navy);--surface:var(--athlys-ivory);--surface2:var(--athlys-sand);
+  --line:var(--athlys-line-soft);--text:var(--athlys-navy);--muted:var(--athlys-body);
+  --cyan:var(--athlys-blue);--cyan-soft:rgba(36,211,238,.15);
+  --green:var(--athlys-green);--orange:var(--athlys-orange);
+  background:var(--athlys-navy)!important;color:var(--athlys-ivory);
+}
+#athlys .topbar,#athlys .sidebar{background:var(--athlys-navy-deep)!important;color:var(--athlys-ivory)!important;border-color:rgba(243,240,236,.14)!important}
+#athlys .brand b,#athlys .brand strong,#athlys .sidebar b{color:var(--athlys-ivory)}
+#athlys .sidebar .nav-item,#athlys .sidebar a{color:#D5DCE5}
+#athlys .sidebar .nav-item.active,#athlys .sidebar a.active{background:rgba(36,211,238,.15)!important;color:var(--athlys-blue)!important;box-shadow:inset 3px 0 var(--athlys-blue)!important}
+#athlys .main{color:var(--athlys-ivory)}
+#athlys .heading h1,#athlys .heading h2{color:var(--athlys-ivory)}
+#athlys .heading p{color:#C5CED8;font-size:13px;line-height:1.55}
+#athlys .eyebrow,#athlys .kicker{color:var(--athlys-blue)}
+#athlys .card,#athlys .metric,#athlys .panel,#athlys .modal,#athlys .assistant-panel,#athlys .athlys-template,#athlys .health-provider{
+  background:var(--athlys-ivory)!important;color:var(--athlys-navy)!important;
+  border:1px solid rgba(19,33,60,.12)!important;border-radius:var(--athlys-card-radius)!important;
+  box-shadow:var(--athlys-card-shadow)!important;
+}
+#athlys .card h1,#athlys .card h2,#athlys .card h3,#athlys .card h4,#athlys .metric b,
+#athlys .panel h1,#athlys .panel h2,#athlys .panel h3,#athlys .panel h4,#athlys .panel strong{color:var(--athlys-navy)}
+#athlys .card p,#athlys .panel p,#athlys .metric small,#athlys .metric span,#athlys .muted,#athlys .card small,#athlys .panel small{color:var(--athlys-body)}
+#athlys .hero{background:linear-gradient(120deg,#0B1F3A 0%,#13213C 72%,#1B4052 100%)!important;border:1px solid rgba(243,240,236,.12);border-radius:18px}
+#athlys .hero h1,#athlys .hero h2,#athlys .hero h3{color:var(--athlys-ivory)}
+#athlys .hero p{color:#D5DCE5}
+#athlys .btn.primary,#athlys .btn-primary,#athlys .primary-action{background:var(--athlys-blue)!important;color:var(--athlys-navy-deep)!important;border:1px solid var(--athlys-blue)!important;box-shadow:none!important;font-weight:800}
+#athlys .btn.secondary,#athlys .btn-outline,#athlys .btn-light{background:var(--athlys-paper)!important;color:var(--athlys-navy)!important;border:1px solid var(--athlys-line-soft)!important}
+#athlys .btn,#athlys .icon-btn{min-height:44px;border-radius:11px}
+#athlys input,#athlys select,#athlys textarea{background:var(--athlys-paper)!important;color:var(--athlys-navy)!important;border:1px solid rgba(19,33,60,.18)!important;border-radius:10px}
+#athlys input::placeholder,#athlys textarea::placeholder{color:#718196!important}
+#athlys input,#athlys select{min-height:44px}
+#athlys .status.green,#athlys .badge.green{color:var(--athlys-green-ink);background:rgba(181,243,72,.22)}
+#athlys .status.orange,#athlys .badge.orange{color:var(--athlys-orange-ink);background:rgba(250,146,59,.16)}
+#athlys .status.blue,#athlys .badge.blue{color:var(--athlys-blue-ink);background:rgba(36,211,238,.17)}
+#athlys .mobile-nav{background:rgba(11,31,58,.97)!important;border:1px solid rgba(243,240,236,.17)!important;box-shadow:0 9px 28px rgba(0,0,0,.22)!important;backdrop-filter:blur(18px)}
+#athlys .mobile-nav button{min-height:48px;color:#D5DCE5}
+#athlys .mobile-nav button.active{background:rgba(36,211,238,.17)!important;color:var(--athlys-blue)!important}
+#athlys .mobile-nav button small{font-size:10px;line-height:1.15}
+#athlys .chat-shell,#athlys .chat-page{color:var(--athlys-navy)}
+#athlys .chat-contact.active{box-shadow:inset 3px 0 var(--athlys-blue)}
+#athlys .chat-composer .btn{background:var(--athlys-blue)!important;color:var(--athlys-navy)!important;border-color:var(--athlys-blue)!important}
+#athlys .chat-thread{overscroll-behavior:contain}
+:root[data-theme="light"] #athlys{--bg:#F3F0EC;--surface:#FFFCF7;--surface2:#EAE4D9;--text:#13213C;--muted:#536477}
+:root[data-theme="light"] #athlys .main{color:#13213C}
+:root[data-theme="light"] #athlys .heading h1{color:#13213C}
+:root[data-theme="light"] #athlys .heading p{color:#536477}
+:root[data-theme="light"] #athlys .card,:root[data-theme="light"] #athlys .metric,:root[data-theme="light"] #athlys .panel{background:#FFFCF7!important}
+@media(max-width:700px){
+  #athlys .main{padding-bottom:calc(118px + env(safe-area-inset-bottom))}
+  #athlys .mobile-nav{min-height:62px;gap:3px;padding:6px}
+  #athlys .mobile-nav button{min-height:50px;border-radius:11px}
+  #athlys .mobile-nav button small{font-size:9px}
+  #athlys .card,#athlys .metric,#athlys .panel{border-radius:13px!important;box-shadow:0 4px 14px rgba(5,17,35,.07)!important}
+  #athlys .heading h1{font-size:clamp(23px,6vw,28px);line-height:1.15}
+  #athlys .heading p{font-size:12px;line-height:1.55}
+  #athlys .card p,#athlys .panel p{font-size:12px;line-height:1.55}
+  #athlys .card label,#athlys .panel label{font-size:12px}
+  #athlys .btn{min-height:46px}
+}
+
+/* Club terminal: identical brand hierarchy with an administrative information density */
+.athlys-club-app{
+  --bg:var(--athlys-navy);--surface:var(--athlys-ivory);--surface2:var(--athlys-sand);
+  --line:var(--athlys-line-soft);--text:var(--athlys-navy);--muted:var(--athlys-body);
+  --soft:#718196;--cyan:var(--athlys-blue);--cyan-soft:rgba(36,211,238,.15);
+  --orange:var(--athlys-orange);--green:var(--athlys-green);
+  background:var(--athlys-navy)!important;color:var(--athlys-ivory)!important;
+}
+.athlys-club-app .topbar,.athlys-club-app .sidebar{background:var(--athlys-navy-deep)!important;color:var(--athlys-ivory)!important;border-color:rgba(243,240,236,.14)!important}
+.athlys-club-app .club-ident b,.athlys-club-app .topbar .brand,.athlys-club-app .sidebar .nav-item{color:var(--athlys-ivory)}
+.athlys-club-app .content{background:var(--athlys-navy);color:var(--athlys-ivory)}
+.athlys-club-app .page-head h1,.athlys-club-app .page-head h2{color:var(--athlys-ivory)}
+.athlys-club-app .page-head p{color:#C5CED8;font-size:13px;line-height:1.55}
+.athlys-club-app .kicker,.athlys-club-app .eyebrow{color:var(--athlys-blue)}
+.athlys-club-app .metric,.athlys-club-app .panel,.athlys-club-app .person-card,.athlys-club-app .modal,.athlys-club-app .auth-card{
+  background:var(--athlys-ivory)!important;color:var(--athlys-navy)!important;
+  border:1px solid rgba(19,33,60,.12)!important;border-radius:var(--athlys-card-radius)!important;box-shadow:var(--athlys-card-shadow)!important;
+}
+.athlys-club-app .metric b,.athlys-club-app .panel h2,.athlys-club-app .panel h3,.athlys-club-app .panel strong,.athlys-club-app .modal h2{color:var(--athlys-navy)}
+.athlys-club-app .metric small,.athlys-club-app .metric span,.athlys-club-app .panel p,.athlys-club-app .panel small{color:var(--athlys-body)}
+.athlys-club-app .btn-primary,.athlys-club-app .btn-accent{background:var(--athlys-blue)!important;color:var(--athlys-navy-deep)!important;border-color:var(--athlys-blue)!important;box-shadow:none!important}
+.athlys-club-app .btn-outline,.athlys-club-app .btn-soft{background:var(--athlys-paper)!important;color:var(--athlys-navy)!important;border-color:var(--athlys-line-soft)!important}
+.athlys-club-app .nav-item.active{background:rgba(36,211,238,.16)!important;color:var(--athlys-blue)!important;box-shadow:inset 3px 0 var(--athlys-blue)!important}
+.athlys-club-app .field input,.athlys-club-app .field select,.athlys-club-app .field textarea,.athlys-club-app .toolbar-search,.athlys-club-app .filter{background:var(--athlys-paper)!important;color:var(--athlys-navy)!important;border-color:rgba(19,33,60,.18)!important}
+.athlys-club-app .data-table{color:var(--athlys-navy)}
+.athlys-club-app .data-table th{background:var(--athlys-sand);color:#536477}
+.athlys-club-app .data-table td{color:#536477;border-color:var(--athlys-line-soft)}
+.athlys-club-app .data-table td strong{color:var(--athlys-navy)}
+.athlys-club-app .mobile-nav{background:rgba(11,31,58,.97)!important;border-color:rgba(243,240,236,.17)!important;box-shadow:0 9px 28px rgba(0,0,0,.22)!important}
+.athlys-club-app .mobile-nav .nav-item{color:#D5DCE5}
+.athlys-club-app .mobile-nav .nav-item.active{background:rgba(36,211,238,.17)!important;color:var(--athlys-blue)!important;box-shadow:none!important}
+.athlys-club-app .mobile-nav .nav-item.active .ico{color:var(--athlys-blue)}
+.athlys-club-app .toast{background:var(--athlys-navy-deep);border:1px solid rgba(243,240,236,.15)}
+@media(max-width:700px){
+  .athlys-club-app .content{padding-bottom:calc(124px + env(safe-area-inset-bottom))}
+  .athlys-club-app .page-head h1{font-size:clamp(24px,6vw,30px)}
+  .athlys-club-app .page-head p{font-size:12px}
+  .athlys-club-app .metric,.athlys-club-app .panel{border-radius:13px!important;box-shadow:0 4px 14px rgba(5,17,35,.07)!important}
+  .athlys-club-app .panel p{font-size:12px;line-height:1.55}
+  .athlys-club-app .btn{min-height:46px}
+}
+
+
+/* ATHLYS — palette v3: davantage de vert et de terre cuite, moins de blanc et de cyan.
+   Répartition visuelle cible : 42% marine, 20% verts, 18% ocres/terre cuite,
+   15% ivoire/sable, 5% bleu-cyan. Les couleurs saturées restent des accents. */
+:root {
+  --athlys-ratio-navy:42%; --athlys-ratio-green:20%; --athlys-ratio-orange:18%;
+  --athlys-ratio-ivory:15%; --athlys-ratio-blue:5%;
+  --athlys-navy:#13213C; --athlys-navy-deep:#0B1F3A;
+  --athlys-green:#B5F348; --athlys-green-deep:#536D32; --athlys-sage:#DCE6CB;
+  --athlys-orange:#FA923B; --athlys-clay:#B96535; --athlys-apricot:#E9C5A6;
+  --athlys-blue:#367F91; --athlys-cyan:#43A9B8;
+  --athlys-ivory:#E9E2D6; --athlys-sand:#DCD2C2;
+}
+.athlys-app {
+  --bg:#13213C; --surface:#DCE6CB; --surface2:#E9C5A6; --surface3:#E9E2D6;
+  --text:#13213C; --muted:#46566A; --line:rgba(19,33,60,.16);
+  --blue:#367F91; --cyan:#43A9B8; --green:#536D32; --orange:#B96535;
+}
+.athlys-app .main-area{background:#13213C;color:#E9E2D6}
+.athlys-app .sidebar{background:linear-gradient(180deg,#0B1F3A 0%,#13213C 72%,#1C352F 100%)}
+.athlys-app .topbar{background:rgba(11,31,58,.98);border-bottom-color:rgba(233,226,214,.15)}
+.athlys-app .page-heading h1{color:#E9E2D6}
+.athlys-app .page-heading p{color:#C9C5B9}
+.athlys-app .eyebrow{color:#B5F348}
+.athlys-app .metric-card,.athlys-app .panel{background:#DCE6CB;color:#13213C;border-color:rgba(19,33,60,.15)}
+.athlys-app .metric-card:nth-child(2n){background:#E9C5A6}
+.athlys-app .metric-card:nth-child(3n){background:#E9E2D6}
+.athlys-app .metric-card h3,.athlys-app .metric-card b,.athlys-app .panel h3,.athlys-app .panel h4,.athlys-app .panel b,.athlys-app .table-value{color:#13213C}
+.athlys-app .metric-card small,.athlys-app .metric-card p,.athlys-app .panel p,.athlys-app .panel small{color:#46566A}
+.athlys-app .hero-panel{background:linear-gradient(112deg,#0B1F3A 0%,#1C352F 56%,#70452F 100%);border-color:rgba(250,146,59,.28)}
+.athlys-app .hero-kicker,.athlys-app .hero-link{color:#B5F348}
+.athlys-app .button-primary{background:#B5F348;color:#13213C;border-color:#B5F348;box-shadow:0 6px 16px rgba(181,243,72,.12)}
+.athlys-app .button-primary:hover{background:#C8F77A;border-color:#C8F77A}
+.athlys-app .button-secondary{background:#E9C5A6;color:#13213C;border-color:rgba(19,33,60,.16)}
+.athlys-app .metric-icon.cyan,.athlys-app .scenario-icon.cyan,.athlys-app .module-icon.cyan{color:#245D6B;background:rgba(54,127,145,.16)}
+.athlys-app .metric-icon.green,.athlys-app .scenario-icon.green,.athlys-app .module-icon.green{color:#3F5B22;background:rgba(181,243,72,.25)}
+.athlys-app .metric-icon.orange,.athlys-app .scenario-icon.orange,.athlys-app .module-icon.orange{color:#8E4727;background:rgba(250,146,59,.22)}
+.athlys-app .metric-delta.cyan,.athlys-app .module-status.cyan{color:#245D6B}
+.athlys-app .metric-delta.green,.athlys-app .module-status.green{color:#3F5B22}
+.athlys-app .metric-delta.orange,.athlys-app .module-status.orange{color:#8E4727}
+.athlys-app .mobile-bottom-nav{background:rgba(11,31,58,.98);border-color:rgba(181,243,72,.24)}
+.athlys-app .mobile-bottom-nav button.active{background:#B5F348;color:#13213C}
+.athlys-app .assistant-fab{background:#B5F348;color:#13213C;border-color:#B5F348}
+.athlys-app input,.athlys-app textarea{background:#E9E2D6;color:#13213C;border-color:rgba(19,33,60,.2)}
+.athlys-app :focus-visible{outline:3px solid #B5F348;outline-offset:3px}
+.athlys-app.theme-light{--bg:#E9E2D6;--surface:#DCE6CB;--surface2:#E9C5A6;--surface3:#F0E8DC;--text:#13213C;--muted:#46566A;--line:rgba(19,33,60,.16)}
+.athlys-app.theme-light .main-area{background:#E9E2D6;color:#13213C}
+.athlys-app.theme-light .topbar{background:rgba(233,226,214,.97);color:#13213C;border-color:rgba(19,33,60,.14)}
+.athlys-app.theme-light .breadcrumb,.athlys-app.theme-light .breadcrumb span{color:#13213C}
+.athlys-app.theme-light .page-heading h1{color:#13213C}
+.athlys-app.theme-light .page-heading p{color:#46566A}
+.athlys-app.theme-light .hero-panel{background:linear-gradient(112deg,#13213C 0%,#1C352F 56%,#70452F 100%)}
+.athlys-app.theme-light .metric-card,.athlys-app.theme-light .panel{background:#DCE6CB;color:#13213C}
+.athlys-app.theme-light .metric-card:nth-child(2n){background:#E9C5A6}
+.athlys-app.theme-light .metric-card:nth-child(3n){background:#E9E2D6}
+.athlys-app.theme-light .mobile-bottom-nav{background:rgba(19,33,60,.98)}
+.athlys-app .install-app-button{border-color:rgba(181,243,72,.3);background:rgba(181,243,72,.10);color:#B5F348}
+.athlys-app .download-apk-button{border-color:rgba(181,243,72,.32);background:rgba(181,243,72,.12);color:#B5F348}
+
+/* Shared Coach/Athlete and Club surfaces: colored paper, not blank white cards. */
+#athlys .card,#athlys .metric,#athlys .modal,#athlys .assistant-panel,#athlys .health-provider,
+#athlys .athlys-template,#athlys .surface-card,#athlys .team-profile,#athlys .coach-pulse{
+  background:var(--athlys-surface,var(--surface))!important;
+}
+#athlys .metric{background:var(--athlys-surface-raised,#E9C5A6)!important}
+#athlys .btn.primary,#athlys .btn-primary,#athlys .primary-action,#athlys .chat-composer .btn,#athlys .auth-card .btn.primary{
+  background:#B5F348!important;border-color:#B5F348!important;color:#13213C!important;box-shadow:none
+}
+#athlys .btn.primary:hover,#athlys .btn-primary:hover,#athlys .primary-action:hover,#athlys .chat-composer .btn:hover{
+  background:#C8F77A!important;border-color:#C8F77A!important
+}
+#athlys .sidebar-group button.active{background:rgba(181,243,72,.16);box-shadow:inset 3px 0 #B5F348}
+#athlys .sidebar-group button.active i{color:#B5F348}
+#athlys .mobile-nav button.active{background:rgba(181,243,72,.2);color:#536D32}
+#athlys .progress i{background:linear-gradient(90deg,#B5F348 0%,#FA923B 100%)}
+#athlys input:focus,#athlys select:focus,#athlys textarea:focus{border-color:#536D32;box-shadow:0 0 0 3px rgba(181,243,72,.2)}
+#athlys :focus-visible{outline-color:#B5F348}
+#club-app{--bg:#E9E2D6;--surface:#DCE6CB;--surface2:#E9C5A6;--line:rgba(19,33,60,.16);--text:#13213C;--muted:#46566A;--soft:#536D32;--cyan:#367F91;--orange:#B96535;--green:#536D32;background:var(--bg);color:var(--text)}
+#club-app .topbar{background:#E9E2D6;color:#13213C}
+#club-app .sidebar{background:linear-gradient(180deg,#0B1F3A,#13213C 70%,#1C352F)}
+#club-app .metric:nth-child(4n){--wash:rgba(181,243,72,.22)}
+#club-app .metric:nth-child(4n) small{color:#536D32}
+#club-app .sync-card{background:radial-gradient(ellipse at 92% 12%,rgba(250,146,59,.22),transparent 38%),linear-gradient(125deg,#13213C 0%,#1C352F 70%,#70452F 100%)}
+#club-app .sync-card .btn,#club-app .btn-primary,#club-app .btn-accent{background:#B5F348;color:#13213C;border-color:#B5F348;box-shadow:none}
+#club-app .btn-primary:hover,#club-app .btn-accent:hover{background:#C8F77A;border-color:#C8F77A}
+#club-app .field input,#club-app .field select,#club-app .field textarea,#club-app .toolbar-search{background:#F0E8DC;color:#13213C}
+#club-app .field input:focus,#club-app .field select:focus,#club-app .field textarea:focus,#club-app .toolbar-search:focus{border-color:#536D32;box-shadow:0 0 0 3px rgba(181,243,72,.2)}
+#club-app .sidebar .nav-item.active{background:rgba(181,243,72,.17);box-shadow:inset 3px 0 #B5F348}
+#club-app .sidebar .nav-item.active .ico{color:#B5F348}
+#club-app .role-chip{color:#245D6B;background:rgba(54,127,145,.13)}
+@media(max-width:700px){#athlys .btn,#athlys button.btn,#club-app .btn,#club-app .icon-btn{min-height:44px}}
