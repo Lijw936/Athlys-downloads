@@ -970,7 +970,7 @@ var externalRtc=null,externalRtcModule=null,externalRtcEpoch=0;
 function assistantExternalEnabled(){return cfg.externalRtcEnabled===true;}
 function assistantExternalDisconnect(){externalRtcEpoch++;if(externalRtc)externalRtc.disconnect();externalRtc=null;}
 async function assistantExternalRequest(task,text){
- if(!assistantExternalEnabled()||!own())throw Error("Connecte-toi pour utiliser le LM distant.");
+ if(!assistantExternalEnabled()||!own())throw Error("Connecte-toi pour utiliser le service distant.");
  if(cfg.externalRtcGatewayConfigured===false)throw Error("RTC_NOT_CONFIGURED");
  var scope=assistantDeviceMeshScope(),epoch=externalRtcEpoch;
  if(task==="program_parse"&&!isCoach())throw Error("Cette conversion est réservée au coach.");
@@ -1003,7 +1003,7 @@ function assistantDeviceMesh(){
 }
 function assistantDeviceMeshScope(){return own()+":"+(isCoach()?"coach":"athlete")}
 async function assistantToggleDeviceMesh(){
- if(assistantExternalEnabled()){toast("Le LM est exécuté sur le serveur distant.");return;}
+ if(assistantExternalEnabled()){toast(cfg.externalTransport==="https"?"Le secours est exécuté sur le serveur distant, sans génération LM.":"Le LM est exécuté sur le serveur distant.");return;}
  var m=assistantDeviceMesh();
  if(!m||!window.AthlysDeviceModel){toast("Ce mode nécessite l’APK Android et le PC connecté en USB.");return;}
  if(m.state().enabled){assistantMeshEpoch++;m.disable();toast("PC déconnecté. Calculs locaux actifs.");render();return;}
@@ -1026,7 +1026,7 @@ function assistantView(){
  var insightHtml=A.insights&&A.insights.length?'<div class="assistant-insights"><b>✦ Insights repérés automatiquement</b>'+A.insights.map(function(x){return '<article><small>'+esc(x.category||"INSIGHT")+'</small><b>'+esc(x.title)+'</b><p>'+esc(x.detail)+'</p></article>'}).join("")+'</div>':"";
 
 
- return '<aside class="assistant '+(A.open?"open":"")+'"><button class="assistant-launch" data-action="assistant-toggle"><span>A</span> Assistant Athlys</button><section class="assistant-panel" '+(A.open?"":"hidden")+'><header><div><b>Assistant Athlys</b><small><i class="assistant-status"></i> '+(assistantExternalEnabled()?"LM distant · expérimental":"Moteur local autonome · actif")+'</small></div><div class="assistant-head-actions"><button class="close" title="Nouvelle conversation" data-action="assistant-reset">↻</button><button class="close" data-action="assistant-toggle" aria-label="Fermer">×</button></div></header><div class="assistant-content" id="assistant-content">'+(A.history.map(assistantMessageHtml).join("")||intro)+insightHtml+(A.loading?'<div class="assistant-msg assistant assistant-thinking"><span>A</span><p><i></i><i></i><i></i> Analyse en cours…</p></div>':"")+(A.pending?assistantPending():"")+'</div>'+meshControl+'<form data-form="assistant"><input name="prompt" maxlength="4000" autocomplete="off" placeholder="Pose ta question…" required><button class="btn primary" '+(A.loading?"disabled":"")+'>Envoyer</button></form><small>'+ (assistantExternalEnabled()?'Chat et conversion des programmes utilisent le même canal WebRTC vers le serveur. Les réponses expérimentales restent à vérifier. En cas de quota, le relais ou le mode documentaire distant est essayé. Aucun LM ne s’exécute sur ton appareil.':'Le moteur local interprète les demandes avec des règles déterministes et calcule la charge sans serveur d’inférence. Il ne s’agit pas encore d’un LLM génératif embarqué : les demandes complexes ou ambiguës peuvent nécessiter une précision. Le PC USB, uniquement après connexion explicite, peut ajouter une explication générale expérimentale. La recherche Web ne part que lorsque tu la demandes explicitement.')+'</small></section></aside>';
+ return '<aside class="assistant '+(A.open?"open":"")+'"><button class="assistant-launch" data-action="assistant-toggle"><span>A</span> Assistant Athlys</button><section class="assistant-panel" '+(A.open?"":"hidden")+'><header><div><b>Assistant Athlys</b><small><i class="assistant-status"></i> '+(assistantExternalEnabled()?(cfg.externalTransport==="https"?"Références distantes · sans LM":"LM distant · expérimental"):"Moteur local autonome · actif")+'</small></div><div class="assistant-head-actions"><button class="close" title="Nouvelle conversation" data-action="assistant-reset">↻</button><button class="close" data-action="assistant-toggle" aria-label="Fermer">×</button></div></header><div class="assistant-content" id="assistant-content">'+(A.history.map(assistantMessageHtml).join("")||intro)+insightHtml+(A.loading?'<div class="assistant-msg assistant assistant-thinking"><span>A</span><p><i></i><i></i><i></i> Analyse en cours…</p></div>':"")+(A.pending?assistantPending():"")+'</div>'+meshControl+'<form data-form="assistant"><input name="prompt" maxlength="4000" autocomplete="off" placeholder="Pose ta question…" required><button class="btn primary" '+(A.loading?"disabled":"")+'>Envoyer</button></form><small>'+ (assistantExternalEnabled()?'Chat et conversion des programmes utilisent le même canal WebRTC vers le serveur. Les réponses expérimentales restent à vérifier. En cas de quota, le relais ou le mode documentaire distant est essayé. Aucun LM ne s’exécute sur ton appareil.':'Le moteur local interprète les demandes avec des règles déterministes et calcule la charge sans serveur d’inférence. Il ne s’agit pas encore d’un LLM génératif embarqué : les demandes complexes ou ambiguës peuvent nécessiter une précision. Le PC USB, uniquement après connexion explicite, peut ajouter une explication générale expérimentale. La recherche Web ne part que lorsque tu la demandes explicitement.')+'</small></section></aside>';
 }
 function assistantSafeSources(sources){
  return (Array.isArray(sources)?sources:[]).slice(0,6).map(function(x){
@@ -1083,7 +1083,7 @@ async function assistantRequest(prompt,mode){
   if(assistantExternalEnabled()){
    var remote=await assistantExternalRequest("chat",prompt);
    if(remoteEpoch!==externalRtcEpoch||remoteScope!==assistantDeviceMeshScope())return;
-   assistantSay("assistant",(remote.reply||"Précise ta demande.")+"\n\n"+(remote.notice||"Brouillon du LM distant, à vérifier."));
+   assistantSay("assistant",(remote.reply||"Précise ta demande.")+"\n\n"+(remote.notice||"Réponse distante à vérifier."));
    return;
   }
   var offline=mode!=="insights"&&window.AthlysDeviceMesh&&window.AthlysDeviceMesh.offlineAnswerFor(prompt);
@@ -1114,7 +1114,7 @@ async function assistantRequest(prompt,mode){
   if(mode==="insights"){A.insights=engine.localInsights(context);A.insightLoaded=true;}
  }catch(error){
   if(remoteEpoch!==externalRtcEpoch||remoteScope!==assistantDeviceMeshScope())return;
-  if(assistantExternalEnabled()){assistantSay("assistant",/RTC_NOT_CONFIGURED/.test(error.message)?"Le service LM externe doit encore être configuré pour cette application.":/REMOVE_PERSONAL_SENSITIVE_INFORMATION/.test(error.message)?"Anonymise le texte avant l’envoi : retire les identités et les informations personnelles de santé. Tu peux poser une question générale ou transmettre un programme anonymisé.":"Le service distant n’a pas pu répondre après la tentative de bascule. Réessaie plus tard. Aucun résultat de LM n’est disponible.");return;}
+  if(assistantExternalEnabled()){assistantSay("assistant",/RTC_NOT_CONFIGURED/.test(error.message)?"Le service externe doit encore être configuré pour cette application.":/REMOVE_PERSONAL_SENSITIVE_INFORMATION/.test(error.message)?"Anonymise le texte avant l’envoi : retire les identités et les informations personnelles de santé. Tu peux poser une question générale ou transmettre un programme anonymisé.":"Le service distant n’a pas pu répondre après la tentative de bascule. Réessaie plus tard. Aucun résultat de LM n’est disponible.");return;}
   assistantSay("assistant","Le traitement local n’a pas abouti : "+(error&&error.message||"erreur inconnue")+". Aucune requête d’inférence distante n’a été tentée.");
  }finally{A.loading=false;render();}
 }
