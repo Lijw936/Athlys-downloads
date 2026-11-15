@@ -8,7 +8,7 @@ Organisation : Strategy Arena, diagnostic et exécution proportionnée. Budget a
 
 ## Choix d’exécution
 
-Le chemin retenu associe un client de test public, des builds publics de durée bornée et un calcul extérieur aux appareils. Render My Workspace est choisi sur délégation de l’utilisateur. Le service HTTPS de secours est déployé et ses refus sont vérifiés ; la variante client connectée est en cours de packaging. Il fournit des références et une conversion conservatrice, sans génération LM. Les quotas gratuits, la mise en veille et la capacité mémoire restent des limites réelles.
+Le chemin retenu associe un client de test public, des builds publics de durée bornée et un calcul extérieur aux appareils. Render My Workspace est choisi sur délégation de l’utilisateur. Le service HTTPS de secours est déployé et ses refus sont vérifiés ; la variante client connectée est publiée. Il fournit des références et une conversion conservatrice, sans génération LM. Les quotas gratuits, la mise en veille et la capacité mémoire restent des limites réelles.
 
 L’alternative PC mesh est remplacée par la demande de calcul externe. Le statu quo (APK sans passerelle) permet les essais manuels mais pas le LM. Un abonnement ou du calcul hébergé plus puissant dépasseraient le budget et ne sont pas engagés. La limite principale demeure la qualité et la disponibilité du calcul gratuit ; un build réussi ne la supprime pas.
 
@@ -140,7 +140,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Preuve :** Capacités HTTP/WS Render et blocage WebRTC observé.
 
-**Réexamen / limite / retour arrière :** Service HTTPS live ; nouveau packaging client à compiler. Parcours authentifié positif et appareils non vérifiés.
+**Réexamen / limite / retour arrière :** Client HTTPS publié dans APK1.3.10 et Windows1.2.3, preview Web mise à jour. Parcours authentifié positif et appareils non vérifiés.
 
 ## D14 — Résilience · implémenté
 
@@ -168,7 +168,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Motif :** Workspace unique constaté ; utilisateur a délégué le choix à Strategy Arena.
 
-**Preuve :** Render service srv-dbsvdo8ae00c73979h6g ; dep-dbsvdp0ae00c73979k3g live ; plan free, Frankfurt, autoDeploy=no.
+**Preuve :** Render service srv-dbsvdo8ae00c73979h6g, plan free, Frankfurt, autoDeploy=no ; déploiement initial puis dep-dbt2b2psrm7s73a16ea0 live avec origine exacte de la nouvelle preview.
 
 **Réexamen / limite / retour arrière :** Santé et refus réels vérifiés ; conserver les limites de mise en veille/quota.
 
@@ -552,7 +552,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Réexamen / limite / retour arrière :** NSIS Linux bloqué par Wine ; stub invalide écarté ; lancement Windows non effectué.
 
-## D55 — Livraison · évolution en cours
+## D55 — Livraison · publié
 
 **Décision :** Lot initial 1.3.9 sans passerelle ; variante 1.3.10 prépare le secours HTTPS vérifié.
 
@@ -560,7 +560,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Preuve :** externalRtcGatewayConfigured=false ; rejet avant lecture du JWT.
 
-**Réexamen / limite / retour arrière :** Le source reste désactivé par défaut ; le script ne configure que l’endpoint IRL vérifié, sur option explicite de packaging. Aucun LM génératif annoncé.
+**Réexamen / limite / retour arrière :** APK1.3.10 et Windows1.2.3 configurés pour le secours vérifié ; source toujours désactivé par défaut. Aucun LM génératif disponible.
 
 ## D56 — Déploiement · vérifié
 
@@ -568,7 +568,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Motif :** Autorisation d’essais avec conservation des protections.
 
-**Preuve :** Déploiement Vercel dpl_4276md7DrpcVip4g6ZUhE1D1n6jV, HTTP 200 via connecteur autorisé.
+**Preuve :** Nouvelle preview dpl_7ZCYJt494wkUN4Q4WwhDpsMZaekV READY : https://athlys6-preview-gi7p1lydz-adiceamlilian-6530.vercel.app ; configuration, module et statut HTTP200 via connecteur autorisé.
 
 **Réexamen / limite / retour arrière :** Protection SSO retenue ; ne pas publier de token de partage.
 
@@ -598,7 +598,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Motif :** Public runners accessibles, pas de checkout privé requis.
 
-**Preuve :** Run public 43744961886 : Android, Windows, release tous success. Préversion irl-20261115-43744961886.
+**Preuve :** Run final 43746574676, source12ffb378c2428e9f5d5bba626307af05d3f48d01 : Android, Windows et release success ; préversion irl-20261115-43746574676.
 
 **Réexamen / limite / retour arrière :** APK/portables SHA256 publiés ; garder cette préversion comme référence, sans écraser le stable.
 
@@ -608,7 +608,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Motif :** Ne pas publier les migrations privées ni prétendre exécuter la suite complète.
 
-**Preuve :** Workflow public dédié : test:public-client.
+**Preuve :** Workflow public dédié test:public-client : 41 contrôles client/HTTPS/service ; les suites SQL/recherche privées ne sont pas publiées.
 
 **Réexamen / limite / retour arrière :** Tests backend/recherche restent privés ; les checks manquants sont des limites déclarées.
 
@@ -680,7 +680,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Preuve :** https://athlys-external-irl.onrender.com/health : HTTP200, generative_lm=false.
 
-**Réexamen / limite / retour arrière :** Les limites de compréhension restent explicites ; le but d’un dialogue LM général fiable n’est pas atteint.
+**Réexamen / limite / retour arrière :** Les limites de compréhension restent explicites. La variante connectée est publiée, mais un dialogue LM général fiable et les essais authentifiés réels restent non établis.
 
 ## D68 — Sécurité · vérifié
 
@@ -732,15 +732,15 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Réexamen / limite / retour arrière :** Les mocks ne remplacent ni comptes réels, ni essais Nothing Phone/Windows ; ces limites sont publiées.
 
-## D73 — Livraison · en cours
+## D73 — Livraison · publié et APK vérifiée
 
 **Décision :** Préparer Android 1.3.10/code14 et Windows IRL1.2.3 avec endpoint de secours.
 
 **Motif :** Le lot1.3.9 était volontairement non configuré ; ne pas le présenter comme connecté au nouveau serveur.
 
-**Preuve :** Script de packaging limité au domaine Render vérifié, source par défaut désactivée.
+**Preuve :** Release irl-20261115-43746574676 ; APK8080386 octets, SHA25630803b3d65d0633307ad5cb2f3698667267fc6009c4e187c8f4e7a69cb4a9523 ; sources embarquées comparées, signature v2 vérifiée, package com.athlys.app.irl code14. Deux portables Windows1.2.3 publiés avec leurs SHA256.
 
-**Réexamen / limite / retour arrière :** Attendre builds et empreintes propres avant de déclarer cette nouvelle version publiée.
+**Réexamen / limite / retour arrière :** Installation Nothing Phone et exécution Windows non réalisées. APK debug et EXE non signés ; conserver les versions actuelles. Preview Web protégée publiée et configurée.
 
 ## D74 — Qualification · actif
 
