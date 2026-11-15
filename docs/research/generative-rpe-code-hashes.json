@@ -1,0 +1,6 @@
+{
+  "services/athlys-generative/contracts.mjs": "47d5d4810cbb37292aa519eb2793cf36b4dd74f7781f15a0f15d13de79a23617",
+  "services/athlys-generative/engine.mjs": "9324045739485525783d91afd7d7ac7fd06ebfd04fb828329406e0c6285e99cb",
+  "services/athlys-free-external/server.mjs": "3ec7f408bfac861539ea8237bf738923cb2492b7a2e2efe04bacbc623b6e52bc",
+  "services/athlys-generative/model.mjs": "fb4fb6dfb385f5958abff5cdf92bcad40abad638b2f6b4365467f7435e193f3d"
+}

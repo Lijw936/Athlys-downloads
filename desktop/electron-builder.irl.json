@@ -1,6 +1,6 @@
 {
-  "appId": "com.athlys.desktop.irl",
-  "productName": "Athlys IRL",
+  "appId": "com.athlys.desktop.irl.lm",
+  "productName": "Athlys LM IRL",
   "directories": {
     "output": "dist"
   },
@@ -36,7 +36,7 @@
     "shortcutName": "Athlys"
   },
   "portable": {
-    "artifactName": "Athlys-IRL-Portable-${version}-${arch}.${ext}"
+    "artifactName": "Athlys-LM-IRL-Portable-${version}-${arch}.${ext}"
   },
   "mac": {
     "category": "public.app-category.healthcare-fitness",
@@ -62,8 +62,9 @@
     "gatekeeperAssess": false
   },
   "extraMetadata": {
-    "version": "1.2.3-irl",
-    "name": "athlys-irl",
-    "fieldTrial": true
+    "version": "1.2.4-irl",
+    "name": "athlys-lm-irl",
+    "fieldTrial": true,
+    "generativeTrial": true
   }
 }

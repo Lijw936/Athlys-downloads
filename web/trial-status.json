@@ -1,5 +1,5 @@
 {
-  "build": "irl-external-reference-20261115",
+  "build": "irl-generative-rpe-20261115",
   "models": [
     {
       "title": "Texte → RPE écrit",
@@ -17,6 +17,6 @@
       "detail": "Erreur moyenne : 1.09, contre 0,82 pour la référence médiane, sur 22 mesures de 11 sujets. Le modèle ne fait pas mieux que cette référence."
     }
   ],
-  "generative_lm": false,
-  "external_service_mode": "external_reference_fallback"
+  "generative_lm": "configured_in_lm_variant_runtime_to_verify",
+  "external_service_mode": "external_lm_with_reference_fallback"
 }

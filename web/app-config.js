@@ -4,6 +4,8 @@ window.ATHLYS_CONFIG = {
   anonKey: "sb_publishable_z6sRVvlNeiZw-LsslTrQ7w_hixvq7lp",
   externalRtcEnabled: false,
   externalTransport: "https",
+  externalGenerativeEnabled: false,
+  externalHttpsFallbackUrl: "",
   externalRtcGatewayConfigured: false,
   externalRtcAuthorizationUrl: "/api/rtc-authorize",
   externalRtcAuthorizationOrigins: []

@@ -1,0 +1,630 @@
+{
+  "model": {
+    "repository": "LiquidAI/LFM2.5-350M-GGUF",
+    "revision": "657e078c94084481950a2d555a941481f715536b",
+    "file": "LFM2.5-350M-Q6_K.gguf",
+    "sha256": "3ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7",
+    "bytes": 293381856,
+    "license": "LFM Open License v1.0; research/IRL trial; commercial revenue threshold applies",
+    "runtime": "llama.cpp-b12420",
+    "scientific_qualification": false,
+    "athlys_finetuned": false
+  },
+  "source": "19 authored synthetic development cases, not independent field validation",
+  "cases": 19,
+  "passed": 18,
+  "source_values_verified_by_decoder_not_model": true,
+  "heuristic_hypotheses_not_labels_of_athlete_RPE": true,
+  "results": [
+    {
+      "text": "Lundi : footing RPE 4 pendant 30 min",
+      "written": 4,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": "verified_source_decoder",
+          "rpe_written_by_model": null,
+          "quote": "footing RPE 4 pendant 30 min",
+          "source_start": 8,
+          "source_end": 36,
+          "session_index": 0,
+          "explanation": "RPE identifié dans la source ; il reste distinct du RPE global de séance.",
+          "rpe_written": 4,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 1.353
+    },
+    {
+      "text": "Mardi : squat 3 x 8 à RPE 7",
+      "written": 7,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": "verified_source_decoder",
+          "rpe_written_by_model": null,
+          "quote": "squat 3 x 8 à RPE 7",
+          "source_start": 8,
+          "source_end": 27,
+          "session_index": 0,
+          "explanation": "RPE identifié dans la source ; il reste distinct du RPE global de séance.",
+          "rpe_written": 7,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 1.466
+    },
+    {
+      "text": "Mercredi : RPE global 6,5",
+      "written": 6.5,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": "verified_source_decoder",
+          "rpe_written_by_model": null,
+          "quote": "RPE global 6,5",
+          "source_start": 11,
+          "source_end": 25,
+          "session_index": 0,
+          "explanation": "RPE identifié dans la source ; il reste distinct du RPE global de séance.",
+          "rpe_written": 6.5,
+          "rpe_suggestion": null,
+          "scope": "session",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 1.339
+    },
+    {
+      "text": "Jeudi : RPE de séance six sur dix",
+      "written": 6,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": "verified_source_decoder",
+          "rpe_written_by_model": null,
+          "quote": "RPE de séance six sur dix",
+          "source_start": 8,
+          "source_end": 33,
+          "session_index": 0,
+          "explanation": "RPE identifié dans la source ; il reste distinct du RPE global de séance.",
+          "rpe_written": 6,
+          "rpe_suggestion": null,
+          "scope": "session",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 1.533
+    },
+    {
+      "text": "Vendredi : course facile RPE 3",
+      "written": 3,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": "verified_source_decoder",
+          "rpe_written_by_model": null,
+          "quote": "course facile RPE 3",
+          "source_start": 11,
+          "source_end": 30,
+          "session_index": 0,
+          "explanation": "RPE identifié dans la source ; il reste distinct du RPE global de séance.",
+          "rpe_written": 3,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 1.261
+    },
+    {
+      "text": "Samedi : Borg RPE 17/20",
+      "written": 17,
+      "scale": "other_scale",
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": "verified_source_decoder",
+          "rpe_written_by_model": null,
+          "quote": "Borg RPE 17/20",
+          "source_start": 9,
+          "source_end": 23,
+          "session_index": 0,
+          "explanation": "Échelle source à conserver ; aucune conversion vers CR10.",
+          "rpe_written": 17,
+          "rpe_suggestion": null,
+          "scope": "other_scale",
+          "scale": "source_scale_not_converted",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 1.48
+    },
+    {
+      "text": "Lundi : footing facile pendant 30 minutes",
+      "hypothesis": 3,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "footing facile pendant 30 minutes",
+          "source_start": 8,
+          "source_end": 41,
+          "session_index": 0,
+          "explanation": "Interprétation générative de l’intensité : easy. Cible indicative selon un barème de travail Athlys non validé, à confirmer par le coach.",
+          "rpe_written": null,
+          "rpe_suggestion": 3,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": true,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 1.324
+    },
+    {
+      "text": "Mardi : course tranquille en pouvant parler normalement",
+      "hypothesis": 3,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "course tranquille en pouvant parler normalement",
+          "source_start": 8,
+          "source_end": 55,
+          "session_index": 0,
+          "explanation": "Interprétation générative de l’intensité : easy. Cible indicative selon un barème de travail Athlys non validé, à confirmer par le coach.",
+          "rpe_written": null,
+          "rpe_suggestion": 3,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": true,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 1.291
+    },
+    {
+      "text": "Mercredi : effort modéré sans chercher la performance",
+      "hypothesis": 5,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "effort modéré sans chercher la performance",
+          "source_start": 11,
+          "source_end": 53,
+          "session_index": 0,
+          "explanation": "Interprétation générative de l’intensité : moderate. Cible indicative selon un barème de travail Athlys non validé, à confirmer par le coach.",
+          "rpe_written": null,
+          "rpe_suggestion": 5,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": true,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 1.291
+    },
+    {
+      "text": "Jeudi : travail soutenu, conversation impossible",
+      "hypothesis": 7,
+      "passed": false,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "travail soutenu",
+          "source_start": 8,
+          "source_end": 23,
+          "session_index": 0,
+          "explanation": "l'activité est intense et exigeante",
+          "rpe_written": null,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        },
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "conversation impossible",
+          "source_start": 25,
+          "source_end": 48,
+          "session_index": 0,
+          "explanation": "La conversation était impossible, comme si personne n'avait répondu.",
+          "rpe_written": null,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 2.458
+    },
+    {
+      "text": "Vendredi : effort maximal, tout donner",
+      "hypothesis": 10,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "effort maximal",
+          "source_start": 11,
+          "source_end": 25,
+          "session_index": 0,
+          "explanation": "Interprétation générative de l’intensité : maximal. Cible indicative selon un barème de travail Athlys non validé, à confirmer par le coach.",
+          "rpe_written": null,
+          "rpe_suggestion": 10,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": true,
+          "automatically_applied": false
+        },
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "tout donner",
+          "source_start": 27,
+          "source_end": 38,
+          "session_index": 0,
+          "explanation": "tout donner",
+          "rpe_written": null,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 2.238
+    },
+    {
+      "text": "Lundi : repos complet",
+      "hypothesis": null,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "repos complet",
+          "source_start": 8,
+          "source_end": 21,
+          "session_index": 0,
+          "explanation": "Le repos complet a été effectué sans difficulté.",
+          "rpe_written": null,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 1.164
+    },
+    {
+      "text": "Mardi : 6 x 400 mètres, récupération 90 secondes",
+      "hypothesis": null,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "6 x 400 mètres",
+          "source_start": 8,
+          "source_end": 22,
+          "session_index": 0,
+          "explanation": "Le commentaire du LM contenant des chiffres est écarté ; les valeurs source font autorité.",
+          "rpe_written": null,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        },
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "récupération 90 secondes",
+          "source_start": 24,
+          "source_end": 48,
+          "session_index": 0,
+          "explanation": "Le commentaire du LM contenant des chiffres est écarté ; les valeurs source font autorité.",
+          "rpe_written": null,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 2.433
+    },
+    {
+      "text": "Mercredi : musculation 3 séries de 8 répétitions",
+      "hypothesis": null,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "musculation 3 séries de 8 répétitions",
+          "source_start": 11,
+          "source_end": 48,
+          "session_index": 0,
+          "explanation": "Le commentaire du LM contenant des chiffres est écarté ; les valeurs source font autorité.",
+          "rpe_written": null,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 1.368
+    },
+    {
+      "text": "Jeudi : pas de footing facile, séance annulée",
+      "hypothesis": null,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "pas de footing facile",
+          "source_start": 8,
+          "source_end": 29,
+          "session_index": 0,
+          "explanation": "Pas de match facile",
+          "rpe_written": null,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        },
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "séance annulée",
+          "source_start": 31,
+          "source_end": 45,
+          "session_index": 0,
+          "explanation": "La séance a été annulée.",
+          "rpe_written": null,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 2.363
+    },
+    {
+      "text": "Vendredi : course, intensité non précisée",
+      "hypothesis": null,
+      "passed": true,
+      "mode": "external_lm",
+      "items": [
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "course",
+          "source_start": 11,
+          "source_end": 17,
+          "session_index": 0,
+          "explanation": "Course est facile, idéale pour un débutant.",
+          "rpe_written": null,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        },
+        {
+          "written_value_origin": null,
+          "rpe_written_by_model": null,
+          "quote": "intensité non précisée",
+          "source_start": 19,
+          "source_end": 41,
+          "session_index": 0,
+          "explanation": "La condition est inconnue",
+          "rpe_written": null,
+          "rpe_suggestion": null,
+          "scope": "block",
+          "scale": "CR10_to_confirm",
+          "requires_coach_review": true,
+          "suggestion_is_estimate": false,
+          "automatically_applied": false
+        }
+      ],
+      "seconds": 2.36
+    },
+    {
+      "task": "rpe_explain",
+      "input": {
+        "plannedRpe": 6,
+        "projectedRpe": 6.5,
+        "sampleCount": 8,
+        "personalized": true,
+        "confidence": "limited",
+        "method": "athlys-individual-rpe-v1",
+        "durationMinutes": null
+      },
+      "passed": true,
+      "result": {
+        "model": {
+          "repository": "LiquidAI/LFM2.5-350M-GGUF",
+          "revision": "657e078c94084481950a2d555a941481f715536b",
+          "file": "LFM2.5-350M-Q6_K.gguf",
+          "sha256": "3ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7",
+          "bytes": 293381856,
+          "license": "LFM Open License v1.0; research/IRL trial; commercial revenue threshold applies",
+          "runtime": "llama.cpp-b12420",
+          "scientific_qualification": false,
+          "athlys_finetuned": false
+        },
+        "execution": "external_server",
+        "action_executed": false,
+        "requires_coach_review": true,
+        "mode": "external_lm",
+        "fallback_used": false,
+        "reply": "RPE projeté : 6,5/10 ; cible du coach : 6/10 ; 8 séance(s) appariée(s). Correction individuelle exploratoire. Cette estimation ne remplace pas le ressenti déclaré après la séance.\n\nLa projection est supérieure à la cible. Elle utilise les écarts de séances comparables. Elle est exploratoire et le ressenti réel peut différer.",
+        "draft": "Conserver le contenu et la cible confirmés par le coach, puis recueillir le ressenti après la séance.",
+        "projection_facts": {
+          "plannedRpe": 6,
+          "projectedRpe": 6.5,
+          "sampleCount": 8,
+          "personalized": true,
+          "confidence": "limited",
+          "method": "athlys-individual-rpe-v1",
+          "durationMinutes": null
+        },
+        "notice": "Le noyau client calcule la projection. Le LM reformule ; le brouillon ne modifie aucune séance. Validation coach requise."
+      }
+    },
+    {
+      "task": "rpe_explain",
+      "input": {
+        "plannedRpe": 5,
+        "projectedRpe": 5,
+        "sampleCount": 0,
+        "personalized": false,
+        "confidence": "insufficient",
+        "method": "athlys-individual-rpe-v1",
+        "durationMinutes": null
+      },
+      "passed": true,
+      "result": {
+        "model": {
+          "repository": "LiquidAI/LFM2.5-350M-GGUF",
+          "revision": "657e078c94084481950a2d555a941481f715536b",
+          "file": "LFM2.5-350M-Q6_K.gguf",
+          "sha256": "3ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7",
+          "bytes": 293381856,
+          "license": "LFM Open License v1.0; research/IRL trial; commercial revenue threshold applies",
+          "runtime": "llama.cpp-b12420",
+          "scientific_qualification": false,
+          "athlys_finetuned": false
+        },
+        "execution": "external_server",
+        "action_executed": false,
+        "requires_coach_review": true,
+        "mode": "external_lm",
+        "fallback_used": false,
+        "reply": "RPE projeté : 5/10 ; cible du coach : 5/10 ; 0 séance(s) appariée(s). Historique insuffisant : la cible du coach est conservée. Cette estimation ne remplace pas le ressenti déclaré après la séance.\n\nHistorique insuffisant : la projection conserve la cible du coach. Le ressenti sera déclaré après la séance.",
+        "draft": "Conserver le contenu et la cible confirmés par le coach, puis recueillir le ressenti après la séance.",
+        "projection_facts": {
+          "plannedRpe": 5,
+          "projectedRpe": 5,
+          "sampleCount": 0,
+          "personalized": false,
+          "confidence": "insufficient",
+          "method": "athlys-individual-rpe-v1",
+          "durationMinutes": null
+        },
+        "notice": "Le noyau client calcule la projection. Le LM reformule ; le brouillon ne modifie aucune séance. Validation coach requise."
+      }
+    },
+    {
+      "task": "rpe_explain",
+      "input": {
+        "plannedRpe": 7,
+        "projectedRpe": 6.5,
+        "sampleCount": 5,
+        "personalized": true,
+        "confidence": "exploratory",
+        "method": "athlys-individual-rpe-v1",
+        "durationMinutes": null
+      },
+      "passed": true,
+      "result": {
+        "model": {
+          "repository": "LiquidAI/LFM2.5-350M-GGUF",
+          "revision": "657e078c94084481950a2d555a941481f715536b",
+          "file": "LFM2.5-350M-Q6_K.gguf",
+          "sha256": "3ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7",
+          "bytes": 293381856,
+          "license": "LFM Open License v1.0; research/IRL trial; commercial revenue threshold applies",
+          "runtime": "llama.cpp-b12420",
+          "scientific_qualification": false,
+          "athlys_finetuned": false
+        },
+        "execution": "external_server",
+        "action_executed": false,
+        "requires_coach_review": true,
+        "mode": "external_lm",
+        "fallback_used": false,
+        "reply": "RPE projeté : 6,5/10 ; cible du coach : 7/10 ; 5 séance(s) appariée(s). Correction individuelle exploratoire. Cette estimation ne remplace pas le ressenti déclaré après la séance.\n\nLa projection est inférieure à la cible. Elle utilise les écarts de séances comparables. Elle est exploratoire et le ressenti réel peut différer.",
+        "draft": "Conserver le contenu et la cible confirmés par le coach, puis recueillir le ressenti après la séance.",
+        "projection_facts": {
+          "plannedRpe": 7,
+          "projectedRpe": 6.5,
+          "sampleCount": 5,
+          "personalized": true,
+          "confidence": "exploratory",
+          "method": "athlys-individual-rpe-v1",
+          "durationMinutes": null
+        },
+        "notice": "Le noyau client calcule la projection. Le LM reformule ; le brouillon ne modifie aucune séance. Validation coach requise."
+      }
+    }
+  ]
+}

@@ -16,7 +16,7 @@ export function adaptExternalProgram(result,discipline=''){
   for(const b of s.blocks)for(const q of b.clarification_questions||[])questions.push(q);
   return {sequence_number:i+1,title:String(s.day||('Séance '+(i+1))),session_type:blocks.length&&blocks.every(b=>b.type==='rest')?'rest':'training',discipline,duration_minutes:Number.isFinite(s.duration_total_minutes)&&s.duration_total_minutes>0?s.duration_total_minutes:null,planned_rpe:null,intensity:null,planned_date:/^\d{4}-\d{2}-\d{2}$/.test(s.planned_date||'')?s.planned_date:null,blocks,source_start:s.start,source_end:s.end};
  });
- return {schema_version:'athlys.program.v1',parser_version:'external-rtc-source-v1',execution:'external_server',model_used:result.mode==='external_lm',fallback_used:!!result.fallback_used,sessions,global_ambiguities:[...new Set(questions.filter(x=>typeof x==='string'))].map(message=>({session:null,message})),requires_coach_review:true,automatically_imported:false,lm_proposals:result.lm_proposals||null};
+ return {schema_version:'athlys.program.v1',parser_version:'external-rtc-source-v1',execution:'external_server',model_used:result.mode==='external_lm',fallback_used:!!result.fallback_used,sessions,global_ambiguities:[...new Set(questions.filter(x=>typeof x==='string'))].map(message=>({session:null,message})),requires_coach_review:true,automatically_imported:false,lm_proposals:result.lm_proposals||null,lm_coverage:result.lm_coverage||null};
 }
 export class AthlysExternalRTC{
  constructor({authorize,onState=()=>{},onStatus=()=>{},iceServers=[]}){this.authorize=authorize;this.onState=onState;this.onStatus=onStatus;this.iceServers=iceServers;this.epoch=0;this.pending=null;this.pc=null;this.channel=null;this.session=null;}
@@ -66,17 +66,39 @@ export class AthlysExternalRTC{
 }
 // HTTPS fallback for hosts with no WebRTC/TURN path. Computation stays external.
 export class AthlysExternalHTTPS{
- constructor({authorize,onState=()=>{}}){this.authorize=authorize;this.onState=onState;this.epoch=0;this.busy=false;}
- disconnect(){this.epoch++;this.onState('disconnected');}
+ constructor({authorize,onState=()=>{},onStatus=()=>{},fallbackAvailable=false,maxWaitMs=17*60*1000,pollDelay=null}){this.authorize=authorize;this.onState=onState;this.onStatus=onStatus;this.fallbackAvailable=fallbackAvailable;this.maxWaitMs=maxWaitMs;this.pollDelay=pollDelay;this.epoch=0;this.busy=false;this.controller=null;}
+ disconnect(){this.epoch++;this.controller?.abort();this.onState('disconnected');}
+ async pause(ms,signal){
+  if(this.pollDelay)return this.pollDelay(ms);
+  return new Promise((resolve,reject)=>{const aborted=()=>{clearTimeout(timer);reject(Error('STALE_SESSION'));};const timer=setTimeout(()=>{signal.removeEventListener('abort',aborted);resolve();},ms);signal.addEventListener('abort',aborted,{once:true});if(signal.aborted)aborted();});
+ }
  async request(task,text){
   if(this.busy)throw Error('ONE_REQUEST_AT_A_TIME');
-  if(!['chat','program_parse'].includes(task)||typeof text!=='string'||!text.trim()||text.length>(task==='chat'?4000:20000))throw Error('INVALID_INPUT');
-  assertAnonymousText(text);const epoch=this.epoch,id=crypto.randomUUID();this.busy=true;this.onState('connecting_https');
+  if(!['chat','program_parse','rpe_explain'].includes(task)||typeof text!=='string'||!text.trim()||text.length>(task==='program_parse'?20000:4000))throw Error('INVALID_INPUT');
+  assertAnonymousText(text);const epoch=this.epoch,id=crypto.randomUUID(),deadline=Date.now()+this.maxWaitMs;this.controller=new AbortController();const signal=this.controller.signal;this.busy=true;this.onState('connecting_https');
   try{
-   const response=await this.authorize({v:1,id,task,text});
-   if(epoch!==this.epoch)throw Error('STALE_SESSION');
-   if(!response||response.id!==id||!response.result||response.result.execution!=='external_server')throw Error('INVALID_RESPONSE_BINDING');
-   this.onState('connected_https');return response.result;
-  }finally{this.busy=false;}
+   for(let node=0;node<(this.fallbackAvailable&&task!=='rpe_explain'?2:1);node++){
+    try{
+     while(true){
+      if(signal.aborted||epoch!==this.epoch)throw Error('STALE_SESSION');
+      if(Date.now()>deadline)throw Error('GENERATION_TIMEOUT');
+      const response=await this.authorize({v:1,id,task,text},node,signal);
+      if(epoch!==this.epoch||signal.aborted)throw Error('STALE_SESSION');
+      if(!response||response.id!==id||!response.result||response.result.execution!=='external_server')throw Error('INVALID_RESPONSE_BINDING');
+      const result=response.result;
+      if(result.state==='pending'){
+       const p=result.progress;if(!p||!Number.isInteger(p.completed)||!Number.isInteger(p.total)||p.completed<0||p.total<1||p.completed>p.total||p.total>100)throw Error('INVALID_PROGRESS');
+       this.onStatus({task,completed:p.completed,total:p.total});this.onState('generating_external');await this.pause(Math.min(5000,Math.max(500,result.retry_after_ms||2500)),signal);continue;
+      }
+      this.onState('connected_https');return result;
+     }
+    }catch(e){
+     if(epoch!==this.epoch||signal.aborted)throw Error('STALE_SESSION');
+     const capacity=e.retryable||['TypeError','TimeoutError','AbortError'].includes(e.name);
+     if(!capacity||node===1||!this.fallbackAvailable||task==='rpe_explain')throw e;
+     this.onState('switching_external_peer');
+    }
+   }
+  }finally{this.busy=false;this.controller=null;}
  }
 }

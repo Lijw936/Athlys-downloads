@@ -1,0 +1,67 @@
+[
+  {
+    "text": "Lundi : footing RPE 4 pendant 30 min",
+    "written": 4
+  },
+  {
+    "text": "Mardi : squat 3 x 8 à RPE 7",
+    "written": 7
+  },
+  {
+    "text": "Mercredi : RPE global 6,5",
+    "written": 6.5
+  },
+  {
+    "text": "Jeudi : RPE de séance six sur dix",
+    "written": 6
+  },
+  {
+    "text": "Vendredi : course facile RPE 3",
+    "written": 3
+  },
+  {
+    "text": "Samedi : Borg RPE 17/20",
+    "written": 17,
+    "scale": "other_scale"
+  },
+  {
+    "text": "Lundi : footing facile pendant 30 minutes",
+    "hypothesis": 3
+  },
+  {
+    "text": "Mardi : course tranquille en pouvant parler normalement",
+    "hypothesis": 3
+  },
+  {
+    "text": "Mercredi : effort modéré sans chercher la performance",
+    "hypothesis": 5
+  },
+  {
+    "text": "Jeudi : travail soutenu, conversation impossible",
+    "hypothesis": 7
+  },
+  {
+    "text": "Vendredi : effort maximal, tout donner",
+    "hypothesis": 10
+  },
+  {
+    "text": "Lundi : repos complet",
+    "hypothesis": null
+  },
+  {
+    "text": "Mardi : 6 x 400 mètres, récupération 90 secondes",
+    "hypothesis": null
+  },
+  {
+    "text": "Mercredi : musculation 3 séries de 8 répétitions",
+    "hypothesis": null
+  },
+  {
+    "text": "Jeudi : pas de footing facile, séance annulée",
+    "hypothesis": null
+  },
+  {
+    "text": "Vendredi : course, intensité non précisée",
+    "hypothesis": null
+  }
+]

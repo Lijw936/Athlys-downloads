@@ -1,6 +1,6 @@
 # Athlys — registre des décisions connues
 
-État au 15 novembre 2026. **74 décisions**, actives, remplacées, rejetées ou bloquées. Ce registre couvre la conversation accessible et les notes du projet inspectées ; il ne prétend pas lire d’autres fils. Il publie les choix, motifs synthétiques, preuves et critères de réexamen.
+État au 15 novembre 2026. **88 décisions**, actives, remplacées, rejetées ou bloquées. Ce registre couvre la conversation accessible et les notes du projet inspectées ; il ne prétend pas lire d’autres fils. Il publie les choix, motifs synthétiques, preuves et critères de réexamen.
 
 Organisation : Strategy Arena, diagnostic et exécution proportionnée. Budget autorisé : **0 €**. Les modèles RPE de recherche restent désactivés. Les états « prototype » et « retenu » ne signifient pas « déployé ».
 
@@ -11,6 +11,8 @@ Organisation : Strategy Arena, diagnostic et exécution proportionnée. Budget a
 Le chemin retenu associe un client de test public, des builds publics de durée bornée et un calcul extérieur aux appareils. Render My Workspace est choisi sur délégation de l’utilisateur. Le service HTTPS de secours est déployé et ses refus sont vérifiés ; la variante client connectée est publiée. Il fournit des références et une conversion conservatrice, sans génération LM. Les quotas gratuits, la mise en veille et la capacité mémoire restent des limites réelles.
 
 L’alternative PC mesh est remplacée par la demande de calcul externe. Le statu quo (APK sans passerelle) permet les essais manuels mais pas le LM. Un abonnement ou du calcul hébergé plus puissant dépasseraient le budget et ne sont pas engagés. La limite principale demeure la qualité et la disponibilité du calcul gratuit ; un build réussi ne la supprime pas.
+
+Le nouveau service LFM2.5 génère réellement des propositions dans le périmètre expérimental. Les décisions précédentes de rejet des petits Qwen restent valables pour ces candidats. La voie de secours antérieure est conservée.
 
 ## D01 — Gouvernance · actif
 
@@ -672,7 +674,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Réexamen / limite / retour arrière :** Reformuler correctement un texte connu ne valide pas les réponses libres ; aucun poids LM déployé.
 
-## D67 — Architecture · déployé
+## D67 — Architecture · secours maintenu ; nouvelle voie LM distincte
 
 **Décision :** Déployer un secours externe transparent sans génération LM.
 
@@ -680,7 +682,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Preuve :** https://athlys-external-irl.onrender.com/health : HTTP200, generative_lm=false.
 
-**Réexamen / limite / retour arrière :** Les limites de compréhension restent explicites. La variante connectée est publiée, mais un dialogue LM général fiable et les essais authentifiés réels restent non établis.
+**Réexamen / limite / retour arrière :** La voie de secours 1.3.10 reste disponible ; la variante LM utilise un nouveau service LFM2.5, sans qualifier un dialogue général ou les modèles RPE de recherche.
 
 ## D68 — Sécurité · vérifié
 
@@ -752,6 +754,146 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Réexamen / limite / retour arrière :** Aucun gate de qualification scientifique supprimé ; toute promotion nécessite les preuves définies.
 
+## D75 — LM · déployé expérimental
+
+**Décision :** Choisir LFM2.5-350M Q6_K pour le LM externe.
+
+**Motif :** Meilleure marge mémoire que Qwen3 dans cet hébergement ; modèle multilingue et sorties structurées utilisables dans le périmètre borné.
+
+**Preuve :** Révision657e078c94084481950a2d555a941481f715536b,293381856octets,SHA2563ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7. Service Render srv-dbt2tg0ae00c739gu540.
+
+**Réexamen / limite / retour arrière :** Ce modèle préentraîné n’est pas fine-tuné Athlys ; aucune compréhension parfaite ou qualification scientifique.
+
+## D76 — Architecture · implémenté
+
+**Décision :** Séparer RPE écrit, hypothèse issue du texte, RPE projeté et ressenti déclaré.
+
+**Motif :** Une valeur copiée du texte et une estimation subjective ne sont pas interchangeables.
+
+**Preuve :** Décodeur source, propositions LM, calibration numérique existante et explication générative ont des champs distincts.
+
+**Réexamen / limite / retour arrière :** Le coach choisit explicitement une cible ; le LM ne remplit pas le ressenti à la place de l’athlète.
+
+## D77 — Conversion · implémenté
+
+**Décision :** Les chiffres écrits sont vérifiés dans la source ; le LM interprète qualitativement.
+
+**Motif :** Les petits LM ont confondu séries, récupération et RPE en développement.
+
+**Preuve :** RPE écrit avec citations/positions ; un label qualitatif peut produire une hypothèse selon un barème de travail Athlys non validé.
+
+**Réexamen / limite / retour arrière :** Pas de conversion Borg→CR10 ; label contradictoire ou ambigu conduit à abstention et revue.
+
+## D78 — Projection · implémenté
+
+**Décision :** Garder le calcul numérique existant, puis produire explication et brouillon.
+
+**Motif :** Un LM ne doit pas inventer la valeur projetée ou ses effectifs.
+
+**Preuve :** Les chiffres sont rendus hors LM ; sa reformulation ne peut ajouter de chiffres ou prescriptions non fournies.
+
+**Réexamen / limite / retour arrière :** Le brouillon conserve le contenu confirmé et n’enregistre aucune modification automatique.
+
+## D79 — Résilience · implémenté
+
+**Décision :** Fragmenter le programme et suivre un travail asynchrone idempotent.
+
+**Motif :** Un hébergement gratuit peut être lent ; garder la même requête et le suivi de progression.
+
+**Preuve :** Un travail actif, fragments bornés, identifiant lié à acteur/texte/rôle, autorisation fraîche sur chaque poll, couverture publiée.
+
+**Réexamen / limite / retour arrière :** Annulation réseau côté client et arrêt après perte des polls ; durée de traitement bornée, erreurs signalées.
+
+## D80 — Données · actif
+
+**Décision :** Ne pas prétendre entraîner le LM sur un dataset réel Athlys inexistant.
+
+**Motif :** Aucun corpus réel consenti fourni et aucune donnée privée pour ce fine-tuning.
+
+**Preuve :** LM préentraîné ; cas synthétiques rédigés de développement, avec rapports séparés.
+
+**Réexamen / limite / retour arrière :** Les corrections coach ne deviennent pas automatiquement des labels de recherche.
+
+## D81 — Évaluation · vérifié en développement
+
+**Décision :** Rapporter 18 cas de pipeline satisfaits sur 19, avec une abstention conservée.
+
+**Motif :** Les cas réutilisés au développement ne démontrent pas une performance terrain indépendante.
+
+**Preuve :** 16 programmes synthétiques et3 reformulations de projection ; chiffres écrits vérifiés par code, hypothèses selon barème non validé. Résultats v1/v2 conservés.
+
+**Réexamen / limite / retour arrière :** Ce n’est pas un score du LM seul ni un seuil scientifique >95 %. Aucune promotion des trois modèles RPE de recherche.
+
+## D82 — Ressources · mesuré
+
+**Décision :** Borner la mémoire et fermer le moteur génératif en cas de dépassement.
+
+**Motif :** Conserver une marge sous les512Mio gratuits.
+
+**Preuve :** Environ396Mio combinés en développement ; première mesure Render437392Kio, environ427Mio. Seuil de sécurité488Mio, un moteur CPU.
+
+**Réexamen / limite / retour arrière :** Mesures de processus, pas benchmark batterie/Phone. Sommeil et750h mensuelles partagées subsistent ; pas d’usage illimité garanti.
+
+## D83 — Livraison · en cours
+
+**Décision :** Préparer APK1.3.11 et Windows1.2.4 LM dans des variantes séparées.
+
+**Motif :** Conserver les installations précédentes et éviter les collisions de signature/profil de test.
+
+**Preuve :** Package Android com.athlys.app.irl.lm ; ports Windows41751/41752 et noms LM IRL ; aucun poids dans le client.
+
+**Réexamen / limite / retour arrière :** APK debug/EXE non signés ; construction et installation physique restent des états distincts.
+
+## D84 — Transport · implémenté
+
+**Décision :** Utiliser HTTPS commun aux trois tâches, avec le secours externe précédent.
+
+**Motif :** Un service HTTP gratuit fonctionne sans TURN ; préserver le calcul LM hors appareils.
+
+**Preuve :** chat,program_parse,rpe_explain ; backup borné pour chat/programme, refus auth jamais contourné.
+
+**Réexamen / limite / retour arrière :** Le WebRTC historique reste une option future, aucun pair génératif WebRTC public revendiqué.
+
+## D85 — Confidentialité · implémenté
+
+**Décision :** N’envoyer que les chiffres de la projection et la méthode pour son explication.
+
+**Motif :** Le LM n’a pas besoin du nom, de l’historique brut ou du texte du programme pour cette formulation.
+
+**Preuve :** Tests du contrôleur réel vérifient les sept champs scalaires et le rejet de résultats après changement de rôle/projection.
+
+**Réexamen / limite / retour arrière :** Les textes coach soumis à la conversion restent à anonymiser ; filtre heuristique, pas garantie complète.
+
+## D86 — Vérification · partiel
+
+**Décision :** Exposer un canary fixe synthétique, sans génération libre publique non authentifiée.
+
+**Motif :** Prouver que le modèle tourne réellement sans ouvrir l’inférence aux visiteurs anonymes.
+
+**Preuve :** Canary écrit7debloc,facile→hypothèse3,projection6,5etbrouillon ; santé Internet generative_lm=true.
+
+**Réexamen / limite / retour arrière :** Pas de preuve du parcours avec un compte Supabase réel ni d’installation Phone/Windows ; essais manuels nécessaires.
+
+## D87 — Licence · actif pour essai IRL
+
+**Décision :** Conserver la licence LFM et son cadre d’usage de recherche/essai.
+
+**Motif :** Ce modèle n’utilise pas la licence Apache des candidats Qwen précédents.
+
+**Preuve :** LFM Open Licensev1.0jointe ; condition de revenu pour usage commercial ; démarrage sous ATHLYS_MODEL_USAGE=research_trial.
+
+**Réexamen / limite / retour arrière :** Aucun abonnement ni frais activés ; le cadre commercial futur doit respecter cette licence.
+
+## D88 — Méthode · implémenté
+
+**Décision :** Appliquer Strategy Arena en un orchestrateur et publier les preuves.
+
+**Motif :** L’utilisateur a délégué le choix explication+brouillon et demandé le registre complet.
+
+**Preuve :** Méthode d’ingénierie Athlys actuelle ; code public existant et nouveaux fichiers, aucun serveur/dataset privé copié.
+
+**Réexamen / limite / retour arrière :** Pas de simulation présentée comme vote d’agents ; source, tests, déploiement, packaging et terrain restent distincts.
+
 ## Sources et traçabilité
 
 - [Méthode générale ML](https://fr.wikipedia.org/wiki/Apprentissage_automatique) : taxonomie, sans validation sportive.
@@ -763,3 +905,5 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 - Notes privées inspectées : scientific-model-release, soccermon-offline-evidence, conversation-corpus-intake, device-mesh, quota-independent-inference (14 novembre) ; external-rtc-lm et irl-rpe-three-paths (15 novembre) et probes associés. Sources privées et jeux individuels non publiés.
 
 Les empreintes de builds publics peuvent différer du build local (environnement et signature debug CI). Chaque release doit fournir ses propres SHA256 ; ne pas confondre leurs fichiers.
+
+- [LFM2.5-350M GGUF](https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF) et licence de la révision figée : modèle et empreinte vérifiés.

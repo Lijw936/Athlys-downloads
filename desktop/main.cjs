@@ -3,7 +3,8 @@ const path = require("node:path");
 const fs = require("node:fs");
 const http = require("node:http");
 const FIELD_TRIAL = require("./package.json").fieldTrial === true;
-if (FIELD_TRIAL) app.setName("Athlys IRL");
+const GENERATIVE_TRIAL = require("./package.json").generativeTrial === true;
+if (FIELD_TRIAL) app.setName(GENERATIVE_TRIAL?"Athlys LM IRL":"Athlys IRL");
 
 let APP_ORIGIN = "";
 let APP_URL = "";
@@ -55,8 +56,8 @@ function startLocalServer() {
       });
     });
     localServer.once("error", reject);
-    localServer.listen(FIELD_TRIAL ? 41741 : 41731, "127.0.0.1", () => {
-      APP_ORIGIN = "http://127.0.0.1:" + (FIELD_TRIAL ? 41741 : 41731);
+    localServer.listen(GENERATIVE_TRIAL ? 41751 : FIELD_TRIAL ? 41741 : 41731, "127.0.0.1", () => {
+      APP_ORIGIN = "http://127.0.0.1:" + (GENERATIVE_TRIAL ? 41751 : FIELD_TRIAL ? 41741 : 41731);
       APP_URL = APP_ORIGIN + "/?athlysClient=desktop";
       resolve();
     });
@@ -92,7 +93,7 @@ function createWindow() {
 
 const hasSingleInstance = app.requestSingleInstanceLock();
 if (hasSingleInstance) app.whenReady().then(async () => {
-  app.setAppUserModelId(FIELD_TRIAL ? "com.athlys.desktop.irl" : "com.athlys.desktop");
+  app.setAppUserModelId(GENERATIVE_TRIAL ? "com.athlys.desktop.irl.lm" : FIELD_TRIAL ? "com.athlys.desktop.irl" : "com.athlys.desktop");
   await startLocalServer();
   createWindow();
   app.on("activate", () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });

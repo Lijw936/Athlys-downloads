@@ -1,6 +1,6 @@
 {
-  "appId": "com.athlys.club.irl",
-  "productName": "Athlys Club IRL",
+  "appId": "com.athlys.club.irl.lm",
+  "productName": "Athlys Club LM IRL",
   "directories": {
     "output": "dist"
   },
@@ -35,11 +35,12 @@
     "shortcutName": "Athlys Club"
   },
   "portable": {
-    "artifactName": "Athlys-Club-IRL-Portable-${version}-${arch}.${ext}"
+    "artifactName": "Athlys-Club-LM-IRL-Portable-${version}-${arch}.${ext}"
   },
   "extraMetadata": {
-    "version": "1.2.3-irl",
-    "name": "athlys-club-irl",
-    "fieldTrial": true
+    "version": "1.2.4-irl",
+    "name": "athlys-club-lm-irl",
+    "fieldTrial": true,
+    "generativeTrial": true
   }
 }

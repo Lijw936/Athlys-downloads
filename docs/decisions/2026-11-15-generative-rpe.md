@@ -11,3 +11,7 @@ Acceptation : artefacts/révisions/licences figés ; benchmark synthétique de d
 Risques : mémoire/latence du gratuit, petites capacités linguistiques, hallucinations et prompt injection. Réponses structurées contraintes, valeurs source/calculées faisant autorité, limites de contexte et une inférence à la fois. Reporter les résultats négatifs, ne pas retoucher les labels du test pour obtenir un score.
 
 Retour arrière : conserver service et préversion 1.3.10, désactiver le moteur génératif ou revenir au commit serveur e4f1c9520237846329bb50be675b0b08d6eb8512. Aucun schéma ni suppression de données.
+
+## Résultat de développement
+
+Choix : LFM2.5-350M Q6_K, après erreurs Qwen et comparaison de quantifications. LM réellement exécuté, aucune donnée privée de fine-tuning. Mémoire combinée locale environ396Mio et premier canary Render environ427Mio. 66tests logiciels passent ; fixture de packaging séparée réussie. Pipeline synthétique de développement18/19, une abstention sur intensité soutenue. Les chiffres écrits sont contrôlés par le décodeur, ce résultat ne mesure pas le LM seul. Les versions précédentes du rapport sont conservées après correction des positions source sur virgules et des consignes de reformulation. Pas de test indépendant, appareil ou compte réel revendiqué.
