@@ -13,7 +13,8 @@ export function validateInterpretation(unit,raw){
  const writtenByModel=numeric(raw.rpe_written)&&found.some(x=>x.value===raw.rpe_written)?raw.rpe_written:null;
  let written=found.length===1?found[0].value:writtenByModel;
  const anchor={easy:3,moderate:5,hard:7,maximal:10};const modelSuggestion=anchor[raw.intensity]??raw.rpe_suggestion;
- let suggestion=!otherScale&&!negated&&written===null&&numeric(modelSuggestion)&&modelSuggestion>=1&&modelSuggestion<=10&&/facile|ais[ée]|mod[ée]r|soutenu|intens|dur|maximal|parler|conversation|tranquill|lent|rapide|pique|difficil|conversation/i.test(unit.text)?modelSuggestion:null;
+ const healthRating=/douleur|blessur|m[ée]dic|sommeil|stress|patholog/i.test(unit.text);
+ let suggestion=!otherScale&&!negated&&!healthRating&&written===null&&numeric(modelSuggestion)&&modelSuggestion>=1&&modelSuggestion<=10&&/facile|ais[ée]|mod[ée]r|soutenu|intens|dur|maximal|parler|conversation|tranquill|lent|rapide|pique|difficil|conversation/i.test(unit.text)?modelSuggestion:null;
  if(written!==null&&(written<0||written>20))written=null;
  const lower=unit.text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  const anchored=/maximal|a fond|tout donner/.test(lower)?'maximal':/soutenu|difficile|tres dur|conversation impossible/.test(lower)?'hard':/modere/.test(lower)?'moderate':/facile|aise|parler normalement|conversation normale|tranquill/.test(lower)?'easy':null;
