@@ -1,0 +1,106 @@
+{
+  "schema": "athlys.generative-rpe.delivery.v1",
+  "client_source_sha": "5a9528910ead0350582dfa651d19e0507a8a6532",
+  "model_service_source_sha": "d8bb14708232d487500a8a9542fd2ff15b4eb730",
+  "release": "https://github.com/Lijw936/Athlys-downloads/releases/tag/irl-20261115-43769766816",
+  "run": 43769766816,
+  "assets": [
+    {
+      "name": "Athlys-1.3.12-LM-IRL.apk",
+      "bytes": 8083246,
+      "sha256": "accca5c924f79152fa96fdf1ed31a4f80b28cf2f55f16dc39a043578dbef75c2",
+      "url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43769766816/Athlys-1.3.12-LM-IRL.apk"
+    },
+    {
+      "name": "Athlys-Club-LM-IRL-Portable-1.2.5-irl-x64.exe",
+      "bytes": 94045184,
+      "sha256": "03a4c69c60607c70ec7f7c9d60bf11675a594949b6c4273c5c756fe0d35f1200",
+      "url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43769766816/Athlys-Club-LM-IRL-Portable-1.2.5-irl-x64.exe"
+    },
+    {
+      "name": "Athlys-LM-IRL-Portable-1.2.5-irl-x64.exe",
+      "bytes": 94227342,
+      "sha256": "53c99a2e1bcf12c8fcd739338c9b720e2ba44cf7392d24acfe3a37823d8f8439",
+      "url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43769766816/Athlys-LM-IRL-Portable-1.2.5-irl-x64.exe"
+    },
+    {
+      "name": "DECISIONS.md",
+      "bytes": 43567,
+      "sha256": "b469e42f548b80291696eadd06578735f8ef954aa83eaf91ba651701a3205f58",
+      "url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43769766816/DECISIONS.md"
+    },
+    {
+      "name": "SHA256SUMS-android.txt",
+      "bytes": 99,
+      "sha256": "c351783ab734ee1dc2d7b16c263175a843e1d6dd5f92844d82722ab3b8a8c870",
+      "url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43769766816/SHA256SUMS-android.txt"
+    },
+    {
+      "name": "SHA256SUMS-windows.txt",
+      "bytes": 221,
+      "sha256": "7c7b1e3f0b4fb0928cbd6c13a1ff263477992afebc0392e271340c75b4432f57",
+      "url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43769766816/SHA256SUMS-windows.txt"
+    }
+  ],
+  "apk_package": "com.athlys.app.irl.lm",
+  "apk_version_code": 16,
+  "apk_signature_v2_verified": true,
+  "apk_debug_signed": true,
+  "apk_source_config_and_privacy_copy_verified": true,
+  "generative_weights_in_client": false,
+  "model_service": "https://athlys-generative-irl.onrender.com",
+  "model_deploy": "dep-dbt380rbc2fs73d0bs9g",
+  "model_health": {
+    "status": "ready",
+    "execution": "external_server",
+    "generative_lm": true,
+    "tasks": [
+      "chat",
+      "program_parse",
+      "rpe_explain"
+    ],
+    "mode": "external_lm",
+    "scientific_models_promoted": false,
+    "budget_eur": 0,
+    "model": {
+      "repository": "LiquidAI/LFM2.5-350M-GGUF",
+      "revision": "657e078c94084481950a2d555a941481f715536b",
+      "file": "LFM2.5-350M-Q6_K.gguf",
+      "sha256": "3ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7",
+      "bytes": 293381856,
+      "license": "LFM Open License v1.0; research/IRL trial; commercial revenue threshold applies",
+      "runtime": "llama.cpp-b12420",
+      "scientific_qualification": false,
+      "athlys_finetuned": false
+    },
+    "model_status": "ready",
+    "canary": {
+      "passed": true,
+      "fixture": "synthetic-fixed-rpe-block",
+      "source_sha256": "3d8f625e36679fca2cdecfc97b72fdd4c2c22150a9754b5816fefe1afba36248",
+      "rpe_written": 7,
+      "not_scientific_validation": true,
+      "implicit_intensity_passed": true,
+      "projection_narrative_passed": true,
+      "fixed_generated_explanation": "RPE projeté : 6,5/10 ; cible du coach : 6/10 ; 8 séance(s) appariée(s). Correction individuelle exploratoire. Cette estimation ne remplace pas le ressenti déclaré après la séance.\n\nLa projection est supérieure à la cible. Elle utilise les écarts de séances comparables. Elle est exploratoire et le ressenti réel peut différer."
+    },
+    "peak_combined_memory_kib": 435684
+  },
+  "fallback_service": "https://athlys-external-irl.onrender.com",
+  "plan": "free",
+  "preview": "https://athlys6-preview-k1h3ckz9g-adiceamlilian-6530.vercel.app",
+  "preview_protected": true,
+  "local_software_checks_passed": 68,
+  "client_build_software_checks_passed": 67,
+  "packaging_fixture_passed": true,
+  "development_pipeline_cases": 19,
+  "development_pipeline_criteria_met": 18,
+  "development_cases_reused_not_independent": true,
+  "phone_installation": "NOT RUN",
+  "windows_execution": "NOT RUN",
+  "authenticated_real_user_flow": "NOT RUN",
+  "research_rpe_models_activated": 0,
+  "athlys_lm_finetuning": false,
+  "production_promoted": false,
+  "budget_eur": 0
+}

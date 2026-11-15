@@ -1,18 +1,14 @@
-# Athlys — registre des décisions connues
+# Athlys — registre des 88 décisions connues
 
-État au 15 novembre 2026. **88 décisions**, actives, remplacées, rejetées ou bloquées. Ce registre couvre la conversation accessible et les notes du projet inspectées ; il ne prétend pas lire d’autres fils. Il publie les choix, motifs synthétiques, preuves et critères de réexamen.
+État de la livraison LM IRL du 15 novembre 2026. Couverture : conversation accessible et notes du projet inspectées ; pas d’accès revendiqué à d’autres fils.
 
-Organisation : Strategy Arena, diagnostic et exécution proportionnée. Budget autorisé : **0 €**. Les modèles RPE de recherche restent désactivés. Les états « prototype » et « retenu » ne signifient pas « déployé ».
+**LM génératif externe déployé**, APK 1.3.12 et Windows 1.2.5 publiés, preview Web protégée. Le LM interprète qualitativement et reformule ; valeurs écrites et calcul numérique restent séparés. Propositions à confirmer par le coach, pas de modification automatique des séances.
 
-[JSON exploitable](decisions.json) · [Versions et fichiers](https://github.com/Lijw936/Athlys-downloads/releases)
+68 tests logiciels locaux passent. Pipeline de développement : 18/19 cas synthétiques, non indépendant : ce n’est pas une précision du LM seul ou une validation terrain. Les trois modèles RPE de recherche restent désactivés. Aucun fine-tuning Athlys de ce LM revendiqué.
 
-## Choix d’exécution
+[Preuves et fichiers](LIVRAISON-LM-IRL.json) · [JSON des décisions](decisions.json) · [Rapport de développement](research/generative-rpe-development.json)
 
-Le chemin retenu associe un client de test public, des builds publics de durée bornée et un calcul extérieur aux appareils. Render My Workspace est choisi sur délégation de l’utilisateur. Le service HTTPS de secours est déployé et ses refus sont vérifiés ; la variante client connectée est publiée. Il fournit des références et une conversion conservatrice, sans génération LM. Les quotas gratuits, la mise en veille et la capacité mémoire restent des limites réelles.
-
-L’alternative PC mesh est remplacée par la demande de calcul externe. Le statu quo (APK sans passerelle) permet les essais manuels mais pas le LM. Un abonnement ou du calcul hébergé plus puissant dépasseraient le budget et ne sont pas engagés. La limite principale demeure la qualité et la disponibilité du calcul gratuit ; un build réussi ne la supprime pas.
-
-Le nouveau service LFM2.5 génère réellement des propositions dans le périmètre expérimental. Les décisions précédentes de rejet des petits Qwen restent valables pour ces candidats. La voie de secours antérieure est conservée.
+Les décisions historiques remplacées ou rejetées sont conservées avec leur contexte. Budget autorisé : 0 € ; quotas et sommeil de l’hébergement gratuit demeurent.
 
 ## D01 — Gouvernance · actif
 
@@ -760,7 +756,7 @@ Le nouveau service LFM2.5 génère réellement des propositions dans le périmè
 
 **Motif :** Meilleure marge mémoire que Qwen3 dans cet hébergement ; modèle multilingue et sorties structurées utilisables dans le périmètre borné.
 
-**Preuve :** Révision657e078c94084481950a2d555a941481f715536b,293381856octets,SHA2563ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7. Service Render srv-dbt2tg0ae00c739gu540.
+**Preuve :** Révision657e078c94084481950a2d555a941481f715536b,293381856octets,SHA2563ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7. Service Render srv-dbt2tg0ae00c739gu540. Dernier déploiement dep-dbt380rbc2fs73d0bs9g live, canary et santé vérifiés.
 
 **Réexamen / limite / retour arrière :** Ce modèle préentraîné n’est pas fine-tuné Athlys ; aucune compréhension parfaite ou qualification scientifique.
 
@@ -834,15 +830,15 @@ Le nouveau service LFM2.5 génère réellement des propositions dans le périmè
 
 **Réexamen / limite / retour arrière :** Mesures de processus, pas benchmark batterie/Phone. Sommeil et750h mensuelles partagées subsistent ; pas d’usage illimité garanti.
 
-## D83 — Livraison · en cours
+## D83 — Livraison · publié, APK vérifiée
 
-**Décision :** Préparer APK1.3.12 et Windows1.2.5 LM dans des variantes séparées.
+**Décision :** Préparer APK 1.3.12 et Windows 1.2.5 LM dans des variantes séparées.
 
 **Motif :** Conserver les installations précédentes et éviter les collisions de signature/profil de test.
 
-**Preuve :** Package Android com.athlys.app.irl.lm ; ports Windows41751/41752 et noms LM IRL ; aucun poids dans le client.
+**Preuve :** Run43769766816 : Android, Windows, release success. APK 1.3.12,8083246octets,SHA256accca5c924f79152fa96fdf1ed31a4f80b28cf2f55f16dc39a043578dbef75c2,packagecom.athlys.app.irl.lm/code16 ; signaturev2 et sources/configuration vérifiées. Windows 1.2.5Coach/Club publiés.
 
-**Réexamen / limite / retour arrière :** APK debug/EXE non signés ; construction et installation physique restent des états distincts.
+**Réexamen / limite / retour arrière :** Installation Phone, exécution Windows et parcours authentifié réel non réalisés. Variante de test, source et empreintes dans LIVRAISON-LM-IRL.json.
 
 ## D84 — Transport · implémenté
 
@@ -860,7 +856,7 @@ Le nouveau service LFM2.5 génère réellement des propositions dans le périmè
 
 **Motif :** Le LM n’a pas besoin du nom, de l’historique brut ou du texte du programme pour cette formulation.
 
-**Preuve :** Tests du contrôleur réel vérifient les sept champs scalaires et le rejet de résultats après changement de rôle/projection.
+**Preuve :** Tests du contrôleur réel vérifient les sept champs scalaires et le rejet de résultats après changement de rôle/projection. Le formulaire annonce explicitement la transmission sur serveur avant l’analyse ; ancien libellé local corrigé dans1.3.12.
 
 **Réexamen / limite / retour arrière :** Les textes coach soumis à la conversion restent à anonymiser ; filtre heuristique, pas garantie complète.
 
@@ -870,7 +866,7 @@ Le nouveau service LFM2.5 génère réellement des propositions dans le périmè
 
 **Motif :** Prouver que le modèle tourne réellement sans ouvrir l’inférence aux visiteurs anonymes.
 
-**Preuve :** Canary écrit7debloc,facile→hypothèse3,projection6,5etbrouillon ; santé Internet generative_lm=true.
+**Preuve :** Canary écrit7debloc,facile→hypothèse3,projection6,5etbrouillon ; santé Internet generative_lm=true. Le canary du dernier code serveur passe en ligne ; nouveau CORS204 et jeton invalide401 vérifiés. 68 tests logiciels locaux passent.
 
 **Réexamen / limite / retour arrière :** Pas de preuve du parcours avec un compte Supabase réel ni d’installation Phone/Windows ; essais manuels nécessaires.
 

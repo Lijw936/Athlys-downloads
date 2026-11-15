@@ -901,7 +901,7 @@
       "status": "déployé expérimental",
       "decision": "Choisir LFM2.5-350M Q6_K pour le LM externe.",
       "rationale": "Meilleure marge mémoire que Qwen3 dans cet hébergement ; modèle multilingue et sorties structurées utilisables dans le périmètre borné.",
-      "evidence": "Révision657e078c94084481950a2d555a941481f715536b,293381856octets,SHA2563ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7. Service Render srv-dbt2tg0ae00c739gu540.",
+      "evidence": "Révision657e078c94084481950a2d555a941481f715536b,293381856octets,SHA2563ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7. Service Render srv-dbt2tg0ae00c739gu540. Dernier déploiement dep-dbt380rbc2fs73d0bs9g live, canary et santé vérifiés.",
       "next_gate_or_rollback": "Ce modèle préentraîné n’est pas fine-tuné Athlys ; aucune compréhension parfaite ou qualification scientifique.",
       "owner": "Orchestration Athlys",
       "confidence": "observé si vérifié, sinon conditionnel"
@@ -994,11 +994,11 @@
       "id": "D83",
       "date": "2026-11-15",
       "theme": "Livraison",
-      "status": "en cours",
+      "status": "publié, APK vérifiée",
       "decision": "Préparer APK1.3.12 et Windows1.2.5 LM dans des variantes séparées.",
       "rationale": "Conserver les installations précédentes et éviter les collisions de signature/profil de test.",
-      "evidence": "Package Android com.athlys.app.irl.lm ; ports Windows41751/41752 et noms LM IRL ; aucun poids dans le client.",
-      "next_gate_or_rollback": "APK debug/EXE non signés ; construction et installation physique restent des états distincts.",
+      "evidence": "Run43769766816 : Android, Windows, release success. APK1.3.12,8083246octets,SHA256accca5c924f79152fa96fdf1ed31a4f80b28cf2f55f16dc39a043578dbef75c2,packagecom.athlys.app.irl.lm/code16 ; signaturev2 et sources/configuration vérifiées. Windows1.2.5Coach/Club publiés.",
+      "next_gate_or_rollback": "Installation Phone, exécution Windows et parcours authentifié réel non réalisés. Variante de test, source et empreintes dans LIVRAISON-LM-IRL.json.",
       "owner": "Orchestration Athlys",
       "confidence": "observé si vérifié, sinon conditionnel"
     },
@@ -1033,7 +1033,7 @@
       "status": "partiel",
       "decision": "Exposer un canary fixe synthétique, sans génération libre publique non authentifiée.",
       "rationale": "Prouver que le modèle tourne réellement sans ouvrir l’inférence aux visiteurs anonymes.",
-      "evidence": "Canary écrit7debloc,facile→hypothèse3,projection6,5etbrouillon ; santé Internet generative_lm=true.",
+      "evidence": "Canary écrit7debloc,facile→hypothèse3,projection6,5etbrouillon ; santé Internet generative_lm=true. Le canary du dernier code serveur passe en ligne ; nouveau CORS204 et jeton invalide401 vérifiés. 68tests logiciels locaux passent.",
       "next_gate_or_rollback": "Pas de preuve du parcours avec un compte Supabase réel ni d’installation Phone/Windows ; essais manuels nécessaires.",
       "owner": "Orchestration Athlys",
       "confidence": "observé si vérifié, sinon conditionnel"
