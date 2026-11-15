@@ -836,7 +836,7 @@ Le nouveau service LFM2.5 génère réellement des propositions dans le périmè
 
 ## D83 — Livraison · en cours
 
-**Décision :** Préparer APK1.3.11 et Windows1.2.4 LM dans des variantes séparées.
+**Décision :** Préparer APK1.3.12 et Windows1.2.5 LM dans des variantes séparées.
 
 **Motif :** Conserver les installations précédentes et éviter les collisions de signature/profil de test.
 
@@ -907,3 +907,5 @@ Le nouveau service LFM2.5 génère réellement des propositions dans le périmè
 Les empreintes de builds publics peuvent différer du build local (environnement et signature debug CI). Chaque release doit fournir ses propres SHA256 ; ne pas confondre leurs fichiers.
 
 - [LFM2.5-350M GGUF](https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF) et licence de la révision figée : modèle et empreinte vérifiés.
+
+Correction du candidat intermédiaire : le formulaire programme annonce explicitement la transmission sur serveur avant l’envoi (1.3.12). 67tests logiciels passent, dont la vérification des deux libellés selon le mode actif.

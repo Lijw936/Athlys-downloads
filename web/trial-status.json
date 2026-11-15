@@ -1,5 +1,5 @@
 {
-  "build": "irl-generative-rpe-20261115",
+  "build": "irl-generative-rpe-privacy-20261115",
   "models": [
     {
       "title": "Texte → RPE écrit",

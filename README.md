@@ -4,4 +4,4 @@
 
 LM LFM2.5 externe : textecoach → valeurs source/hypothèses à confirmer → calibration numérique existante → explication et brouillon. Pas de poids sur téléphone/PC, pas de modification automatique des séances. Modèles de recherche RPE toujours désactivés.
 
-66 tests logiciels passent et un test de packaging isolé. Les cas de développement sont synthétiques et ne prouvent pas une compréhension parfaite. Pas de fine-tuning Athlys ni de validation terrain revendiqué. Licence du modèle et limites d’hébergement documentées dans services/athlys-generative/README.md.
+67 tests logiciels passent et un test de packaging isolé. Les cas de développement sont synthétiques et ne prouvent pas une compréhension parfaite. Pas de fine-tuning Athlys ni de validation terrain revendiqué. Licence du modèle et limites d’hébergement documentées dans services/athlys-generative/README.md.

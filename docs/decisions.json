@@ -995,7 +995,7 @@
       "date": "2026-11-15",
       "theme": "Livraison",
       "status": "en cours",
-      "decision": "Préparer APK1.3.11 et Windows1.2.4 LM dans des variantes séparées.",
+      "decision": "Préparer APK1.3.12 et Windows1.2.5 LM dans des variantes séparées.",
       "rationale": "Conserver les installations précédentes et éviter les collisions de signature/profil de test.",
       "evidence": "Package Android com.athlys.app.irl.lm ; ports Windows41751/41752 et noms LM IRL ; aucun poids dans le client.",
       "next_gate_or_rollback": "APK debug/EXE non signés ; construction et installation physique restent des états distincts.",
@@ -1021,7 +1021,7 @@
       "status": "implémenté",
       "decision": "N’envoyer que les chiffres de la projection et la méthode pour son explication.",
       "rationale": "Le LM n’a pas besoin du nom, de l’historique brut ou du texte du programme pour cette formulation.",
-      "evidence": "Tests du contrôleur réel vérifient les sept champs scalaires et le rejet de résultats après changement de rôle/projection.",
+      "evidence": "Tests du contrôleur réel vérifient les sept champs scalaires et le rejet de résultats après changement de rôle/projection. Le formulaire annonce explicitement la transmission sur serveur avant l’analyse ; ancien libellé local corrigé dans1.3.12.",
       "next_gate_or_rollback": "Les textes coach soumis à la conversion restent à anonymiser ; filtre heuristique, pas garantie complète.",
       "owner": "Orchestration Athlys",
       "confidence": "observé si vérifié, sinon conditionnel"

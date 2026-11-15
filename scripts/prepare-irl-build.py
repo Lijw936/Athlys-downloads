@@ -18,9 +18,9 @@ if a.external_endpoint:
 elif 'externalRtcGatewayConfigured: false' not in s:raise SystemExit('No endpoint: gateway must be explicitly unconfigured')
 config.write_text(s)
 if a.platform=='android':
- gradle=root/'android/app/build.gradle';s=gradle.read_text();s,n=re.subn(r'(?m)^(\s*versionCode\s+)\d+',r'\g<1>15',s,count=1)
+ gradle=root/'android/app/build.gradle';s=gradle.read_text();s,n=re.subn(r'(?m)^(\s*versionCode\s+)\d+',r'\g<1>16',s,count=1)
  if n!=1:raise SystemExit('Android versionCode not found')
- s,n=re.subn(r'''(?m)^(\s*versionName\s+)["'][^"']+["']''',r'\g<1>"1.3.11-irl"',s,count=1)
+ s,n=re.subn(r'''(?m)^(\s*versionName\s+)["'][^"']+["']''',r'\g<1>"1.3.12-irl"',s,count=1)
  if n!=1:raise SystemExit('Android versionName not found')
  if re.search(r'applicationIdSuffix\s+["\'][^"\']+["\']',s):s=re.sub(r'applicationIdSuffix\s+["\'][^"\']+["\']','applicationIdSuffix ".irl.lm"',s,count=1)
  else:

@@ -62,7 +62,7 @@
     "gatekeeperAssess": false
   },
   "extraMetadata": {
-    "version": "1.2.4-irl",
+    "version": "1.2.5-irl",
     "name": "athlys-lm-irl",
     "fieldTrial": true,
     "generativeTrial": true
