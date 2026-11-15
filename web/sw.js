@@ -1,4 +1,4 @@
-const CACHE_NAME = "athlys-shell-v59-irl-rpe";
+const CACHE_NAME = "athlys-shell-v60-external-reference";
 const SHELL = [
   "/",
   "/index.html",

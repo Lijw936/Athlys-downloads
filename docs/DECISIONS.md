@@ -1,6 +1,6 @@
 # Athlys — registre des décisions connues
 
-État au 15 novembre 2026. **64 décisions**, actives, remplacées, rejetées ou bloquées. Ce registre couvre la conversation accessible et les notes du projet inspectées ; il ne prétend pas lire d’autres fils. Il publie les choix, motifs synthétiques, preuves et critères de réexamen.
+État au 15 novembre 2026. **74 décisions**, actives, remplacées, rejetées ou bloquées. Ce registre couvre la conversation accessible et les notes du projet inspectées ; il ne prétend pas lire d’autres fils. Il publie les choix, motifs synthétiques, preuves et critères de réexamen.
 
 Organisation : Strategy Arena, diagnostic et exécution proportionnée. Budget autorisé : **0 €**. Les modèles RPE de recherche restent désactivés. Les états « prototype » et « retenu » ne signifient pas « déployé ».
 
@@ -8,7 +8,7 @@ Organisation : Strategy Arena, diagnostic et exécution proportionnée. Budget a
 
 ## Choix d’exécution
 
-Le chemin retenu associe un client de test public, des builds publics de durée bornée et un calcul extérieur aux appareils. Render My Workspace est choisi sur délégation de l’utilisateur. Une variante HTTPS est envisagée pour éviter qu’un besoin TURN ne bloque le transport ; elle doit être intégrée et vérifiée avant activation. Les quotas gratuits, la mise en veille et la capacité mémoire restent des limites réelles.
+Le chemin retenu associe un client de test public, des builds publics de durée bornée et un calcul extérieur aux appareils. Render My Workspace est choisi sur délégation de l’utilisateur. Le service HTTPS de secours est déployé et ses refus sont vérifiés ; la variante client connectée est en cours de packaging. Il fournit des références et une conversion conservatrice, sans génération LM. Les quotas gratuits, la mise en veille et la capacité mémoire restent des limites réelles.
 
 L’alternative PC mesh est remplacée par la demande de calcul externe. Le statu quo (APK sans passerelle) permet les essais manuels mais pas le LM. Un abonnement ou du calcul hébergé plus puissant dépasseraient le budget et ne sont pas engagés. La limite principale demeure la qualité et la disponibilité du calcul gratuit ; un build réussi ne la supprime pas.
 
@@ -132,7 +132,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Réexamen / limite / retour arrière :** Prévoir TURN/TLS puis essai appareil, ou transport HTTPS explicitement documenté.
 
-## D13 — Architecture · retenu sous condition
+## D13 — Architecture · implémenté, service vérifié
 
 **Décision :** Prévoir HTTPS comme transport externe de secours sur hébergement HTTP gratuit.
 
@@ -140,7 +140,7 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Preuve :** Capacités HTTP/WS Render et blocage WebRTC observé.
 
-**Réexamen / limite / retour arrière :** N’activer qu’après auth, isolement, limites et smoke tests ; WebRTC reste une option de transport, pas le calcul.
+**Réexamen / limite / retour arrière :** Service HTTPS live ; nouveau packaging client à compiler. Parcours authentifié positif et appareils non vérifiés.
 
 ## D14 — Résilience · implémenté
 
@@ -162,15 +162,15 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Réexamen / limite / retour arrière :** Les runners servent uniquement aux builds et contrôles de durée bornée.
 
-## D16 — Hébergement · choisi
+## D16 — Hébergement · déployé
 
 **Décision :** Choisir Render My Workspace pour l’essai d’hébergement gratuit.
 
 **Motif :** Workspace unique constaté ; utilisateur a délégué le choix à Strategy Arena.
 
-**Preuve :** Échange de confirmation et liste Render.
+**Preuve :** Render service srv-dbsvdo8ae00c73979h6g ; dep-dbsvdp0ae00c73979k3g live ; plan free, Frankfurt, autoDeploy=no.
 
-**Réexamen / limite / retour arrière :** Plan free seulement, pas de création payante implicite ; création et santé restent des étapes distinctes.
+**Réexamen / limite / retour arrière :** Santé et refus réels vérifiés ; conserver les limites de mise en veille/quota.
 
 ## D17 — Hébergement · vérifié
 
@@ -552,15 +552,15 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Réexamen / limite / retour arrière :** NSIS Linux bloqué par Wine ; stub invalide écarté ; lancement Windows non effectué.
 
-## D55 — Livraison · actif
+## D55 — Livraison · évolution en cours
 
-**Décision :** Maintenir source par défaut désactivée et variante IRL externe sans faux endpoint.
+**Décision :** Lot initial 1.3.9 sans passerelle ; variante 1.3.10 prépare le secours HTTPS vérifié.
 
 **Motif :** Aucun LM disponible ne doit être annoncé comme fonctionnel.
 
 **Preuve :** externalRtcGatewayConfigured=false ; rejet avant lecture du JWT.
 
-**Réexamen / limite / retour arrière :** Ce lot initial ne permet pas encore chat LM ou conversion distante ; une nouvelle version doit configurer un service vérifié.
+**Réexamen / limite / retour arrière :** Le source reste désactivé par défaut ; le script ne configure que l’endpoint IRL vérifié, sur option explicite de packaging. Aucun LM génératif annoncé.
 
 ## D56 — Déploiement · vérifié
 
@@ -592,15 +592,15 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 
 **Réexamen / limite / retour arrière :** Utiliser le dépôt public writable existant ; aucune prétendue compilation via Athlys9.
 
-## D59 — CI · retenu
+## D59 — CI · builds publiés
 
 **Décision :** Utiliser la base client déjà publique de Lijw936/Athlys-downloads sur une nouvelle branche.
 
 **Motif :** Public runners accessibles, pas de checkout privé requis.
 
-**Preuve :** Base build/athlys-public-source, commit 2b0b9ef6dc1d8461012fb132ee69fe8a6525a428.
+**Preuve :** Run public 43744961886 : Android, Windows, release tous success. Préversion irl-20261115-43744961886.
 
-**Réexamen / limite / retour arrière :** Nouvelle préversion séparée, jamais écrasement des assets stables ; jobs et artefacts à vérifier.
+**Réexamen / limite / retour arrière :** APK/portables SHA256 publiés ; garder cette préversion comme référence, sans écraser le stable.
 
 ## D60 — CI · actif
 
@@ -651,6 +651,106 @@ L’alternative PC mesh est remplacée par la demande de calcul externe. Le stat
 **Preuve :** AppIDs/ports IRL distincts, branche isolée et préversion séparée.
 
 **Réexamen / limite / retour arrière :** Désinstaller IRL ou désactiver nouvelle route ; aucune migration de données nouvelle.
+
+## D65 — Optimisation · vérifié
+
+**Décision :** Optimiser le runtime mesuré avant toute hypothèse de compatibilité mémoire.
+
+**Motif :** Sans repacking/cache, RSS max du probe passe de 689944 à 490752 Kio, soit environ −28,9 %.
+
+**Preuve :** Qwen0.5B Q4_0, ctx512, un thread ; mesure CPU locale, sans limite cgroup 512 Mo.
+
+**Réexamen / limite / retour arrière :** Ce n’est pas une mesure de batterie, de vitesse sur Render ni une marge suffisante pour le service complet.
+
+## D66 — LM · rejeté
+
+**Décision :** Conserver le LM 0.5B hors hébergement et hors APK.
+
+**Motif :** Erreur reproduite : « RPE = résistance énergétique » ; confusion entre RPE de bloc et séance.
+
+**Preuve :** Vrais appels llama.cpp b12420 à révision/empreinte figées, avec optimisation mémoire.
+
+**Réexamen / limite / retour arrière :** Reformuler correctement un texte connu ne valide pas les réponses libres ; aucun poids LM déployé.
+
+## D67 — Architecture · déployé
+
+**Décision :** Déployer un secours externe transparent sans génération LM.
+
+**Motif :** Les références et un décodeur conservateur répondent à une partie du besoin avec les ressources gratuites.
+
+**Preuve :** https://athlys-external-irl.onrender.com/health : HTTP200, generative_lm=false.
+
+**Réexamen / limite / retour arrière :** Les limites de compréhension restent explicites ; le but d’un dialogue LM général fiable n’est pas atteint.
+
+## D68 — Sécurité · vérifié
+
+**Décision :** Vérifier les refus sur le vrai service distant avant de configurer les clients.
+
+**Motif :** Éviter une activation sur un service ouvert ou inaccessible.
+
+**Preuve :** Sans jeton HTTP401, jeton délibérément invalide HTTP401 via Auth, origine étrangère HTTP403.
+
+**Réexamen / limite / retour arrière :** Le succès authentifié réel, la révocation et les rôles réels ne sont pas établis par ces refus.
+
+## D69 — Publication · vérifié
+
+**Décision :** Publier seulement trois nouveaux fichiers serveur avec provenance contrôlée.
+
+**Motif :** Dépendances vérifiées déjà publiques ; aucun ancien serveur privé copié.
+
+**Preuve :** Commit e4f1c9520237846329bb50be675b0b08d6eb8512, fichiers neufs server.mjs/test/README.
+
+**Réexamen / limite / retour arrière :** Conserver ce périmètre ; ne pas élargir la publication à des fichiers privés ou à des données.
+
+## D70 — Conversion · implémenté
+
+**Décision :** Le secours conserve des citations source, sans fixer RPE, date ou durée de séance.
+
+**Motif :** L’ancien moteur public peut déduire trop largement certains totaux ; le service neutralise ces champs.
+
+**Preuve :** Tests de citations/positions, CRLF, RPE décimal, coach seul ; aperçu à valider.
+
+**Réexamen / limite / retour arrière :** Cela reste une extraction conservatrice, sans compréhension parfaite ; corriger manuellement les ambiguïtés.
+
+## D71 — CI · vérifié
+
+**Décision :** Retirer le cache Gradle avant génération du projet Android.
+
+**Motif :** L’échec public initial était un cache prématuré, pas un test du code applicatif.
+
+**Preuve :** Run 43744779274 setup-java échoue faute de fichiers Gradle ; correctif 29497966 puis run43744961886 success.
+
+**Réexamen / limite / retour arrière :** Conserver génération puis compilation ; pas de modification de facturation.
+
+## D72 — Tests · vérifié
+
+**Décision :** 41 tests locaux passent pour service, HTTPS et client public.
+
+**Motif :** Ajouter les régressions sur l’auth, la liaison des réponses et le changement de rôle.
+
+**Preuve :** 10 tests serveur, 5 HTTPS, 26 tests client précédents réellement exécutés.
+
+**Réexamen / limite / retour arrière :** Les mocks ne remplacent ni comptes réels, ni essais Nothing Phone/Windows ; ces limites sont publiées.
+
+## D73 — Livraison · en cours
+
+**Décision :** Préparer Android 1.3.10/code14 et Windows IRL1.2.3 avec endpoint de secours.
+
+**Motif :** Le lot1.3.9 était volontairement non configuré ; ne pas le présenter comme connecté au nouveau serveur.
+
+**Preuve :** Script de packaging limité au domaine Render vérifié, source par défaut désactivée.
+
+**Réexamen / limite / retour arrière :** Attendre builds et empreintes propres avant de déclarer cette nouvelle version publiée.
+
+## D74 — Qualification · actif
+
+**Décision :** Ne pas confondre un build IRL client public avec une release scientifique.
+
+**Motif :** Les modèles de recherche non qualifiés ne sont pas embarqués ni activés.
+
+**Preuve :** Trois candidats RPE hors app, sept familles scientifiques toujours bloquées ; classification historique expérimentale existante seulement.
+
+**Réexamen / limite / retour arrière :** Aucun gate de qualification scientifique supprimé ; toute promotion nécessite les preuves définies.
 
 ## Sources et traçabilité
 

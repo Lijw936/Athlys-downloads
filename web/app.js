@@ -977,7 +977,7 @@ async function assistantExternalRequest(task,text){
  var mod=externalRtcModule||(externalRtcModule=await import('./athlys-external-rtc.mjs'));
  if(epoch!==externalRtcEpoch||scope!==assistantDeviceMeshScope())throw Error("STALE_SESSION");
  mod.assertAnonymousText(text);
- if(!externalRtc)externalRtc=new mod.AthlysExternalRTC({
+ if(!externalRtc)externalRtc=new (cfg.externalTransport==="https"?mod.AthlysExternalHTTPS:mod.AthlysExternalRTC)({
   authorize:async function(input){
    if(epoch!==externalRtcEpoch||scope!==assistantDeviceMeshScope())throw Error("STALE_SESSION");
    if(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform()&&!/^https:\/\//.test(cfg.externalRtcAuthorizationUrl||""))throw Error("RTC_NOT_CONFIGURED");
@@ -986,7 +986,7 @@ async function assistantExternalRequest(task,text){
    if((!sameOrigin&&!(cfg.externalRtcAuthorizationOrigins||[]).includes(endpoint.origin))||endpoint.protocol!=="https:"||endpoint.username||endpoint.password||endpoint.search||endpoint.hash)throw Error("Passerelle distante non configurée.");
    var auth=await db.auth.getSession(),token=auth.data&&auth.data.session&&auth.data.session.access_token;
    if(!token||epoch!==externalRtcEpoch||scope!==assistantDeviceMeshScope())throw Error("STALE_SESSION");
-   var response=await fetch(endpoint.href,{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify(input),signal:AbortSignal.timeout(15000)});
+   var response=await fetch(endpoint.href,{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify(input),signal:AbortSignal.timeout(cfg.externalTransport==="https"?70000:15000)});
    if(!response.ok)throw Error(response.status===401||response.status===403?"SESSION_OR_ROLE_DENIED":"RTC_AUTHORIZATION_UNAVAILABLE");
    return await response.json();
   }

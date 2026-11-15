@@ -1,5 +1,5 @@
 {
-  "build": "irl-rpe-20261115",
+  "build": "irl-external-reference-20261115",
   "models": [
     {
       "title": "Texte → RPE écrit",
@@ -16,5 +16,7 @@
       "status": "Candidat non retenu pour activation",
       "detail": "Erreur moyenne : 1.09, contre 0,82 pour la référence médiane, sur 22 mesures de 11 sujets. Le modèle ne fait pas mieux que cette référence."
     }
-  ]
+  ],
+  "generative_lm": false,
+  "external_service_mode": "external_reference_fallback"
 }

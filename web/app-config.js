@@ -3,6 +3,7 @@ window.ATHLYS_CONFIG = {
   url: "https://ixccwxonchzzjdjeajzw.supabase.co",
   anonKey: "sb_publishable_z6sRVvlNeiZw-LsslTrQ7w_hixvq7lp",
   externalRtcEnabled: false,
+  externalTransport: "https",
   externalRtcGatewayConfigured: false,
   externalRtcAuthorizationUrl: "/api/rtc-authorize",
   externalRtcAuthorizationOrigins: []

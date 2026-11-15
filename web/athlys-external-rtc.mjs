@@ -64,3 +64,19 @@ export class AthlysExternalRTC{
   throw last;
  }
 }
+// HTTPS fallback for hosts with no WebRTC/TURN path. Computation stays external.
+export class AthlysExternalHTTPS{
+ constructor({authorize,onState=()=>{}}){this.authorize=authorize;this.onState=onState;this.epoch=0;this.busy=false;}
+ disconnect(){this.epoch++;this.onState('disconnected');}
+ async request(task,text){
+  if(this.busy)throw Error('ONE_REQUEST_AT_A_TIME');
+  if(!['chat','program_parse'].includes(task)||typeof text!=='string'||!text.trim()||text.length>(task==='chat'?4000:20000))throw Error('INVALID_INPUT');
+  assertAnonymousText(text);const epoch=this.epoch,id=crypto.randomUUID();this.busy=true;this.onState('connecting_https');
+  try{
+   const response=await this.authorize({v:1,id,task,text});
+   if(epoch!==this.epoch)throw Error('STALE_SESSION');
+   if(!response||response.id!==id||!response.result||response.result.execution!=='external_server')throw Error('INVALID_RESPONSE_BINDING');
+   this.onState('connected_https');return response.result;
+  }finally{this.busy=false;}
+ }
+}
