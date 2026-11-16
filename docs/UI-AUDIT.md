@@ -1,15 +1,15 @@
 # Audit Athlys des visuels et de la navigation
 
-Lot correctif : Android **1.3.13 / code17**, Windows Coach/Club **1.2.6 IRL**. Branche `fix/athlys-ui-navigation-20261115`. Source de départ publique `329bf6d34f65d6c5560fb16a043e5cdf7a4456f8`. Le résultat CI et la release du commit exact confirment le packaging ; ce document ne vaut pas preuve d’installation.
+Lot correctif : Android **1.3.14 / code18**, Windows Coach/Club **1.2.7 IRL**. Branche `fix/athlys-ui-navigation-20261115`. Source de départ publique `329bf6d34f65d6c5560fb16a043e5cdf7a4456f8`. Le résultat CI et la release du commit exact confirment le packaging ; ce document ne vaut pas preuve d’installation.
 
 L’audit initial a identifié des écrans Analyse cassés (`todayOffset` absent), une boucle de rendu Health Connect dans le navigateur, l’affichage `null/100`, deux raccourcis sans gestionnaire, des modules mobiles inaccessibles, des contrastes/libellés manquants côté Club, des dialogues sans gestion du focus et une navigation recouverte par la barre mobile. L’inspection du flux RPE a aussi trouvé une variable de rendu absente et une expression de date incorrecte et une confirmation qui effaçait l’aperçu d’un formulaire ouvert. Ces défauts ont été corrigés.
 
 | Contrôle | Exécution et portée |
 | --- | --- |
-| Navigation et visuel | 160 passages sur les interfaces coach, athlète et Club ; 360/412/768/1440 px ; aucune erreur JavaScript, ressource manquante, route inaccessible, débordement extérieur ou violation Axe A/AA détecté lors du contrôle local. Les tableaux défilants sont testés séparément. |
-| Parcours | Historique précédent/suivant/rechargement, formulaires, focus/Tab/Échap, validation non recouverte, vues vides/erreurs/connexion, hors ligne et rôles Club sur données synthétiques. Les seuils 320/820/821/1920 px sont inclus. |
+| Navigation et visuel | 320 passages (160 par thème) sur les interfaces coach, athlète et Club ; 360/412/768/1440 px ; aucune erreur JavaScript, ressource manquante, route inaccessible, débordement extérieur ou violation Axe A/AA détecté lors du contrôle local. Les tableaux défilants sont testés séparément. |
+| Parcours | 37 parcours réussis : historique précédent/suivant/rechargement, formulaires, focus/Tab/Échap, validation non recouverte, vues vides/erreurs/connexion, hors ligne et rôles Club sur données synthétiques. Les seuils 320/820/821/1920 px sont inclus. |
 | Accessibilité | Axe-core4.11, WCAG 2/2.1/2.2 A/AA, clavier et examen de captures. Thèmes clair/sombre et préférence de texte agrandi font partie du contrôle. Cela ne remplace pas un audit humain complet de tous les critères WCAG. |
-| Cache et plateformes | Service worker réellement installé et rechargements hors ligne mobile/Club/diagnostic ; branchements de scripts natifs et retour Android simulés dans Chromium ; 118 liens/ressources locaux contrôlés dans les deux dossiers Windows. |
+| Cache et plateformes | 6 contrôles réussis : service worker réellement installé et rechargements hors ligne mobile/Club/diagnostic ; branchements de scripts natifs et retour Android simulés dans Chromium ; 118 liens/ressources locaux contrôlés dans les deux dossiers Windows. |
 | Régression | 114 tests logiciels passent, 1 test de migration privée est explicitement ignoré car sa source est absente du dépôt public. Lint sur les 16 sources JavaScript embarquées : aucune référence indéfinie, aucun code inaccessible ou binding inutilisé détecté. |
 | Publication | Nouveau job UI obligatoire avant les builds Android/Windows. APK debug et portables Windows non signés ; anciens téléchargements conservés. Pas de promotion de production ni de modification de la vitrine. |
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = "athlys-shell-v62-ui-navigation";
+const CACHE_NAME = "athlys-shell-v63-ui-navigation";
 const SHELL = [
   "/",
   "/index.html",

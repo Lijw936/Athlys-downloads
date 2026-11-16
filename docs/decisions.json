@@ -1,6 +1,6 @@
 {
   "schema": "athlys.decisions.v1",
-  "as_of": "2026-11-15",
+  "as_of": "2026-11-16",
   "coverage": "Conversation accessible et notes de décisions du dépôt inspectées ; ne couvre pas des fils ou fichiers non accessibles.",
   "not_chain_of_thought": "Décisions, motifs synthétiques, preuves et critères de réexamen uniquement.",
   "scientific_models_promoted": false,
@@ -1093,7 +1093,7 @@
       "status": "implémenté, validation logicielle",
       "decision": "Unifier la connexion et lier les libellés aux champs, y compris Club.",
       "rationale": "Demande d’audit rigoureux des visuels, de la navigation et du code obsolète.",
-      "evidence": "Axe WCAG 2/2.1/2.2 A/AA, contrôles clavier et captures.",
+      "evidence": "Axe WCAG 2/2.1/2.2 A/AA, contrôles clavier et captures. Revue des captures : fond navy sous le logo officiel blanc en thème clair, sans modifier le fichier du logo.",
       "next_gate_or_rollback": "Contrôle CI sur le commit exact puis conservation de la release IRL précédente pour retour arrière.",
       "owner": "Orchestration Athlys",
       "confidence": "observé sur fixtures et source ; limites indiquées"

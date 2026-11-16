@@ -132,6 +132,7 @@ async def main():
       await p.evaluate('(id)=>localStorage.setItem("athlys-full-prefs-"+id,JSON.stringify({theme:"light",fontSize:3}))',uid)
      await p.reload();await p.wait_for_timeout(400);await navigate(p,role,'settings'if role=='club'else'profile')
      await p.add_script_tag(path=str(AXE));v=await p.evaluate('async()=> (await axe.run(document,{runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21aa","wcag22aa"]}})).violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))');assert not v,v
+     if role=='club':assert await p.locator('.brand').evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(19, 33, 60)'
      await p.screenshot(path=str(OUT/(role+'-light-large-text.png')));assert not errors,errors
      return 'thème clair, préférence de texte agrandi, contraste et navigation'
     finally:await ctx.close()

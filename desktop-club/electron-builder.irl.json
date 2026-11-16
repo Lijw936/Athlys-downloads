@@ -37,7 +37,7 @@
     "artifactName": "Athlys-Club-LM-IRL-Portable-${version}-${arch}.${ext}"
   },
   "extraMetadata": {
-    "version": "1.2.6-irl",
+    "version": "1.2.7-irl",
     "name": "athlys-club-lm-irl",
     "fieldTrial": true,
     "generativeTrial": true

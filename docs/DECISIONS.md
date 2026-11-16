@@ -908,4 +908,4 @@ Correction du candidat intermédiaire : le formulaire programme annonce explicit
 
 ## Audit des interfaces — décisions D89 à D100
 
-[Rapport d’audit](UI-AUDIT.md). Les douze décisions complémentaires figurent dans [le registre JSON](decisions.json). Elles couvrent navigation, accessibilité, RPE, hors ligne, nettoyage, packaging et limites des preuves. Le lot Android 1.3.13 / Windows 1.2.6 est un nouveau candidat ; le résultat de sa CI fait foi.
+[Rapport d’audit](UI-AUDIT.md). Les douze décisions complémentaires figurent dans [le registre JSON](decisions.json). Elles couvrent navigation, accessibilité, RPE, hors ligne, nettoyage, packaging et limites des preuves. Le lot Android 1.3.14 / Windows 1.2.7 est un nouveau candidat ; le résultat de sa CI fait foi.

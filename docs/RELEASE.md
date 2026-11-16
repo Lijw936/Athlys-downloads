@@ -1,4 +1,4 @@
-Athlys LM IRL — Android 1.3.13/code17 et Windows Coach/Club 1.2.6 IRL. Variantes séparées des anciens essais ; APK debug, portables non signés. Aucun poids LM sur téléphone/PC.
+Athlys LM IRL — Android 1.3.14/code18 et Windows Coach/Club 1.2.7 IRL. Variantes séparées des anciens essais ; APK debug, portables non signés. Aucun poids LM sur téléphone/PC.
 
 LM externe LFM2.5-350M Q6_K : interprétation qualitative du texte coach, valeurs RPE écrites vérifiées dans la source, hypothèses /10 non calibrées à confirmer explicitement par le coach. Le noyau numérique existant calcule la projection ; le LM reformule l’estimation et propose un brouillon sans changer ses chiffres ni enregistrer de modification.
 

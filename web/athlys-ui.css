@@ -302,3 +302,6 @@ body.athlys-dialog-open #athlys>.mobile-nav{visibility:hidden}
 :root[data-theme="light"] #athlys .desktop-search input{background:transparent!important}
 :root[data-theme="light"] #athlys .chat-thread .message-bubble.mine{background:#DFEACC}
 #athlys .modal-notice{padding:12px 16px;margin:0;border:1px solid var(--cyan);border-radius:10px;background:var(--surface2);color:var(--text);line-height:1.4}
+/* Official white lockup keeps its navy support in the light Club header. */
+:root[data-theme="light"] #club-app .brand{background:#13213c;border-radius:10px;padding:7px 10px;width:max-content;max-width:100%}
+#athlys .program-preview-session>small{display:block;line-height:1.5;margin-top:6px}

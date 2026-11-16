@@ -64,8 +64,8 @@ test("mobile theme and service worker cache all new assets",()=>{
 
 test("IRL package version is defined by the current build preparation",()=>{
  const workflow=read(".github/workflows/irl-public.yml"),prepare=read("scripts/prepare-irl-build.py");
- assert.match(workflow,/Athlys-1\.3\.13-LM-IRL\.apk/);
- assert.match(prepare,/1\.3\.13-irl/);
+ assert.match(workflow,/Athlys-1\.3\.14-LM-IRL\.apk/);
+ assert.match(prepare,/1\.3\.14-irl/);
  assert.match(prepare,/applicationIdSuffix/);
 });
 
