@@ -6,7 +6,7 @@ L’audit initial a identifié des écrans Analyse cassés (`todayOffset` absent
 
 | Contrôle | Exécution et portée |
 | --- | --- |
-| Navigation et visuel | 320 passages (160 par thème) sur les interfaces coach, athlète et Club ; 360/412/768/1440 px ; aucune erreur JavaScript, ressource manquante, route inaccessible, débordement extérieur ou violation Axe A/AA détecté lors du contrôle local. Les tableaux défilants sont testés séparément. |
+| Navigation et visuel | 320 passages d’écran/navigation (160 par thème, dont 316 analyses Axe) sur les interfaces coach, athlète et Club ; 360/412/768/1440 px ; aucune erreur JavaScript, ressource manquante, route inaccessible, débordement extérieur ou violation Axe A/AA détecté lors du contrôle local. Les tableaux défilants sont testés séparément. |
 | Parcours | 37 parcours réussis : historique précédent/suivant/rechargement, formulaires, focus/Tab/Échap, validation non recouverte, vues vides/erreurs/connexion, hors ligne et rôles Club sur données synthétiques. Les seuils 320/820/821/1920 px sont inclus. |
 | Accessibilité | Axe-core4.11, WCAG 2/2.1/2.2 A/AA, clavier et examen de captures. Thèmes clair/sombre et préférence de texte agrandi font partie du contrôle. Cela ne remplace pas un audit humain complet de tous les critères WCAG. |
 | Cache et plateformes | 6 contrôles réussis : service worker réellement installé et rechargements hors ligne mobile/Club/diagnostic ; branchements de scripts natifs et retour Android simulés dans Chromium ; 118 liens/ressources locaux contrôlés dans les deux dossiers Windows. |
@@ -21,4 +21,6 @@ Les erreurs de chargement sont signalées sans écraser le dernier snapshot par 
 
 **Non exécuté :** installation Nothing Phone3a, lancement réel des EXE sur Windows, notifications/Health Connect au niveau Android, parcours authentifié positif et RLS réels, revue par lecteur d’écran sur appareil, validation scientifique ou terrain. Les fixtures de rôles sont une preuve d’interface seulement. Aucun entraînement ou gain de précision n’est revendiqué par cet audit.
 
-[Contrat et retour arrière](decisions/2026-11-15-ui-navigation-audit.md) · [100 décisions](decisions.json). Les rapports JSON et captures du job `Athlys-UI-Audit` sont conservés comme artefact CI pendant7 jours. Le rapport local final est publié dans `audits/ui-20261115.json` après réussite du contrôle complet.
+[Contrat et retour arrière](decisions/2026-11-15-ui-navigation-audit.md) · [100 décisions](decisions.json). Les rapports JSON et captures du job `Athlys-UI-Audit` sont conservés comme artefact CI pendant7 jours. Le rapport local final et le résultat CI sont publiés dans `audits/ui-20261115.json` après réussite du contrôle complet.
+
+Livraison confirmée : [APK et Windows](https://github.com/Lijw936/Athlys-downloads/releases/tag/irl-20261115-43828439824), commit `6a478328c33f7f517aa49e44569f865da1dc924e`. [Manifest et SHA256](LIVRAISON-UI-IRL.json). [Preview protégée](https://athlys6-preview-87kxhgj5v-adiceamlilian-6530.vercel.app/trial.html).

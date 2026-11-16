@@ -1,12 +1,14 @@
 # Athlys — registre des 100 décisions connues
 
-État de la livraison LM IRL du 15 novembre 2026. Couverture : conversation accessible et notes du projet inspectées ; pas d’accès revendiqué à d’autres fils.
+État de la livraison IRL du 16 novembre 2026. Couverture : conversation accessible et notes du projet inspectées ; pas d’accès revendiqué à d’autres fils.
 
-**LM génératif externe déployé**, APK 1.3.12 et Windows 1.2.5 publiés, preview Web protégée. Le LM interprète qualitativement et reformule ; valeurs écrites et calcul numérique restent séparés. Propositions à confirmer par le coach, pas de modification automatique des séances.
+**Lot visuel/navigation publié : APK 1.3.14 et Windows Coach/Club 1.2.7 IRL.** [Téléchargements](https://github.com/Lijw936/Athlys-downloads/releases/tag/irl-20261115-43828439824) · [rapport](UI-AUDIT.md) · [preuve de livraison](LIVRAISON-UI-IRL.json).
 
-68 tests logiciels locaux passent. Pipeline de développement : 18/19 cas synthétiques, non indépendant : ce n’est pas une précision du LM seul ou une validation terrain. Les trois modèles RPE de recherche restent désactivés. Aucun fine-tuning Athlys de ce LM revendiqué.
+320 passages d’écran/navigation (316 analyses Axe), 37 parcours et 6 contrôles de plateformes passent ; 114 tests logiciels passent et 1 migration privée est explicitement ignorée. Lint : 16 sources sans référence indéfinie, code inaccessible ou binding inutilisé. APK signé debug : signature v2, contenu et version vérifiés. Les deux EXE sont empaquetés et publiés. Installation Nothing Phone, lancement réel Windows et Auth/RLS positif restent non exécutés.
 
-[Preuves et fichiers](LIVRAISON-LM-IRL.json) · [JSON des décisions](decisions.json) · [Rapport de développement](research/generative-rpe-development.json)
+Le LM externe reste expérimental, sans nouvel entraînement ni qualification scientifique par cet audit. La précédente expérience de développement reste limitée à 18/19 exemples synthétiques réutilisés. Les trois candidats RPE de recherche restent désactivés.
+
+[JSON des 100 décisions](decisions.json) · [rapport JSON d’audit](audits/ui-20261115.json). La vitrine et les alias de production ne sont pas modifiés.
 
 Les décisions historiques remplacées ou rejetées sont conservées avec leur contexte. Budget autorisé : 0 € ; quotas et sommeil de l’hébergement gratuit demeurent.
 
@@ -908,4 +910,4 @@ Correction du candidat intermédiaire : le formulaire programme annonce explicit
 
 ## Audit des interfaces — décisions D89 à D100
 
-[Rapport d’audit](UI-AUDIT.md). Les douze décisions complémentaires figurent dans [le registre JSON](decisions.json). Elles couvrent navigation, accessibilité, RPE, hors ligne, nettoyage, packaging et limites des preuves. Le lot Android 1.3.14 / Windows 1.2.7 est un nouveau candidat ; le résultat de sa CI fait foi.
+[Rapport d’audit](UI-AUDIT.md). Les douze décisions complémentaires figurent dans [le registre JSON](decisions.json). Elles couvrent navigation, accessibilité, RPE, hors ligne, nettoyage, packaging et limites des preuves. Le lot Android 1.3.14 / Windows 1.2.7 est publié après réussite de sa CI ; les preuves et limites sont liées ci-dessus.

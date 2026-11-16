@@ -1,0 +1,107 @@
+{
+  "schema": "athlys.ui-irl.delivery.v1",
+  "as_of": "2026-11-16",
+  "source_sha": "6a478328c33f7f517aa49e44569f865da1dc924e",
+  "release": "https://github.com/Lijw936/Athlys-downloads/releases/tag/irl-20261115-43828439824",
+  "ci": {
+    "run": 43828439824,
+    "source_sha": "6a478328c33f7f517aa49e44569f865da1dc924e",
+    "status": "success",
+    "url": "https://github.com/Lijw936/Athlys-downloads/actions/runs/43828439824",
+    "visual_artifact_id": 14207671744,
+    "expires_at": "2026-11-23T08:08:25Z"
+  },
+  "preview": {
+    "url": "https://athlys6-preview-87kxhgj5v-adiceamlilian-6530.vercel.app/trial.html",
+    "id": "dpl_Dtm6y9rKT8Pz1DMRSCiWTHuyBMey",
+    "status": "READY",
+    "target": "preview",
+    "protected": true,
+    "no_production_alias_change": true
+  },
+  "assets": [
+    {
+      "name": "Athlys-1.3.14-LM-IRL.apk",
+      "size": 7976778,
+      "digest": "sha256:f5d1dc93596cdbf79ce8e9be8329b0368b47fad2eb850db861faeafa60cfb443",
+      "browser_download_url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43828439824/Athlys-1.3.14-LM-IRL.apk"
+    },
+    {
+      "name": "Athlys-Club-LM-IRL-Portable-1.2.7-irl-x64.exe",
+      "size": 94053449,
+      "digest": "sha256:f9767d0dd25697399c4608f104e978b6509495f89c2f9a9d43c8147d56a19228",
+      "browser_download_url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43828439824/Athlys-Club-LM-IRL-Portable-1.2.7-irl-x64.exe"
+    },
+    {
+      "name": "Athlys-LM-IRL-Portable-1.2.7-irl-x64.exe",
+      "size": 94173545,
+      "digest": "sha256:98d7b3690f88878a379c491f6ded59c533dcbe42ece77037155d15c059f2053f",
+      "browser_download_url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43828439824/Athlys-LM-IRL-Portable-1.2.7-irl-x64.exe"
+    },
+    {
+      "name": "DECISIONS.md",
+      "size": 43833,
+      "digest": "sha256:ab266f78408b5afa045435a0559fe0f07b20442cfee118c8d6b982101d78cf7e",
+      "browser_download_url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43828439824/DECISIONS.md"
+    },
+    {
+      "name": "SHA256SUMS-android.txt",
+      "size": 99,
+      "digest": "sha256:dcad21942ff7192833bb3d917e6648e6d3c68ce6223364e66c4e08fa7643335f",
+      "browser_download_url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43828439824/SHA256SUMS-android.txt"
+    },
+    {
+      "name": "SHA256SUMS-windows.txt",
+      "size": 221,
+      "digest": "sha256:4fabe869e820a3277b60527e1c1072f57c683662af1004c204e6d6712291cb4a",
+      "browser_download_url": "https://github.com/Lijw936/Athlys-downloads/releases/download/irl-20261115-43828439824/SHA256SUMS-windows.txt"
+    }
+  ],
+  "apk_verification": {
+    "source_sha": "6a478328c33f7f517aa49e44569f865da1dc924e",
+    "release": "https://github.com/Lijw936/Athlys-downloads/releases/tag/irl-20261115-43828439824",
+    "file": "/workspace/artifacts/Athlys-1.3.14-LM-IRL.apk",
+    "bytes": 7976778,
+    "sha256": "f5d1dc93596cdbf79ce8e9be8329b0368b47fad2eb850db861faeafa60cfb443",
+    "github_digest_matched": true,
+    "package_badging": "package: name='com.athlys.app.irl.lm' versionCode='18' versionName='1.3.14-irl' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'",
+    "signature_v2_verified": true,
+    "debug_signed": true,
+    "public_asset_count": 41,
+    "runtime_assets_match_source": true,
+    "no_legacy_dev_or_generative_weights": true,
+    "physical_installation": "NOT RUN",
+    "release_digest_matched": true
+  },
+  "windows_runtime": "NOT RUN; CI packaging passed; release digests and checksum text matched",
+  "tests": {
+    "unit_pass": 114,
+    "unit_skip": 1,
+    "navigation_screen_checks": 320,
+    "axe_screen_runs": 316,
+    "journey_pass": 37,
+    "platform_pass": 6,
+    "lint_sources": 16
+  },
+  "model_service": {
+    "url": "https://athlys-generative-irl.onrender.com",
+    "deployed_source_sha": "329bf6d34f65d6c5560fb16a043e5cdf7a4456f8",
+    "deploy": "dep-dbtbitrbc2fs73dmi1g0",
+    "model_logic_unchanged": true,
+    "ready_canary": true
+  },
+  "backup_service": {
+    "url": "https://athlys-external-irl.onrender.com",
+    "deploy": "dep-dbtbj16i0phs73f91n7g"
+  },
+  "scientific_models_promoted": false,
+  "budget_eur": 0,
+  "not_run": [
+    "Nothing Phone 3a installation",
+    "Real Windows runtime",
+    "Real authenticated positive flow and RLS",
+    "Native Health Connect OS permissions and notifications",
+    "Physical screen-reader check",
+    "Scientific/field qualification"
+  ]
+}
