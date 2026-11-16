@@ -1,22 +1,7 @@
-const fs = require("node:fs");
-const path = require("node:path");
-
-const source = path.resolve(__dirname, "..", "web");
-const destination = path.resolve(__dirname, "web");
-
-if (!fs.existsSync(path.join(source, "index.html"))) {
-  throw new Error("The root web application is missing (web/index.html).");
-}
-
-fs.rmSync(destination, { recursive: true, force: true });
-fs.cpSync(source, destination, {
-  recursive: true,
-  filter: (entry) => !entry.endsWith(".DS_Store")
-});
-
-for (const required of ["index.html", "app.js", "app-config.js", "offline-store.js", "sw.js"]) {
-  if (!fs.existsSync(path.join(destination, required))) {
-    throw new Error("Desktop bundle incomplete: " + required);
-  }
-}
-console.log("Athlys web client copied into the desktop package.");
+const fs=require("node:fs"),path=require("node:path");
+const source=path.resolve(__dirname,"../web"),destination=path.resolve(__dirname,"web");
+const assets=require("../scripts/client-assets.json");
+fs.rmSync(destination,{recursive:true,force:true});fs.mkdirSync(destination,{recursive:true});
+for(const name of assets){const file=path.join(source,name);if(!fs.existsSync(file))throw Error("Missing client asset: "+name);fs.copyFileSync(file,path.join(destination,name));}
+fs.cpSync(path.join(source,"assets"),path.join(destination,"assets"),{recursive:true});
+console.log("Reviewed Athlys application assets copied; development/tests/showcase excluded.");

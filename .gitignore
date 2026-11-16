@@ -3,3 +3,9 @@
 .athlys-runtime/
 .athlys-model/
 probes/*.gguf
+
+node_modules/
+web/*.bundle.js
+audit-evidence/
+desktop/web/
+desktop-club/web/

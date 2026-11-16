@@ -1,0 +1,2 @@
+import globals from 'globals';
+export default [{files:['**/*.js','**/*.mjs','**/*.cjs'],languageOptions:{ecmaVersion:2022,sourceType:'script',globals:{...globals.browser,...globals.node,...globals.serviceworker}},rules:{'no-undef':'error','no-unreachable':'error','no-unused-vars':['error',{vars:'all',args:'none',caughtErrors:'none',varsIgnorePattern:'^(App|LocalNotifications|SplashScreen|Health|registerPlugin)$'}]}},{files:['**/*.mjs','**/native-app.js','**/intent-launcher.js','**/supabase-client.js'],languageOptions:{sourceType:'module'}}];

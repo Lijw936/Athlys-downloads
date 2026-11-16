@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare an isolated IRL build. Only configure the verified free HTTPS reference service."""
+"""Prepare an isolated IRL build. Configure the verified free external service and package reviewed runtime assets."""
 from pathlib import Path
 from urllib.parse import urlparse
 import argparse,re,json,shutil
@@ -18,9 +18,9 @@ if a.external_endpoint:
 elif 'externalRtcGatewayConfigured: false' not in s:raise SystemExit('No endpoint: gateway must be explicitly unconfigured')
 config.write_text(s)
 if a.platform=='android':
- gradle=root/'android/app/build.gradle';s=gradle.read_text();s,n=re.subn(r'(?m)^(\s*versionCode\s+)\d+',r'\g<1>16',s,count=1)
+ gradle=root/'android/app/build.gradle';s=gradle.read_text();s,n=re.subn(r'(?m)^(\s*versionCode\s+)\d+',r'\g<1>17',s,count=1)
  if n!=1:raise SystemExit('Android versionCode not found')
- s,n=re.subn(r'''(?m)^(\s*versionName\s+)["'][^"']+["']''',r'\g<1>"1.3.12-irl"',s,count=1)
+ s,n=re.subn(r'''(?m)^(\s*versionName\s+)["'][^"']+["']''',r'\g<1>"1.3.13-irl"',s,count=1)
  if n!=1:raise SystemExit('Android versionName not found')
  if re.search(r'applicationIdSuffix\s+["\'][^"\']+["\']',s):s=re.sub(r'applicationIdSuffix\s+["\'][^"\']+["\']','applicationIdSuffix ".irl.lm"',s,count=1)
  else:
@@ -28,3 +28,10 @@ if a.platform=='android':
   if n!=1:raise SystemExit('Android buildTypes not found')
  gradle.write_text(s);strings=root/'android/app/src/main/res/values/strings.xml';strings.write_text(re.sub(r'(<string name="app_name">)[^<]*(</string>)',r'\1Athlys LM IRL\2',strings.read_text()));shutil.copy2(root/'web/mobile.html',root/'web/index.html')
 print('IRL prepared: external generative LM with source/number checks and reference fallback.' if a.external_endpoint else 'IRL prepared: external gateway unconfigured.')
+
+if a.platform=='android':
+ allowed=set(json.loads((root/'scripts/client-assets.json').read_text()))|{'assets'}
+ for path in (root/'web').iterdir():
+  if path.name not in allowed:
+   if path.is_dir():shutil.rmtree(path)
+   else:path.unlink()

@@ -1,0 +1,45 @@
+{
+  "removed": [
+    "web/app-visual-polish.css",
+    "web/refonte.css",
+    "web/athlys-design-system.css",
+    "web/mobile.css",
+    "web/mobile.js",
+    "web/native-app.bundle.js",
+    "scripts/run-android-github-workflow.py",
+    "web/assistant-remote-only.test.cjs",
+    "web/health-summary-engine.test.mjs",
+    "web/health-summary-remote-only.test.cjs",
+    "web/performance-engine.test.cjs",
+    "web/performance-remote-only.test.cjs",
+    "web/quantum-engine.test.cjs",
+    "web/quantum-remote-only.test.cjs",
+    ".github/workflows/android-mobile.yml",
+    ".github/workflows/import-published-downloads.yml",
+    ".github/workflows/publish-public-downloads.yml",
+    ".github/workflows/local-ai-ui-quality.yml",
+    ".github/workflows/build-athlys-android.yml",
+    ".github/workflows/build-athlys-windows.yml"
+  ],
+  "scope": "Current feature branch only; production/main untouched. Replaced USB code is recorded separately. Historical source remains in Git history.",
+  "renamed": {
+    "web/athlys-device-mesh.js": "web/athlys-knowledge.js"
+  },
+  "removed_runtime_bindings": [
+    "num",
+    "sportOf",
+    "load7",
+    "ratio",
+    "fatigue",
+    "unused team checkin",
+    "unused quantum ledger",
+    "HEALTH_TYPES",
+    "HEALTH_RECORD_TYPES",
+    "healthSourceCode",
+    "assistantDomains",
+    "club modal variable",
+    "fmtMoney",
+    "local assistant q",
+    "intent features g"
+  ]
+}

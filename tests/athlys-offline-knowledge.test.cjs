@@ -2,7 +2,7 @@ const test=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
-const mesh=require('../web/athlys-device-mesh.js');
+const mesh=require('../web/athlys-knowledge.js');
 const examples={rpe:'RPE',ctl:'charge chronique',atl:'charge aiguë',acwr:'ACWR',ewma:'moyenne mobile exponentielle',supervised:'apprentissage supervisé',unsupervised:'apprentissage non supervisé',semi:'apprentissage semi-supervisé',reinforcement:'apprentissage par renforcement',types:'types de machine learning',offline:'Athlys sans quota'};
 test('308 supported phrasing combinations return the intended static record',()=>{
  for(const [id,subject] of Object.entries(examples))for(const prefix of ['Explique le ','Définis le ','Que signifie le ','À quoi sert le ','Comment fonctionne le ','Qu’est-ce que le ','C’est quoi le '])for(const suffix of ['',' ?',' simplement',' en français']){
@@ -19,7 +19,7 @@ function controller({prompt='Explique le CTL',insights=false}={}){
  const s=fs.readFileSync(require('node:path').join(__dirname,'../web/app.js'),'utf8');
  const block=s.slice(s.indexOf('async function assistantRequest('),s.indexOf('async function assistantHandle('));
  const calls={network:0,context:0,engine:0,replies:[],insights:0};
- const c={assistantExternalEnabled:()=>false,assistantDeviceMeshScope:()=>"user:athlete",externalRtcEpoch:0,A:{loading:false},window:{AthlysDeviceMesh:mesh,AthlysLocalIntelligence:{localAssistantReply:()=>{calls.engine++;return {reply:'existing local calculations'};},localInsights:()=>{calls.insights++;return [];}}},render:()=>{},assistantShouldSearchWeb:()=>true,assistantSearchWeb:async()=>{calls.network++;throw Error('quota exceeded');},assistantLocalContext:()=>{calls.context++;return {};},assistantDeviceMesh:()=>null,assistantSay:(role,text,sources)=>calls.replies.push({role,text,sources})};
+ const c={assistantExternalEnabled:()=>false,assistantSessionScope:()=>"user:athlete",externalRtcEpoch:0,A:{loading:false},window:{AthlysKnowledge:mesh,AthlysLocalIntelligence:{localAssistantReply:()=>{calls.engine++;return {reply:'existing local calculations'};},localInsights:()=>{calls.insights++;return [];}}},render:()=>{},assistantShouldSearchWeb:()=>true,assistantSearchWeb:async()=>{calls.network++;throw Error('quota exceeded');},assistantLocalContext:()=>{calls.context++;return {};},assistantDeviceMesh:()=>null,assistantSay:(role,text,sources)=>calls.replies.push({role,text,sources})};
  vm.runInNewContext(block,c);
  return {calls,c,run:()=>c.assistantRequest(prompt,insights?'insights':'chat')};
 }

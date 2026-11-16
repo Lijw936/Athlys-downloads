@@ -6,7 +6,7 @@
   "scripts": {
     "android:sync": "cap sync android",
     "build:web": "esbuild web/native-app.js --bundle --format=iife --outfile=web/native-app.bundle.js && esbuild web/intent-launcher.js --bundle --format=iife --outfile=web/intent-launcher.bundle.js && esbuild web/supabase-client.js --bundle --format=iife --outfile=web/supabase-client.bundle.js",
-    "test:public-client": "node --test tests/athlys-external-rtc.test.cjs tests/athlys-offline-knowledge.test.cjs web/mobile-experience.test.cjs tests/athlys-external-https.test.mjs services/athlys-free-external/server.test.mjs tests/athlys-generative-ui.test.cjs services/athlys-generative/engine.test.mjs",
+    "test:public-client": "node --test tests/*.test.cjs tests/*.test.mjs web/*.test.cjs services/athlys-free-external/server.test.mjs services/athlys-generative/engine.test.mjs",
     "test": "npm run test:public-client"
   },
   "dependencies": {

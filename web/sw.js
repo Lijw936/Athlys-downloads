@@ -1,4 +1,4 @@
-const CACHE_NAME = "athlys-shell-v61-generative-rpe";
+const CACHE_NAME = "athlys-shell-v62-ui-navigation";
 const SHELL = [
   "/",
   "/index.html",
@@ -15,8 +15,12 @@ const SHELL = [
   "/ios-install.css",
   "/athlys-neural-intent-model.js",
   "/athlys-local-intelligence.js",
-  "/athlys-device-mesh.js",
+  "/athlys-knowledge.js",
   "/app.js",
+  "/athlys-ui-runtime.js",
+  "/club-app.html",
+  "/club.js",
+  "/club.css",
   "/supabase-client.bundle.js",
   "/trial.html",
   "/trial.js",
@@ -52,16 +56,15 @@ self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET") return;
   const url = new URL(request.url);
-  const trustedSupabaseScript = url.href === SUPABASE_CDN;
-  if (url.origin !== self.location.origin && !trustedSupabaseScript) return;
+  if (url.origin !== self.location.origin) return;
   if (request.mode === "navigate") {
     event.respondWith(fetch(request).then(response => {
       if (response && response.ok) {
         const copy = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put("/index.html", copy));
+        caches.open(CACHE_NAME).then(cache => cache.put(url.pathname, copy));
       }
       return response;
-    }).catch(() => caches.match("/index.html")));
+    }).catch(() => caches.match(url.pathname).then(cached => cached || caches.match(url.pathname === "/" ? "/index.html" : url.pathname))));
     return;
   }
   if (["style", "script", "image", "font", "worker"].includes(request.destination)) {

@@ -10,4 +10,3 @@ window.athlysLocalNotifications = LocalNotifications;
 window.athlysHealth = Health;
 window.AthlysHealthBackground = HealthConnectBackground;
 
-window.AthlysDeviceModel = registerPlugin('AthlysDeviceModel');

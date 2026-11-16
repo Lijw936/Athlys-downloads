@@ -1,4 +1,4 @@
-# Athlys — registre des 88 décisions connues
+# Athlys — registre des 100 décisions connues
 
 État de la livraison LM IRL du 15 novembre 2026. Couverture : conversation accessible et notes du projet inspectées ; pas d’accès revendiqué à d’autres fils.
 
@@ -905,3 +905,7 @@ Les empreintes de builds publics peuvent différer du build local (environnement
 - [LFM2.5-350M GGUF](https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF) et licence de la révision figée : modèle et empreinte vérifiés.
 
 Correction du candidat intermédiaire : le formulaire programme annonce explicitement la transmission sur serveur avant l’envoi (1.3.12). 67tests logiciels passent, dont la vérification des deux libellés selon le mode actif.
+
+## Audit des interfaces — décisions D89 à D100
+
+[Rapport d’audit](UI-AUDIT.md). Les douze décisions complémentaires figurent dans [le registre JSON](decisions.json). Elles couvrent navigation, accessibilité, RPE, hors ligne, nettoyage, packaging et limites des preuves. Le lot Android 1.3.13 / Windows 1.2.6 est un nouveau candidat ; le résultat de sa CI fait foi.

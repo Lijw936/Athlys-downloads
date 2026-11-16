@@ -7,7 +7,7 @@ import {assertAnonymousText} from '../../web/athlys-external-rtc.mjs';
 const require=createRequire(import.meta.url);
 require('../../web/athlys-neural-intent-model.js');
 const engine=require('../../web/athlys-local-intelligence.js');
-const knowledge=require('../../web/athlys-device-mesh.js');
+const knowledge=require('../../web/athlys-knowledge.js');
 const deny=code=>{throw Object.assign(Error(code),{code});};
 export async function authenticate(authorization,{env=process.env,fetchImpl=fetch}={}){
  if(typeof authorization!=='string'||!/^Bearer [^\s]+$/.test(authorization)||authorization.length>8192)deny('AUTHENTICATION_REQUIRED');

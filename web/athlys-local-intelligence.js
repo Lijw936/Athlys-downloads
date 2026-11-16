@@ -625,7 +625,7 @@
   function localAssistantReply(prompt, context) {
     context = context || {};
     var classification = classifyIntent(prompt), logs = Array.isArray(context.logs) ? context.logs : [];
-    var q = normalizeText(prompt), reply;
+    var reply;
     if (classification.intent === "fatigue_analysis") {
       var checkins = Array.isArray(context.checkins) ? context.checkins : [];
       var lastCheckin = checkins.slice().sort(function(a,b){return new Date(b.created_at||0)-new Date(a.created_at||0);})[0];

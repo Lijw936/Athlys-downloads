@@ -38,8 +38,8 @@ test("authentication has real loader stages, official lockup and accessible pass
  assert.match(app,/function authLoaderHide\(\)/);
  assert.match(app,/authLoaderUpdate\(100,session\?"Espace prêt":"Connexion disponible"\)/);
  assert.match(app,/function authBrandMarkup\(\)/);
- assert.match(app,/function authPage\(err\)\{if\(isMobileEntry\(\)\)return authPageMobile\(err\);return authPageLegacy\(err\)\}/);
- assert.match(app,/function resetPage\(\)\{if\(isMobileEntry\(\)\)return resetPageMobile\(\);return resetPageLegacy\(\)\}/);
+ assert.match(app,/function authPage\(err\)\{return authPageMobile\(err\)\}/);
+ assert.match(app,/function resetPage\(\)\{return resetPageMobile\(\)\}/);
  assert.match(app,/data-action="password-toggle"/);
  assert.match(app,/authLoaderHide\(\);return/);
  assert.match(css,/#13213c/);
@@ -62,12 +62,11 @@ test("mobile theme and service worker cache all new assets",()=>{
  for(const asset of ["auth-branding.css","athlys-ui.css","mobile-loader.css","assets/athlys-lockup.svg"])assert.ok(sw.includes(asset),asset);
 });
 
-test("Android build and current download page versions are asserted separately",()=>{
- const workflow=read(".github/workflows/android-mobile.yml"),publish=read(".github/workflows/publish-public-downloads.yml"),page=read("web/telecharger.html");
- assert.match(workflow,/versionCode=8/);
- assert.match(workflow,/1\.3\.4/);
- assert.match(publish,/Athlys Mobile Android 1\.3\.4/);
- assert.match(page,/Version 1\.3\.7 · build de test/);
+test("IRL package version is defined by the current build preparation",()=>{
+ const workflow=read(".github/workflows/irl-public.yml"),prepare=read("scripts/prepare-irl-build.py");
+ assert.match(workflow,/Athlys-1\.3\.13-LM-IRL\.apk/);
+ assert.match(prepare,/1\.3\.13-irl/);
+ assert.match(prepare,/applicationIdSuffix/);
 });
 
 

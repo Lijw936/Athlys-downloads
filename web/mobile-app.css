@@ -1,5 +1,5 @@
 /* Athlys Mobile — même identité graphique et moteur que la version bureau */
-@media(max-width:700px){
+@media(max-width:820px){
  html,body,#athlys{min-width:320px;width:100%;overflow-x:hidden}
  body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
  #athlys{min-height:100dvh;background:var(--bg)}
@@ -69,12 +69,12 @@
  .main{padding-left:11px;padding-right:11px}
  .mobile-nav button small{font-size:8px}
 }
-@media(min-width:701px){.mobile-role-switch,.mobile-quick-icon{display:none!important}}
+@media(min-width:821px){.mobile-role-switch,.mobile-quick-icon{display:none!important}}
 
 
 
 /* ── Ergonomie smartphone : navigation au pouce, lecture et saisie ── */
-@media(max-width:700px){
+@media(max-width:820px){
   *{-webkit-tap-highlight-color:transparent}
   html{scroll-padding-top:76px;scroll-behavior:smooth}
   body{overscroll-behavior-y:contain}
@@ -221,7 +221,7 @@
 }
 
 /* Android/iOS mobile: safe navigation zone + real touch scrolling */
-@media(max-width:700px){
+@media(max-width:820px){
   html,body{
     min-height:100%;
     height:auto!important;
@@ -302,7 +302,7 @@
 
 /* Ressenti mobile — même échelle et mêmes cinq visages que sur desktop.
    Seule la densité est adaptée à la largeur du smartphone. */
-@media(max-width:700px){
+@media(max-width:820px){
   #athlys .feeling-scale{
     display:block!important;
     min-width:0;
@@ -378,7 +378,7 @@
 
 
 /* Chat mobile — espace de messagerie intégré, navigation Athlys conservée. */
-@media(max-width:700px){
+@media(max-width:820px){
  body.athlys-chat-open{overflow:auto!important;background:var(--bg)}
  body.athlys-chat-open #athlys .topbar{display:flex!important}
  body.athlys-chat-open #athlys .mobile-nav{display:grid!important;z-index:80!important}

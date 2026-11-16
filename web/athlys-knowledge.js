@@ -1,6 +1,6 @@
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.AthlysDeviceMesh = factory();
+  else root.AthlysKnowledge = factory();
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
   var TOPICS = Object.freeze({rpe:'RPE',ctl:'CTL',atl:'ATL',acwr:'ACWR',ewma:'EWMA'});
@@ -24,7 +24,7 @@
     unsupervised:"L'apprentissage non supervisé recherche une structure sans réponse cible, par exemple des groupes de profils de charge. Un groupe statistique n'est ni un diagnostic ni une probabilité de blessure.",
     semi:"L'apprentissage semi-supervisé combine des exemples étiquetés et non étiquetés. Les pseudo-étiquettes sont des estimations à contrôler, pas de nouvelles observations fiables. Elles ne doivent pas contaminer les données d'évaluation.",
     reinforcement:"L'apprentissage par renforcement apprend une politique à partir de récompenses. Dans Athlys, son étude reste hors ligne : aucune exploration automatique sur un athlète et aucune modification de programme sans décision du coach.",
-    offline:"Les calculs et les explications embarquées d'Athlys n'ont pas de quota d'API ni de compteur d'utilisations. Le modèle Windows facultatif utilise les ressources du PC. Le stockage, la synchronisation et la recherche Web conservent les limites de leurs fournisseurs. Le matériel impose des limites de mémoire, de débit et d'énergie."
+    offline:"Les calculs et les explications embarquées d'Athlys n'ont pas de quota d'API ni de compteur d'utilisations. Le LM externe conserve les limites de son hébergement gratuit. Le stockage, la synchronisation et la recherche Web conservent les limites de leurs fournisseurs. Le matériel impose des limites de mémoire, de débit et d'énergie."
   });
   var ALIASES = Object.freeze({
     rpe:['rpe',"perception de l'effort",'effort percu'],
@@ -51,64 +51,6 @@
     return {id:id,reply:reply,route:'bundled-knowledge',usageQuota:null,
       sources:LEARNING[id]&&id!=='offline'||id==='types'?[{title:'Apprentissage automatique — taxonomie générale',url:'https://fr.wikipedia.org/wiki/Apprentissage_automatique'}]:[]};
   }
-  function create(options) {
-    options = options || {};
-    var now = options.now || Date.now, cache = new Map(), enabled = false, scope = '', epoch = 0, busy = false;
-    var ttl = 90000, maxEntries = 3, maxBytes = 16384;
-    function bytes() { var n = 0; cache.forEach(function(v,k){ n += new TextEncoder().encode(k+v.text).byteLength; }); return n; }
-    function disable() { enabled=false; scope=''; epoch++; cache.clear(); }
-    function enable(identity) {
-      if (typeof identity !== 'string' || !identity || identity.length>200) throw new Error('MESH_SESSION_REQUIRED');
-      disable(); scope=identity; enabled=true;
-    }
-    async function supplement(prompt, identity) {
-      if (!enabled) return {text:'',route:'local'};
-      if (identity !== scope) { disable(); return {text:'',route:'local'}; }
-      var topic = topicFor(prompt);
-      if (!['ctl','acwr','ewma'].includes(topic)) return {text:'',route:'local'};
-      var hit=cache.get(topic), time=now();
-      if(hit && hit.until>time) { cache.delete(topic); cache.set(topic,hit); return hit.rejected?{text:'',route:'local',discarded:!hit.unavailable,unavailable:!!hit.unavailable}:{text:hit.text,route:'session-cache'}; }
-      cache.delete(topic);
-      if(busy || typeof options.inferGeneral!=='function') return {text:'',route:'local'};
-      busy=true;
-      var ticket=epoch;
-      try {
-        // Closed vocabulary only: never forward the prompt, identity, context or records.
-        var result=await options.inferGeneral({topic:topic});
-        if(!enabled || epoch!==ticket || scope!==identity) return {text:'',route:'cancelled'};
-        if(!result || !acceptCompletion(topic,result.text)) {
-          // Negative cache stores status only, never the rejected response.
-          cache.set(topic,{text:'',until:now()+ttl,rejected:true});
-          return {text:'',route:'local',discarded:true};
-        }
-        var text=result.text.trim();
-        cache.set(topic,{text:text,until:now()+ttl});
-        while(cache.size>maxEntries || bytes()>maxBytes) cache.delete(cache.keys().next().value);
-        return {text:text,route:'pc-usb',experimental:true};
-      } catch (_) {
-        if(!enabled||epoch!==ticket||scope!==identity)return {text:'',route:'cancelled'};
-        cache.set(topic,{text:'',until:now()+15000,rejected:true,unavailable:true});
-        return {text:'',route:'local',unavailable:true};
-      }
-      finally { busy=false; }
-    }
-    return Object.freeze({enable:enable,disable:disable,supplement:supplement,
-      state:function(){return {enabled:enabled,busy:busy,entries:cache.size,cacheBytes:bytes(),maxCacheBytes:maxBytes,bundledModelWeightBytes:0};}});
-  }
-  function acceptCompletion(topic,value) {
-    if(typeof value!=='string'||!value.trim()||value.length>1200) return false;
-    var t=value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/’/g,"'").toLowerCase();
-    // Conservative development guard, not a proof of factuality. The source
-    // definition and deterministic calculation remain authoritative in the UI.
-    if(/[0-9<>@]|https?:|\b(?:vous|votre|vos|tu|ton|ta|tes|diagnostic|recommande|prescris|augmentez|diminuez|efficiency|efficience|emotionnelles|reflexion subjective|quantite d'eau|ressentiment|taux d'activite eleve|depenses immediates|pente exponentielle)\b/.test(t)) return false;
-    if(t.includes('blessure')&&!/(?:ne |n['’]).{0,100}(?:pas|aucun|ni)/.test(t)&&!/(?:sans|aucun).{0,60}blessure/.test(t))return false;
-    if(topic==='rpe')return /(?:perception|percu|ressenti)/.test(t)&&/effort/.test(t);
-    if(topic==='ctl')return /charge/.test(t)&&/chronique/.test(t);
-    if(topic==='atl')return /charge/.test(t)&&/aigu/.test(t);
-    if(topic==='acwr')return /ratio/.test(t)&&/aigu/.test(t)&&/chronique/.test(t)&&/(?:ne |n['’]|sans|aucun)/.test(t);
-    if(topic==='ewma')return /moyenne/.test(t)&&/exponent/.test(t)&&/(?:recent|observation)/.test(t);
-    return false;
-  }
-  return Object.freeze({create:create,topicFor:topicFor,offlineAnswerFor:offlineAnswerFor,acceptCompletion:acceptCompletion,topics:TOPICS,
+  return Object.freeze({topicFor:topicFor,offlineAnswerFor:offlineAnswerFor,topics:TOPICS,
     definitionFor:function(prompt){var topic=topicFor(prompt);return topic?DEFINITIONS[topic]:null;}});
 });

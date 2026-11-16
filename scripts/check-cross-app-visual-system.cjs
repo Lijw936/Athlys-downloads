@@ -17,8 +17,8 @@ for(const token of ["--athlys-navy:#10203a","--athlys-lime:#B5F348","--athlys-cy
 }
 assert.doesNotMatch(css,/#(?:18142B|211D38|3b3566|79505c)/i);
 const sw=read("web/sw.js");
-assert.ok(/athlys-shell-v59-irl-rpe/.test(sw),"PWA cache version must match the device-mesh shell");
-for(const asset of ['"/athlys-ui.css"','"/athlys-neural-intent-model.js"','"/athlys-local-intelligence.js"','"/athlys-device-mesh.js"'])assert.ok(sw.includes(asset),"Missing precache "+asset);
+assert.ok(/athlys-shell-v62-ui-navigation/.test(sw),"PWA cache version must match the device-mesh shell");
+for(const asset of ['"/athlys-ui.css"','"/athlys-neural-intent-model.js"','"/athlys-local-intelligence.js"','"/athlys-knowledge.js"'])assert.ok(sw.includes(asset),"Missing precache "+asset);
 const club=read("desktop-club/copy-web.cjs");
 assert.ok(club.includes("athlys-ui.css"),"Club packaging does not include the new stylesheet");
 function luminance(hex){

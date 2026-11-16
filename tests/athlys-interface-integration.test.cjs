@@ -32,7 +32,7 @@ test("visual system exposes the Athlys navy, ivory, cyan, green and orange token
 
 test("PWA refreshes its shell cache and precaches the local AI/ML and visual assets", () => {
   const sw = read("web/sw.js");
-  assert.match(sw, /athlys-shell-v59-irl-rpe/);
+  assert.match(sw, /athlys-shell-v62-ui-navigation/);
   for (const asset of [
     '"/athlys-ui.css"',
     '"/athlys-neural-intent-model.js"',
