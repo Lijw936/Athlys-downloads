@@ -1,0 +1,231 @@
+name: Athlys V6 — signed production release to PRIVATE Athlys2
+on:
+  push:
+    branches: [ops/charte-production-20261121]
+    paths: [.github/workflows/athlys-charte-production-20261121.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: athlys-v6-production-publish
+  cancel-in-progress: false
+env:
+  SOURCE_REPO: heat936/Athlys2
+  SOURCE_SHA: ad973f0cce2fcd2db45278fc90cdc78d277807f5
+  RELEASE_TAG: v6.0.0
+jobs:
+  site-vitrine:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Check the published showcase and official assets
+        run: |
+          set -euo pipefail
+          base=https://athlys-vitrine.vercel.app
+          curl -fsSL --retry 2 "$base/" -o "$RUNNER_TEMP/athlys-home.html"
+          grep -q 'og-athlys-1200x630.png' "$RUNNER_TEMP/athlys-home.html"
+          curl -fsSL --retry 2 "$base/mentions-legales" -o /dev/null
+          curl -fsSL --retry 2 "$base/brand/athlys-lockup-horizontal-inverse.svg" -o "$RUNNER_TEMP/athlys-logo.svg"
+          echo "ecf98569d29b6fa61bc932fcb5a587eee75c34ab15c28f756259a396fd6b6c71  $RUNNER_TEMP/athlys-logo.svg" | sha256sum -c -
+          curl -fsSL --retry 2 "$base/apple-touch-icon-180.png" -o /dev/null
+          echo "PASS: the official showcase and brand assets are live"
+  release-readiness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    outputs:
+      can_publish: ${{ steps.gate.outputs.can_publish }}
+    steps:
+      - name: Stop before checkout or creating release if credentials are unavailable
+        id: gate
+        env:
+          SOURCE_READ: ${{ secrets.ATHLYS_READ_TOKEN }}
+          RELEASE_WRITE: ${{ secrets.ATHLYS_RELEASE_WRITE_TOKEN }}
+          ANDROID_KEYSTORE: ${{ secrets.ATHLYS_ANDROID_KEYSTORE_B64 }}
+          ANDROID_STORE_PASS: ${{ secrets.ATHLYS_ANDROID_STORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ATHLYS_ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASS: ${{ secrets.ATHLYS_ANDROID_KEY_PASSWORD }}
+          WINDOWS_P12: ${{ secrets.ATHLYS_WINDOWS_CSC_LINK }}
+          WINDOWS_PASS: ${{ secrets.ATHLYS_WINDOWS_CSC_KEY_PASSWORD }}
+          QA_APPROVED: ${{ secrets.ATHLYS_PHYSICAL_QA_APPROVED }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          failed=0
+          for key in SOURCE_READ RELEASE_WRITE ANDROID_KEYSTORE ANDROID_STORE_PASS ANDROID_KEY_ALIAS ANDROID_KEY_PASS WINDOWS_P12 WINDOWS_PASS; do
+            if [ -z "${!key}" ]; then echo "::error::Missing required production credential: $key"; failed=1; fi
+          done
+          if [ "$QA_APPROVED" != "approved-v6-physical-test" ]; then
+            echo "::error::Physical device QA approval not yet recorded. Cannot promote untested binaries to production."; failed=1
+          fi
+          if [ "$failed" -ne 0 ]; then exit 1; fi
+          echo "can_publish=true" >> "$GITHUB_OUTPUT"
+          echo "PASS: required private release prerequisites present"
+      - name: Confirm destination is private and release tag does not exist
+        env:
+          GH_TOKEN: ${{ secrets.ATHLYS_RELEASE_WRITE_TOKEN }}
+        run: |
+          set -euo pipefail
+          test "$(gh api "repos/$SOURCE_REPO" --jq '.private')" = true
+          if gh release view "$RELEASE_TAG" -R "$SOURCE_REPO" >/dev/null 2>&1; then
+            echo "::error::Release tag already exists; refusing overwrite"; exit 1
+          fi
+          echo "PASS: private release destination available"
+  create-draft:
+    needs: release-readiness
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Stage private signed release (draft)
+        env:
+          GH_TOKEN: ${{ secrets.ATHLYS_RELEASE_WRITE_TOKEN }}
+        run: |
+          set -euo pipefail
+          gh release create "$RELEASE_TAG" --repo "$SOURCE_REPO" --target "$SOURCE_SHA" --draft --title "Athlys V6 — Android, Windows, Club" --notes "Athlys V6. Android and Windows installables individually verified and signed. macOS deferred. Release gate requires verified physical-device sign-off."
+  android:
+    needs: create-draft
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: heat936/Athlys2
+          ref: ${{ env.SOURCE_SHA }}
+          token: ${{ secrets.ATHLYS_READ_TOKEN }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Build release APK from tested V6 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! (npm install --no-audit --no-fund && npm test && npm run build:web && (test -f android/gradlew || npx cap add android) && npx cap sync android) >"$RUNNER_TEMP/athlys-setup.log" 2>&1; then
+            echo "::error::ANDROID_SOURCE_OR_TEST_FAILED";exit 1
+          fi
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path("android/app/build.gradle");s=p.read_text()
+          if "coreLibraryDesugaringEnabled" not in s:
+            if "compileOptions {" not in s:s=s.replace("android {","android {\n    compileOptions {\n        sourceCompatibility JavaVersion.VERSION_17\n        targetCompatibility JavaVersion.VERSION_17\n    }",1)
+            s=s.replace("compileOptions {","compileOptions {\n        coreLibraryDesugaringEnabled true",1)
+          if "coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:" not in s:
+            s=s.replace("dependencies {","dependencies {\n    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'",1)
+          s,n=re.subn(r"(?m)^(\s*versionCode\s+)\d+\s*$",r"\g<1>60000",s,count=1)
+          if n!=1:raise SystemExit("ANDROID_VERSION_CODE_NOT_FOUND")
+          s,n=re.subn(r'(?m)^(\s*versionName\s+)"[^"]+"',r'\g<1>"6.0.0"',s,count=1)
+          if n!=1:raise SystemExit("ANDROID_VERSION_NAME_NOT_FOUND")
+          p.write_text(s)
+          v=Path("android/variables.gradle")
+          t,n=re.subn(r"(minSdkVersion\s*=\s*)\d+",r"\g<1>26",v.read_text(),count=1)
+          if n!=1:raise SystemExit("minSdk version missing")
+          v.write_text(t)
+          PY
+          chmod +x android/gradlew
+          (cd android && ./gradlew assembleRelease --no-daemon) >"$RUNNER_TEMP/athlys-gradle.log" 2>&1 || { echo "::error::RELEASE_GRADLE_FAILED";exit 1; }
+          test -s android/app/build/outputs/apk/release/app-release-unsigned.apk
+      - name: Sign and verify with authorized Android identity
+        env:
+          SIGNING_KEYSTORE_B64: ${{ secrets.ATHLYS_ANDROID_KEYSTORE_B64 }}
+          SIGNING_STORE_PASS: ${{ secrets.ATHLYS_ANDROID_STORE_PASSWORD }}
+          SIGNING_KEY_ALIAS: ${{ secrets.ATHLYS_ANDROID_KEY_ALIAS }}
+          SIGNING_KEY_PASS: ${{ secrets.ATHLYS_ANDROID_KEY_PASSWORD }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ks="$RUNNER_TEMP/athlys-signing.jks"
+          trap 'rm -f "$ks"' EXIT
+          printf '%s' "$SIGNING_KEYSTORE_B64" | base64 -d > "$ks"
+          toolset="$(find "$ANDROID_HOME/build-tools" -maxdepth 1 -mindepth 1 -type d | sort -V | tail -1)"
+          test -x "$toolset/zipalign" && test -x "$toolset/apksigner"
+          "$toolset/zipalign" -p -f 4 android/app/build/outputs/apk/release/app-release-unsigned.apk "$RUNNER_TEMP/aligned.apk"
+          "$toolset/apksigner" sign --ks "$ks" --ks-key-alias "$SIGNING_KEY_ALIAS" --ks-pass env:SIGNING_STORE_PASS --key-pass env:SIGNING_KEY_PASS --out "Athlys-V6-Android-signed.apk" "$RUNNER_TEMP/aligned.apk"
+          "$toolset/apksigner" verify --verbose --print-certs "Athlys-V6-Android-signed.apk" >"$RUNNER_TEMP/verify-android.txt"
+          grep -q 'Verified using v2 scheme (APK Signature Scheme v2): true' "$RUNNER_TEMP/verify-android.txt"
+          sha256sum "Athlys-V6-Android-signed.apk" > Android-SHA256SUMS.txt
+          echo "PASS: Android APK cryptographic signature"
+      - name: Upload ONLY to private Athlys2 release
+        env:
+          GH_TOKEN: ${{ secrets.ATHLYS_RELEASE_WRITE_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(gh api "repos/$SOURCE_REPO" --jq '.private')" = true
+          gh release upload "$RELEASE_TAG" Athlys-V6-Android-signed.apk Android-SHA256SUMS.txt --repo "$SOURCE_REPO"
+  windows:
+    needs: create-draft
+    runs-on: windows-2022
+    timeout-minutes: 70
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [desktop, desktop-club]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: heat936/Athlys2
+          ref: ${{ env.SOURCE_SHA }}
+          token: ${{ secrets.ATHLYS_READ_TOKEN }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Build and verify signed Windows NSIS and portable executables
+        shell: pwsh
+        env:
+          CSC_LINK: ${{ secrets.ATHLYS_WINDOWS_CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.ATHLYS_WINDOWS_CSC_KEY_PASSWORD }}
+          GH_TOKEN: ${{ secrets.ATHLYS_RELEASE_WRITE_TOKEN }}
+        run: |
+          $ErrorActionPreference="Stop"
+          npm install --no-audit --no-fund *> "$env:RUNNER_TEMP\athlys-root.log"
+          if ($LASTEXITCODE -ne 0) { throw "ROOT_BUILD_FAILED" }
+          npm test *> "$env:RUNNER_TEMP\athlys-tests.log"
+          if ($LASTEXITCODE -ne 0) { throw "PRIVATE_TESTS_FAILED" }
+          npm run build:web *> "$env:RUNNER_TEMP\athlys-web.log"
+          if ($LASTEXITCODE -ne 0) { throw "WEB_BUNDLE_FAILED" }
+          Push-Location "${{ matrix.app }}"
+          try {
+            npm pkg set version=6.0.0 *> "$env:RUNNER_TEMP\athlys-win-version.log"
+            if ($LASTEXITCODE -ne 0) { throw "WINDOWS_VERSION_STAMP_FAILED" }
+            npm install --no-audit --no-fund *> "$env:RUNNER_TEMP\athlys-win-install.log"
+            if ($LASTEXITCODE -ne 0) { throw "ELECTRON_DEPS_FAILED" }
+            npm run dist *> "$env:RUNNER_TEMP\athlys-win-dist.log"
+            if ($LASTEXITCODE -ne 0) { throw "WINDOWS_PACKAGE_FAILED" }
+            $exe = @(Get-ChildItem dist -File -Filter *.exe)
+            if ($exe.Count -ne 2) { throw "EXPECTED_NSIS_AND_PORTABLE_PACKAGES" }
+            foreach ($f in $exe) {
+              $sig=Get-AuthenticodeSignature $f.FullName
+              if ($sig.Status -ne 'Valid' -or $null -eq $sig.SignerCertificate) { throw "INVALID_AUTHENTICODE" }
+            }
+            $files = @($exe | ForEach-Object { $_.FullName })
+            $hashes = $exe | Get-FileHash -Algorithm SHA256 | ForEach-Object { "$($_.Hash)  $([IO.Path]::GetFileName($_.Path))" }
+            $hashFile = Join-Path (Get-Location) "Windows-${{ matrix.app }}-SHA256SUMS.txt"
+            $hashes | Set-Content $hashFile
+            $files += $hashFile
+            gh release upload $env:RELEASE_TAG @files --repo $env:SOURCE_REPO
+            if ($LASTEXITCODE -ne 0) { throw "PRIVATE_RELEASE_UPLOAD_FAILED" }
+            Write-Output "PASS: signed Windows packages published to private release for ${{ matrix.app }}"
+          } finally { Pop-Location }
+  promote-production:
+    needs: [android, windows]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Verify all three signed packages exist on private draft before promotion
+        env:
+          GH_TOKEN: ${{ secrets.ATHLYS_RELEASE_WRITE_TOKEN }}
+          QA_APPROVED: ${{ secrets.ATHLYS_PHYSICAL_QA_APPROVED }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$QA_APPROVED" = "approved-v6-physical-test"
+          test "$(gh api "repos/$SOURCE_REPO" --jq '.private')" = true
+          count="$(gh release view "$RELEASE_TAG" -R "$SOURCE_REPO" --json assets --jq '[.assets[] | select(.name | endswith(".exe") or endswith(".apk"))] | length')"
+          if [ "$count" -lt 5 ]; then echo "::error::EXPECTED_ANDROID_AND_FOUR_WINDOWS_BINARY_ASSETS";exit 1;fi
+          gh release edit "$RELEASE_TAG" -R "$SOURCE_REPO" --draft=false --prerelease=false
+          echo "PASS: production release promoted in private Athlys2; no public artifacts"
