@@ -1,0 +1,242 @@
+[
+  {
+    "file": "app-config.js",
+    "sha": "a594c4c24c74c6a5bded52a0a4b017508b24b435",
+    "size": 162
+  },
+  {
+    "file": "app.html",
+    "sha": "bad9d49f4ec677805c7a06e7ac7e682efec8c594",
+    "size": 2049
+  },
+  {
+    "file": "app.js",
+    "sha": "d7d065771661dc81b82503e515b03db50d23da99",
+    "size": 310388
+  },
+  {
+    "file": "assets/apple-touch-icon.png",
+    "sha": "56be5c7e2fd1785f76fc28fba638baf43f1f9a36",
+    "size": 8615
+  },
+  {
+    "file": "assets/athlys-lockup-inverse.svg",
+    "sha": "0737040edde751ee0203b727c29da222eaaca66e",
+    "size": 2313
+  },
+  {
+    "file": "assets/athlys-lockup.svg",
+    "sha": "dbee6e5168007719c3d19f4e41760b846a496818",
+    "size": 2374
+  },
+  {
+    "file": "assets/athlys-logo.png",
+    "sha": "5065393e64a30ec43b907937bbc682395c81ed89",
+    "size": 26627
+  },
+  {
+    "file": "assets/athlys-logo.svg",
+    "sha": "854a723725ecf9e6e522b1ee12b6d44896267e90",
+    "size": 849
+  },
+  {
+    "file": "assets/athlys-logo.webp",
+    "sha": "01b08ecacb3cbd8d350faa98090317622879a266",
+    "size": 12808
+  },
+  {
+    "file": "assets/athlys-maskable.png",
+    "sha": "310b4daca5aecaad2f59d1650ef4aebe51504a1b",
+    "size": 15664
+  },
+  {
+    "file": "assets/athlys-symbol-free.svg",
+    "sha": "8e7c70e04dd865d8b7ea39299b650e3cae697d1f",
+    "size": 788
+  },
+  {
+    "file": "athletics-engine-v2.js",
+    "sha": "3ab3767e3b3fc7f1361406b64b67715e2f4fec11",
+    "size": 3086
+  },
+  {
+    "file": "athletics-fields.js",
+    "sha": "349a31f9511b7a68a980b333518499e1416879e1",
+    "size": 6841
+  },
+  {
+    "file": "athlys-brand-tokens-v4.css",
+    "sha": "8a5983ae55069e7b657f1a6b6de51cfcbb3bf78a",
+    "size": 4995
+  },
+  {
+    "file": "athlys-charter-ui-v4.css",
+    "sha": "d3dc8ad5a7b23535b27ebe5c08a274b90e5c61ea",
+    "size": 31560
+  },
+  {
+    "file": "athlys-layout-club-v4.css",
+    "sha": "9a4d7ffe3f8a186adf2b506d29910925901e29f9",
+    "size": 13479
+  },
+  {
+    "file": "athlys-layout-core-v4.css",
+    "sha": "27f2bec6e9cd86c08b4498c89a93a287f34ff785",
+    "size": 41976
+  },
+  {
+    "file": "athlys-layout-desktop-v4.css",
+    "sha": "5f53d018dfcf397e338d65b4511db59a38eed1a5",
+    "size": 4232
+  },
+  {
+    "file": "athlys-layout-mobile-v4.css",
+    "sha": "db40945ae5873d7fcb9667f47b209b4fa9c8ee47",
+    "size": 14395
+  },
+  {
+    "file": "athlys-light-lm/assistant-android.js",
+    "sha": "ebc435fdaaccc3b91886340d5e9ada1a810c6e79",
+    "size": 214287
+  },
+  {
+    "file": "athlys-local-intelligence.js",
+    "sha": "f8d6cad59c8d1ae1a3682f484ae77dbe1fd81196",
+    "size": 40664
+  },
+  {
+    "file": "athlys-visual-charter-v1.css",
+    "sha": "0afdeaf60aac33a01e68d498eb621552b4d95547",
+    "size": 11902
+  },
+  {
+    "file": "club-app.html",
+    "sha": "aedc72fb68c8c364eed0463bd6148a1a15582190",
+    "size": 2174
+  },
+  {
+    "file": "club.js",
+    "sha": "75cdb0fa7ccc5dce41f89a77a9ae9c1bc6c89025",
+    "size": 45478
+  },
+  {
+    "file": "dual-perception.js",
+    "sha": "723643085825cb0747cb9da2b031125392de3ff1",
+    "size": 2070
+  },
+  {
+    "file": "feather-contract.js",
+    "sha": "7a0ec25ab83ce082538ed105055d954fe94dd9ba",
+    "size": 1585
+  },
+  {
+    "file": "feather-runtime.js",
+    "sha": "2dc4d702b0d92c285a9084f6159e8772e3028314",
+    "size": 14463
+  },
+  {
+    "file": "fonts/OFL-Inter.txt",
+    "sha": "3f7694ca276b572e201be2691b9a69032469f1d8",
+    "size": 4477
+  },
+  {
+    "file": "fonts/inter-latin-ext-var.woff2",
+    "sha": "cf3eb50fb21014c07d4311ef4c03a4fd587889b4",
+    "size": 85068
+  },
+  {
+    "file": "fonts/inter-var.woff2",
+    "sha": "f11d729bb0a4d8350d2ea3d0fc062cf6ef2d5298",
+    "size": 48256
+  },
+  {
+    "file": "index.html",
+    "sha": "033068e37818d5a38fac3109173578028ded4542",
+    "size": 3408
+  },
+  {
+    "file": "intent-launcher.bundle.js",
+    "sha": "aeba733914daecab12c0ce0442ddee328c10f5d0",
+    "size": 18969
+  },
+  {
+    "file": "ios-install.js",
+    "sha": "6b2d7d81217bb8b95952c62d7ccb07024be35635",
+    "size": 3629
+  },
+  {
+    "file": "manifest.webmanifest",
+    "sha": "c58a53f5ac03b54716a58d67b4d8c438df682910",
+    "size": 717
+  },
+  {
+    "file": "mobile.html",
+    "sha": "c01efcb56586bfcfe812f56ff6aa3d4ac0db6bb6",
+    "size": 3140
+  },
+  {
+    "file": "mobile.webmanifest",
+    "sha": "d75bb71107801555942398a2b537d6649f746063",
+    "size": 657
+  },
+  {
+    "file": "native-app.bundle.js",
+    "sha": "1af964fc5a8b093242376eb3db7ca3c24c3c0b51",
+    "size": 33091
+  },
+  {
+    "file": "offline-store.js",
+    "sha": "cd40aefc460118b9867b92c7fdaee61f5e9734e6",
+    "size": 3499
+  },
+  {
+    "file": "offline-sync.js",
+    "sha": "e44928cfb9e5fa8a55b0e906795faa849e6008bb",
+    "size": 1897
+  },
+  {
+    "file": "privacy-health.html",
+    "sha": "5324ba6b4ccd5c04bb1f40b8ae6edfe1f3b28e54",
+    "size": 5009
+  },
+  {
+    "file": "privacypolicy.html",
+    "sha": "56b1ccf8ef6ef6e11b71c7948ef01c4e4630fa02",
+    "size": 3745
+  },
+  {
+    "file": "product-v6.js",
+    "sha": "32a4710be71f1750cff050e76512678ce2dc4a68",
+    "size": 4882
+  },
+  {
+    "file": "pwa.js",
+    "sha": "90b835202bd56c7312473f1164e8621a20203261",
+    "size": 1891
+  },
+  {
+    "file": "supabase-client.bundle.js",
+    "sha": "db6acc9cd82bdb9f9da1376a1cdb0e83ebe87271",
+    "size": 826506
+  },
+  {
+    "file": "sw.js",
+    "sha": "53abdf1ff61f449a17ef5c37f7a27ec4e9617231",
+    "size": 2905
+  },
+  {
+    "file": "training-intelligence.js",
+    "sha": "6714e0104befa550c598ee585f9be9439d80c43e",
+    "size": 6571
+  },
+  {
+    "file": "unified-workspace.css",
+    "sha": "11078c102c15d754330026ad750b590d03881fb9",
+    "size": 6560
+  },
+  {
+    "file": "unified-workspace.js",
+    "sha": "f8554b82fa37ff7fa26c941f6dec631963a22ee4",
+    "size": 6899
+  }
+]
