@@ -14,6 +14,25 @@ env:
   SOURCE_SHA: ad973f0cce2fcd2db45278fc90cdc78d277807f5
   RELEASE_TAG: v6.0.0
 jobs:
+  web-production:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Verify the Vercel production payloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 2 https://athlys-v6-pwa.vercel.app/index.html -o "$RUNNER_TEMP/athlys-web-0"
+          echo "0bb0559132a0b0264917062e566000fcdc78e0986c6eafed14a699354073e530  $RUNNER_TEMP/athlys-web-0" | sha256sum -c -
+          curl -fsSL --retry 2 https://athlys-v6-pwa.vercel.app/mobile.html -o "$RUNNER_TEMP/athlys-web-1"
+          echo "cd655a41e1f666803fa8382ff77b811db64862fe1935e3eec3808c3582c4dcac  $RUNNER_TEMP/athlys-web-1" | sha256sum -c -
+          curl -fsSL --retry 2 https://athlys-v6-pwa.vercel.app/sw.js -o "$RUNNER_TEMP/athlys-web-2"
+          echo "c3cbbbadadc302fa74055f060d10c2443d97016637ba623c8fe420dc16f560f8  $RUNNER_TEMP/athlys-web-2" | sha256sum -c -
+          curl -fsSL --retry 2 https://athlys-v6-club.vercel.app/index.html -o "$RUNNER_TEMP/athlys-web-3"
+          echo "eed7612bdf8fd190a3c45516e002d8c52ff4b294954eb7a2373124ceee970864  $RUNNER_TEMP/athlys-web-3" | sha256sum -c -
+          curl -fsSL --retry 2 https://athlys-v6-pwa.vercel.app/assets/athlys-symbol-free.svg -o "$RUNNER_TEMP/athlys-web-4"
+          echo "108135a6b12fcd854e3b7f04e37885546112ea570018be3b2e09c1187539e4fa  $RUNNER_TEMP/athlys-web-4" | sha256sum -c -
+          echo "PASS: Athlys V6 web, mobile PWA and Club production payloads match the validated build"
   site-vitrine:
     runs-on: ubuntu-24.04
     timeout-minutes: 6
